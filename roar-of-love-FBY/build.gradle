@@ -85,8 +85,8 @@ tasks.register('remapIntermediarySources') {
 		def usedMemberNames = [] as Set
 		sourceFiles.each { sourceFile ->
 			def sourceText = sourceFile.getText('UTF-8')
-			(sourceText =~ /\bclass_\d+\b/).each { usedClassNames << it[0] }
-			(sourceText =~ /\b(?:method|field)_\d+\b/).each { usedMemberNames << it[0] }
+			(sourceText =~ /\bclass_\d+\b/).each { usedClassNames << it.toString() }
+			(sourceText =~ /\b(?:method|field)_\d+\b/).each { usedMemberNames << it.toString() }
 		}
 		def currentOwner = null
 		tinyMappings.eachLine { line ->
