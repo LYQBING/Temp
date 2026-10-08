@@ -158,6 +158,10 @@ tasks.register('remapIntermediarySources') {
 
 		def mappedMemberNames = [:]
 		intermediaryMembers.each { member ->
+			if (member.intermediary == 'method_66347' && member.owner == 'dwo' && member.official == 'd') {
+				mappedMemberNames[member.intermediary] = 'getEntity'
+				return
+			}
 			def parameterTypes = []
 			if (member.kind == 'm') {
 				def descriptor = member.descriptor.substring(1, member.descriptor.indexOf(')'))
@@ -187,9 +191,6 @@ tasks.register('remapIntermediarySources') {
 			def names = memberNamesBySignature["${memberKey}:${parameterTypes.join(',')}"]
 			if (names.isEmpty()) {
 				names = memberNamesByOwnerAndName[memberKey]
-			}
-			if (names.isEmpty() && member.intermediary == 'method_66347' && member.owner == 'dwo' && member.official == 'd') {
-				names = ['getEntity'] as Set
 			}
 			if (names == null || names.isEmpty()) {
 				throw new GradleException("No official mapping found for ${member.intermediary}")
