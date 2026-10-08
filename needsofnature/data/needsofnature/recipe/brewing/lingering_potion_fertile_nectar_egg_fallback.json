@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:lingering_potion",
+    "potion_contents": {
+      "potions": "needsofnature:fertile_nectar"
+    }
+  },
+  "output": {
+    "id": "minecraft:lingering_potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "needsofnature:fertility_increaser"
+      }
+    }
+  },
+  "reagent": {
+    "item": "minecraft:egg"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:tags_populated",
+        "registry": "minecraft:item",
+        "values": [
+          "c:eggs"
+        ]
+      }
+    }
+  ]
+}

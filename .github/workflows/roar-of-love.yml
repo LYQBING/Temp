@@ -1,0 +1,46 @@
+name: Roar of Love 26.3
+
+on:
+	push:
+		paths:
+			- 'roar-of-love-FBY/**'
+			- 'needsofnature/**'
+			- '.github/workflows/roar-of-love.yml'
+	pull_request:
+		paths:
+			- 'roar-of-love-FBY/**'
+			- 'needsofnature/**'
+			- '.github/workflows/roar-of-love.yml'
+	workflow_dispatch:
+
+permissions:
+	contents: read
+
+jobs:
+	build:
+		runs-on: ubuntu-latest
+		steps:
+			- name: Checkout repository
+				uses: actions/checkout@v4
+
+			- name: Set up JDK 25
+				uses: actions/setup-java@v4
+				with:
+					distribution: temurin
+					java-version: '25'
+
+			- name: Set up Gradle
+				uses: gradle/actions/setup-gradle@v4
+				with:
+					gradle-version: '9.6'
+
+			- name: Build mod
+				working-directory: roar-of-love-FBY
+				run: gradle build --no-daemon
+
+			- name: Upload build artifacts
+				uses: actions/upload-artifact@v4
+				with:
+					name: roar-of-love-26.3
+					path: roar-of-love-FBY/build/libs/*.jar
+					if-no-files-found: error

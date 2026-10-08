@@ -1,0 +1,34 @@
+{
+  "parent": "needsofnature:natural_curiosity",
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "title": {
+      "translate": "advancements.needsofnature.dimensional_traveler.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.dimensional_traveler.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "overworld": {
+      "trigger": "minecraft:impossible"
+    },
+    "the_nether": {
+      "trigger": "minecraft:impossible"
+    },
+    "the_end": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    ["overworld"],
+    ["the_nether"],
+    ["the_end"]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "needsofnature:root",
+  "display": {
+    "icon": {
+      "id": "needsofnature:spray_bottle",
+      "components": {
+        "minecraft:custom_model_data": {
+          "floats": [16.0],
+          "flags": [true],
+          "strings": ["water"],
+          "colors": [-14134616]
+        }
+      }
+    },
+    "title": {
+      "translate": "advancements.needsofnature.bad.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.bad.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

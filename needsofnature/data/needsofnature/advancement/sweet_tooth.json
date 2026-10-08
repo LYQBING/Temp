@@ -1,0 +1,31 @@
+{
+  "parent": "needsofnature:bad",
+  "display": {
+    "icon": {
+      "id": "needsofnature:spray_bottle",
+      "components": {
+        "minecraft:custom_model_data": {
+          "floats": [16.0],
+          "flags": [true],
+          "strings": ["honey"],
+          "colors": [-1726929]
+        }
+      }
+    },
+    "title": {
+      "translate": "advancements.needsofnature.sweet_tooth.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.sweet_tooth.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

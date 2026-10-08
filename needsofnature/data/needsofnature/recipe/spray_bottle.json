@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BN",
+    "LG"
+  ],
+  "key": {
+    "B": "minecraft:stone_button",
+    "N": "minecraft:iron_nugget",
+    "L": "minecraft:lever",
+    "G": "minecraft:glass_bottle"
+  },
+  "result": {
+    "id": "needsofnature:spray_bottle"
+  }
+}

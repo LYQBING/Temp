@@ -1,0 +1,57 @@
+{
+    "required": true,
+    "package": "com.nonid.mixin",
+    "plugin": "com.nonid.mixin.NonMixinPlugin",
+    "compatibilityLevel": "JAVA_25",
+    "mixins": [
+        "AnimalEntityBreedingMixin",
+        "AnimalMateGoalAnimationBreedingMixin",
+        "BrewingRecipeRegistryMixin",
+        "CreeperEntityNoNAnimationMixin",
+        "FleeEntityGoalMixin",
+        "MobEntityGenderMixin",
+        "MobEntityEnergyMixin",
+        "MobEntityPregnancyFriendlyTargetMixin",
+        "EntityGenderPersistenceMixin",
+        "EntityEnergyPersistenceMixin",
+        "FileResourcePackProviderAccessor",
+        "PlayerEntityEnergyMixin",
+        "PlayerEntityDestroyedSkinMixin",
+        "PlayerEntityGenderMixin",
+        "PlayerPregnancyMixin",
+        "PlayerLiquidMixin",
+        "PlayerLiquidMovementMixin",
+        "ProjectileEntityAnimationRescueMixin",
+        "ResourcePackManagerNoNPackMixin",
+        "ServerPlayerEntityDamageMixin",
+        "LivingEntityLiquidJumpMixin",
+        "LivingEntityLiquidBottleConsumeMixin"
+    ],
+    "client": [
+        "client.GameRendererReactiveImpactFovMixin",
+        "client.SoundSystemGiveUpDuckingMixin",
+        "client.InGameHudMixin",
+        "client.StatusEffectsDisplayMixin",
+        "client.EntityRendererDebugNameMixin",
+        "client.HandledScreenTrinketSlotStateMixin",
+        "client.HandledScreenAccessor",
+        "client.FiguraAvatarManagerMixin",
+        "client.FiguraAvatarRenderMixin",
+        "client.FiguraDGeometryCullingMixin",
+        "client.FiguraRendererInitMixin",
+        "client.FiguraNetworkStuffMixin",
+        "client.FiguraS2CMessageHandlerMixin",
+        "client.LivingEntityRendererDebugLabelMixin",
+        "client.PlayerEntityRendererDestroyedSkinMixin",
+        "client.PlayerEntityRendererSprayPoseMixin",
+        "client.LivingEntityRendererPlayerTextureMixin",
+        "client.TranslationStorageStatLabelMixin",
+        "client.ResourcePackOrganizerHideNoNExternalMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
+}

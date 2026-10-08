@@ -1,0 +1,30 @@
+NeedsOfNature License Notice
+
+CURRENT RELEASE LICENSING
+
+NeedsOfNature releases distributed with this notice use the following
+licenses:
+
+- Source code and other software are licensed under the PolyForm
+  Noncommercial License 1.0.0 in LICENSE.
+- Original NeedsOfNature visual art, audio, models, animations,
+  documentation, and other non-code creative material are licensed under
+  Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+  in LICENSE-CC-BY-NC-SA-4.0.
+
+Required Notice: Copyright L1Z0 and NeedsOfNature contributors.
+Required Notice: NeedsOfNature is distributed free of charge by its official project. Paid copies are not authorized by the NeedsOfNature project.
+
+PREVIOUS RELEASES
+
+Copies of NeedsOfNature distributed under earlier license terms remain
+subject to the terms included with those copies. Those earlier grants are
+not revoked by this release.
+
+THIRD-PARTY MATERIAL
+
+Third-party material is excluded from the NeedsOfNature licenses above and
+remains subject to its respective license. Bundled resource attributions,
+source links, modification notices, and license links are listed in the
+in-game credits data at
+src/main/resources/assets/needsofnature/credits.json.

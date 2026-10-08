@@ -1,0 +1,560 @@
+{
+    "impactdry01":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry01",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry02":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry02",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry03":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry03",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry04":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry04",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry05":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry05",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry06":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry06",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry07":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry07",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry08":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry08",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry09":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry09",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry10":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry10",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry11":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry11",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactdry12":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/dryimpacts/impactdry12",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "motion01":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion01",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion02":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion02",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion03":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion03",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion04":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion04",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion05":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion05",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion06":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion06",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion07":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion07",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion08":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion08",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion09":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion09",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "motion10":  {
+                     "replace":  true,
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:actionsounds/motions/motion10",
+                                        "attenuation_distance":  256
+                                    }
+                                ]
+                 },
+    "retract01":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/retract/retract01",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "retract02":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/retract/retract02",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "retract03":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/retract/retract03",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "shot_in01":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/shots/shot_in01",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "shot_in02":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/shots/shot_in02",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "shot_in03":  {
+                      "replace":  true,
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/shots/shot_in03",
+                                         "attenuation_distance":  256
+                                     }
+                                 ]
+                  },
+    "shot_out01":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out01",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "shot_out02":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out02",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "shot_out03":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out03",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "shot_out04":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out04",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "shot_out05":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out05",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "shot_out06":  {
+                       "replace":  true,
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/shots/shot_out06",
+                                          "attenuation_distance":  256
+                                      }
+                                  ]
+                   },
+    "wet01":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet01",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet02":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet02",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet03":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet03",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet04":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet04",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet05":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet05",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet06":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet06",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet07":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet07",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet08":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet08",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet09":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet09",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet10":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet10",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet11":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet11",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "wet12":  {
+                  "replace":  true,
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/wet/wet12",
+                                     "attenuation_distance":  256
+                                 }
+                             ]
+              },
+    "impactwet01":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet01",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet02":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet02",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet03":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet03",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet04":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet04",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet05":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet05",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet06":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet06",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet07":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet07",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet08":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet08",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet09":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet09",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet10":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet10",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet11":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet11",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet12":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet12",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet13":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet13",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet14":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet14",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet15":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet15",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    },
+    "impactwet16":  {
+                        "replace":  true,
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:actionsounds/wetimpacts/impactwet16",
+                                           "attenuation_distance":  256
+                                       }
+                                   ]
+                    }
+}

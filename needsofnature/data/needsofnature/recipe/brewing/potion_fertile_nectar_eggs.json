@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:potion",
+    "potion_contents": {
+      "potions": "needsofnature:fertile_nectar"
+    }
+  },
+  "output": {
+    "id": "minecraft:potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "needsofnature:fertility_increaser"
+      }
+    }
+  },
+  "reagent": {
+    "item": "#c:eggs"
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:tags_populated",
+      "registry": "minecraft:item",
+      "values": [
+        "c:eggs"
+      ]
+    }
+  ]
+}

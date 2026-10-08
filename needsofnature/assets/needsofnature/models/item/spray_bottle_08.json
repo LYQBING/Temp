@@ -1,0 +1,7 @@
+{
+  "parent": "needsofnature:item/spray_bottle",
+  "textures": {
+    "layer0": "needsofnature:item/spray_bottle",
+    "layer1": "needsofnature:item/spray_bottle_overlay_08"
+  }
+}

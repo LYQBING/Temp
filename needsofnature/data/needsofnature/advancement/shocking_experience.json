@@ -1,0 +1,23 @@
+{
+  "parent": "needsofnature:natural_curiosity",
+  "display": {
+    "icon": {
+      "id": "minecraft:lightning_rod"
+    },
+    "title": {
+      "translate": "advancements.needsofnature.shocking_experience.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.shocking_experience.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

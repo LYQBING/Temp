@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.roaroflove.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "refmap": "roar_of_love.refmap.json",
+  "client": [
+    "GameOptionsScreenBodyAccessor",
+    "SoundOptionsScreenMixin",
+    "CameraShakeMixin",
+    "FovBreathMixin",
+    "SoundMuteMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

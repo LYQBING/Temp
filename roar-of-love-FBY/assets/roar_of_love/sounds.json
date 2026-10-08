@@ -1,0 +1,1082 @@
+{
+    "dryimpacts":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry01",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry02",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry03",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry04",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry05",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry06",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry07",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry08",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry09",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry10",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry11",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/dryimpacts/impactdry12",
+                                          "attenuation_distance": 30
+                                      }
+                                  ]
+                   },
+    "dryimpacts.impactdry01":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry01",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry02":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry02",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry03":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry03",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry04":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry04",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry05":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry05",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry06":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry06",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry07":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry07",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry08":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry08",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry09":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry09",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry10":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry10",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry11":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry11",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "dryimpacts.impactdry12":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/dryimpacts/impactdry12",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "motions":  {
+                    "sounds":  [
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion01",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion02",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion03",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion04",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion05",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion06",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion07",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion08",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion09",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/motions/motion10",
+                                       "attenuation_distance": 30
+                                   }
+                               ]
+                },
+    "motions.motion01":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion01",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion02":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion02",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion03":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion03",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion04":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion04",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion05":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion05",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion06":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion06",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion07":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion07",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion08":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion08",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion09":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion09",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "motions.motion10":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/motions/motion10",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "retract":  {
+                    "sounds":  [
+                                   {
+                                       "name":  "roar_of_love:actionsounds/retract/retract01",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/retract/retract02",
+                                       "attenuation_distance": 30
+                                   },
+                                   {
+                                       "name":  "roar_of_love:actionsounds/retract/retract03",
+                                       "attenuation_distance": 30
+                                   }
+                               ]
+                },
+    "retract.retract01":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:actionsounds/retract/retract01",
+                                                 "attenuation_distance": 30
+                                             }
+                                         ]
+                          },
+    "retract.retract02":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:actionsounds/retract/retract02",
+                                                 "attenuation_distance": 30
+                                             }
+                                         ]
+                          },
+    "retract.retract03":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:actionsounds/retract/retract03",
+                                                 "attenuation_distance": 30
+                                             }
+                                         ]
+                          },
+    "shots":  {
+                  "sounds":  [
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_in01",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_in02",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_in03",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out01",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out02",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out03",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out04",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out05",
+                                     "attenuation_distance": 30
+                                 },
+                                 {
+                                     "name":  "roar_of_love:actionsounds/shots/shot_out06",
+                                     "attenuation_distance": 30
+                                 }
+                             ]
+              },
+    "shots.shot_in01":  {
+                            "sounds":  [
+                                           {
+                                               "name":  "roar_of_love:actionsounds/shots/shot_in01",
+                                               "attenuation_distance": 30
+                                           }
+                                       ]
+                        },
+    "shots.shot_in02":  {
+                            "sounds":  [
+                                           {
+                                               "name":  "roar_of_love:actionsounds/shots/shot_in02",
+                                               "attenuation_distance": 30
+                                           }
+                                       ]
+                        },
+    "shots.shot_in03":  {
+                            "sounds":  [
+                                           {
+                                               "name":  "roar_of_love:actionsounds/shots/shot_in03",
+                                               "attenuation_distance": 30
+                                           }
+                                       ]
+                        },
+    "shots.shot_out01":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out01",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "shots.shot_out02":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out02",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "shots.shot_out03":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out03",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "shots.shot_out04":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out04",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "shots.shot_out05":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out05",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "shots.shot_out06":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:actionsounds/shots/shot_out06",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "wet":  {
+                "sounds":  [
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet01",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet02",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet03",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet04",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet05",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet06",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet07",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet08",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet09",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet10",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet11",
+                                   "attenuation_distance": 30
+                               },
+                               {
+                                   "name":  "roar_of_love:actionsounds/wet/wet12",
+                                   "attenuation_distance": 30
+                               }
+                           ]
+            },
+    "wet.wet01":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet01",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet02":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet02",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet03":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet03",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet04":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet04",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet05":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet05",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet06":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet06",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet07":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet07",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet08":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet08",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet09":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet09",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet10":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet10",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet11":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet11",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wet.wet12":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "roar_of_love:actionsounds/wet/wet12",
+                                         "attenuation_distance": 30
+                                     }
+                                 ]
+                  },
+    "wetimpacts":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet01",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet02",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet03",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet04",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet05",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet06",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet07",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet08",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet09",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet10",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet11",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet12",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet13",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet14",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet15",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:actionsounds/wetimpacts/impactwet16",
+                                          "attenuation_distance": 30
+                                      }
+                                  ]
+                   },
+    "wetimpacts.impactwet01":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet01",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet02":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet02",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet03":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet03",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet04":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet04",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet05":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet05",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet06":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet06",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet07":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet07",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet08":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet08",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet09":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet09",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet10":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet10",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet11":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet11",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet12":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet12",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet13":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet13",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet14":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet14",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet15":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet15",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "wetimpacts.impactwet16":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "roar_of_love:actionsounds/wetimpacts/impactwet16",
+                                                      "attenuation_distance": 30
+                                                  }
+                                              ]
+                               },
+    "call_begin":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "roar_of_love:calls/begin1",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin2",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin3",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin4",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin5",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin6",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin7",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin8",
+                                          "attenuation_distance": 30
+                                      },
+                                      {
+                                          "name":  "roar_of_love:calls/begin9",
+                                          "attenuation_distance": 30
+                                      }
+                                  ]
+                   },
+    "call.begin1":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin1",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin2":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin2",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin3":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin3",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin4":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin4",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin5":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin5",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin6":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin6",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin7":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin7",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin8":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin8",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call.begin9":  {
+                        "sounds":  [
+                                       {
+                                           "name":  "roar_of_love:calls/begin9",
+                                           "attenuation_distance": 30
+                                       }
+                                   ]
+                    },
+    "call_end":  {
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:calls/end",
+                                        "attenuation_distance": 30
+                                    }
+                                ]
+                 },
+    "call.end":  {
+                     "sounds":  [
+                                    {
+                                        "name":  "roar_of_love:calls/end",
+                                        "attenuation_distance": 30
+                                    }
+                                ]
+                 },
+    "call.self.begin1":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin1",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin10":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:calls/self/begin10",
+                                                 "attenuation_distance": 30
+                                             }
+                                         ]
+                          },
+    "call.self.begin2":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin2",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin3":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin3",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin4":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin4",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin5":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin5",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin6":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin6",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin7":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin7",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin8":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin8",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.begin9":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/self/begin9",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.self.end":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "roar_of_love:calls/self/end",
+                                             "attenuation_distance": 30
+                                         }
+                                     ]
+                      },
+    "call.oral.begin1":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin1",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin10":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:calls/oral/begin10",
+                                                 "attenuation_distance": 30
+                                             }
+                                         ]
+                          },
+    "call.oral.begin2":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin2",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin3":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin3",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin4":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin4",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin5":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin5",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin6":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin6",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin7":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin7",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin8":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin8",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.begin9":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:calls/oral/begin9",
+                                                "attenuation_distance": 30
+                                            }
+                                        ]
+                         },
+    "call.oral.end":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "roar_of_love:calls/oral/end",
+                                             "attenuation_distance": 30
+                                         }
+                                     ]
+                      },
+    "call.begin10":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "roar_of_love:calls/begin10",
+                                            "attenuation_distance": 30
+                                        }
+                                    ]
+                     }
+}

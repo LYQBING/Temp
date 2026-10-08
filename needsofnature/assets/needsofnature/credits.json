@@ -1,0 +1,191 @@
+{
+  "sections": [
+    {
+      "title": "Development",
+      "contributors": [
+        {
+          "name": "L1Z0",
+          "roles": [
+            "Project Lead",
+            "Programming",
+            "Modelling",
+            "Animating",
+            "Art"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Main Contributors",
+      "contributors": [
+        {
+          "name": "Incarnadine",
+          "roles": [
+            "Game Design",
+            "Modelling",
+            "Animating",
+            "Testing"
+          ]
+        },
+        {
+          "name": "PercePerceiver",
+          "roles": [
+            "Animating",
+            "Creative Contributions",
+            "Testing"
+          ]
+        },
+        {
+          "name": "ParmesanPrime",
+          "roles": [
+            "Modelling",
+            "Animating",
+            "Creative Contributions",
+            "Art",
+            "Testing"
+          ]
+        },
+        {
+          "name": "ChristmasPuffin",
+          "roles": [
+            "Animating",
+            "Modelling Help",
+            "Community Help",
+            "Bug Investigation",
+            "Quality Assurance"
+          ]
+        },
+        {
+          "name": "f446",
+          "roles": [
+            "Texturing",
+            "Art"
+          ]
+        },
+        {
+          "name": "Noble",
+          "roles": [
+            "Animating"
+          ]
+        },
+        {
+          "name": "Seko",
+          "roles": [
+            "Art",
+            "Testing"
+          ]
+        },
+        {
+          "name": "Chronova",
+          "roles": [
+            "CPM implementation help",
+            "Testing"
+          ]
+        },
+        {
+          "name": "Mowl",
+          "roles": [
+            "Bug Hunting"
+          ]
+        },
+        {
+          "name": "Jake",
+          "roles": [
+            "Translation",
+            "Hosting"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Additional Contributors",
+      "contributors": [
+        {
+          "name": "Vulture of Vitality",
+          "roles": [
+            "Animation help",
+            "Art help"
+          ]
+        },
+        {
+          "name": "ShinyCradily",
+          "roles": [
+            "Testing",
+            "Modelling help"
+          ]
+        },
+        {
+          "name": "Evan Afton",
+          "roles": [
+            "Creative Contributions"
+          ]
+        },
+        {
+          "name": "Lily",
+          "roles": [
+            "Creative Contributions"
+          ]
+        },
+        {
+          "name": "Evan Afton",
+          "roles": [
+            "Creative Contributions"
+          ]
+        },
+        {
+          "name": "Longcha龙茶",
+          "roles": [
+            "Chinese Translation"
+          ]
+        },
+        {
+          "name": "mystya",
+          "roles": [
+            "Chinese Translation"
+          ]
+        },
+        {
+          "name": "Paladin Fox",
+          "roles": [
+            "Testing"
+          ]
+        },
+        {
+          "name": "污绅",
+          "roles": [
+            "Testing"
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "category": "Sound Effects",
+      "title": "Shinlalala's Lewd Sound Pack",
+      "creator": "Shinlalala",
+      "source": "itch.io",
+      "source_url": "https://shinlalala.itch.io/shinlalalas-lewd-sound-pack",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "assets": [
+        "sounds/actionsounds/**"
+      ]
+    },
+    {
+      "category": "Sound Effects",
+      "title": "Tearing Corduroy Shirt SFX",
+      "creator": "rupertcole",
+      "source": "Freesound",
+      "source_url": "https://freesound.org/people/rupertcole/sounds/563873/",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "assets": [
+        "sounds/rip01.ogg",
+        "sounds/rip02.ogg",
+        "sounds/rip03.ogg"
+      ],
+      "modified": true
+    }
+  ]
+}

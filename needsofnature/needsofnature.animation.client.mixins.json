@@ -1,0 +1,36 @@
+{
+    "required": true,
+    "package": "com.nonid.internal.animation.mixin.client",
+    "plugin": "com.nonid.mixin.NonMixinPlugin",
+    "compatibilityLevel": "JAVA_25",
+    "client": [
+        "EntityAnimationParticlePositionMixin",
+        "ClientWorldAnimatedPlayerParticleMixin",
+        "CpmAnimatedTextureMixin",
+        "CpmNormalSkinTextureMixin",
+        "CpmPlayerRendererMixin",
+        "CameraAnimationMixin",
+        "CameraPositionAccessMixin",
+        "ClientPlayerMovementMixin",
+        "ClientPlayerInteractionManagerMixin",
+        "CuboidGeoBoneHiddenCubeMixin",
+        "InputAccessor",
+        "EntityRenderStateMixin",
+        "EntityRendererAnimationNameTagMixin",
+        "EntityRenderManagerAccessor",
+        "EntityRendererInvoker",
+        "EntityRenderManagerMixin",
+        "HeldItemRendererMixin",
+        "KeyboardInputMixin",
+        "LivingEntityJumpMixin",
+        "LivingEntityRendererAnimationNameTagMixin",
+        "LivingEntityRendererMixin",
+        "MinecraftClientMixin",
+        "MouseScrollAnimationZoomMixin",
+        "WorldRendererFirstPersonActorMixin",
+        "AnimationGuiMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

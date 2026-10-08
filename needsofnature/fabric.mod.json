@@ -1,0 +1,56 @@
+{
+    "schemaVersion": 1,
+    "id": "needsofnature",
+    "version": "1.5.2-beta.1+26.3",
+    "name": "NeedsOfNature",
+    "description": "A GeckoLib-powered animation and gameplay mod. NeedsOfNature is free; paid copies and paid download access are not authorized by the NoN team.",
+    "license": "PolyForm-Noncommercial-1.0.0",
+    "icon": "assets/needsofnature/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.nonid.NeedsOfNature"
+        ],
+        "client": [
+            "com.nonid.NeedsOfNatureClient"
+        ],
+        "modmenu": [
+            "com.nonid.integration.NonModMenuIntegration"
+        ],
+        "jade": [
+            "com.nonid.integration.jade.NonJadePlugin"
+        ],
+        "cpmapi": [
+            "com.nonid.internal.animation.client.compat.cpm.NonCpmPlugin"
+        ],
+        "figura_api": [
+            "com.nonid.internal.animation.client.compat.figura.NonFiguraApi"
+        ]
+    },
+    "mixins": [
+        "needsofnature.animation.mixins.json",
+        {
+            "config": "needsofnature.animation.client.mixins.json",
+            "environment": "client"
+        },
+        "needsofnature.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.19.5",
+        "minecraft": "26.3",
+        "java": ">=25",
+        "fabric-api": "*",
+        "geckolib": ">=5.5.7 <6"
+    },
+    "breaks": {
+        "animationframework": "*"
+    },
+    "suggests": {
+        "jade": "*",
+        "trinkets": "*",
+        "quickskin": "*",
+        "skin_overrides": "*",
+        "cpm": "*",
+        "figura": ">=0.1.6.1 <0.1.7"
+    }
+}

@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "roar_of_love",
+	"version": "1.9.5",
+	"name": "Need of Nature - The Roar of Love",
+	"description": "Needs of Nature 附属（The Roar of Love）：原版受伤/TNT/射箭/铁砧/经验/损坏/岩浆遇水等音效的替换；needsofnature 动画期间每 1 秒随机叫声(begin1~9)，动画结束播放收尾(end)；内置 dryimpacts/motions/retract/shots/wet/wetimpacts 六类声音事件；支持游戏根目录压缩包覆盖音频（压缩包可在设置界面右侧勾选）。作者：哔哩哔哩：佳佳不好（官方群1085278153）。",
+	"authors": [
+		"哔哩哔哩：佳佳不好（官方群1085278153）"
+	],
+	"license": "MIT",
+	"icon": "assets/roar_of_love/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.roaroflove.RoarOfLove"
+		],
+		"client": [
+			"com.roaroflove.client.RoarOfLoveClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "roar_of_love.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"needsofnature": "*",
+		"geckolib": ">=5.5.7 <6"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+			}
+		}
+	}
+}

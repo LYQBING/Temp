@@ -1,0 +1,157 @@
+{
+    "model":  {
+                  "type":  "minecraft:range_dispatch",
+                  "property":  "minecraft:custom_model_data",
+                  "index":  0,
+                  "entries":  [
+                                  {
+                                      "threshold":  1,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_01",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  3,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_02",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  5,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_03",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  7,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_04",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  9,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_05",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  11,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_06",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  13,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_07",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  },
+                                  {
+                                      "threshold":  15,
+                                      "model":  {
+                                                    "type":  "minecraft:model",
+                                                    "model":  "needsofnature:item/spray_bottle_08",
+                                                    "tints":  [
+                                                                  {
+                                                                      "type":  "minecraft:constant",
+                                                                      "value":  -1
+                                                                  },
+                                                                  {
+                                                                      "type":  "minecraft:custom_model_data",
+                                                                      "index":  0,
+                                                                      "default":  4159204
+                                                                  }
+                                                              ]
+                                                }
+                                  }
+                              ],
+                  "fallback":  {
+                                   "type":  "minecraft:model",
+                                   "model":  "needsofnature:item/spray_bottle"
+                               }
+              }
+}

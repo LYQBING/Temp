@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:potion",
+    "potion_contents": {
+      "potions": "needsofnature:energy_ii"
+    }
+  },
+  "output": {
+    "id": "minecraft:splash_potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "needsofnature:energy_ii"
+      }
+    }
+  },
+  "reagent": {
+    "item": "minecraft:gunpowder"
+  }
+}

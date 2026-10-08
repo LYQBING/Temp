@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:potion",
+    "potion_contents": {
+      "potions": "needsofnature:fertile_nectar"
+    }
+  },
+  "output": {
+    "id": "minecraft:splash_potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "needsofnature:fertile_nectar"
+      }
+    }
+  },
+  "reagent": {
+    "item": "minecraft:gunpowder"
+  }
+}

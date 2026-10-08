@@ -1,0 +1,253 @@
+import groovy.json.JsonSlurper
+
+plugins {
+	id 'fabric-loom' version '1.17.21'
+}
+
+def legacyIntermediaryVersion = '1.21.11'
+def generatedSourceDirectory = layout.buildDirectory.dir('generated/sources/official/main')
+def legacyOfficialMappingsFile = layout.buildDirectory.file("mappings/${legacyIntermediaryVersion}-client.txt")
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = 'roar-of-love'
+}
+
+repositories {
+	maven { url = 'https://maven.fabricmc.net/' }
+	mavenCentral()
+}
+
+configurations {
+	legacyIntermediary
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	legacyIntermediary "net.fabricmc:intermediary:${legacyIntermediaryVersion}:v2"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	compileOnly files('../needsofnature')
+	annotationProcessor 'net.fabricmc:fabric-mixin-compile-extensions:0.6.0'
+}
+
+loom {
+	mixin {
+		defaultRefmapName = 'roar_of_love.refmap.json'
+	}
+}
+
+sourceSets {
+	main {
+		java.setSrcDirs([generatedSourceDirectory])
+		resources.srcDirs = ['.']
+		resources.exclude 'com/**', 'META-INF/**', 'build/**', '.gradle/**', '.github/**', '**/*.java', '**/*.class', 'build.gradle', 'settings.gradle', 'gradle.properties'
+	}
+}
+
+tasks.register('downloadLegacyOfficialMappings') {
+	outputs.file(legacyOfficialMappingsFile)
+	doLast {
+		def versionManifest = new JsonSlurper().parse(new URL('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json'))
+		def legacyVersion = versionManifest.versions.find { it.id == legacyIntermediaryVersion }
+		if (legacyVersion == null) {
+			throw new GradleException("Minecraft ${legacyIntermediaryVersion} mappings were not found")
+		}
+		def versionMetadata = new JsonSlurper().parse(new URL(legacyVersion.url))
+		def mappingsUrl = versionMetadata.downloads.client_mappings.url
+		def mappingsFile = legacyOfficialMappingsFile.get().asFile
+		mappingsFile.parentFile.mkdirs()
+		mappingsFile.withOutputStream { output ->
+			new URL(mappingsUrl).withInputStream { input -> output << input }
+		}
+	}
+}
+
+tasks.register('remapIntermediarySources') {
+	inputs.dir('com')
+	inputs.files(configurations.legacyIntermediary)
+	dependsOn tasks.named('downloadLegacyOfficialMappings')
+	outputs.dir(generatedSourceDirectory)
+	doLast {
+		def intermediaryZip = new java.util.zip.ZipFile(configurations.legacyIntermediary.singleFile)
+		def mappingsEntry = intermediaryZip.getEntry('mappings/mappings.tiny')
+		if (mappingsEntry == null) {
+			throw new GradleException('The Intermediary mappings archive has no mappings/mappings.tiny')
+		}
+		def tinyMappings
+		intermediaryZip.getInputStream(mappingsEntry).withCloseable { tinyMappings = it.getText('UTF-8') }
+		intermediaryZip.close()
+
+		def classNames = [:]
+		def simpleClassNames = [:]
+		def classOwnerCandidates = [:].withDefault { new LinkedHashSet<String>() }
+		def intermediaryMembers = []
+		def sourceRoot = file('com')
+		def sourceFiles = fileTree(sourceRoot).matching { include '**/*.java' }.files
+		def usedClassNames = [] as Set
+		sourceFiles.each { sourceFile ->
+			(sourceFile.getText('UTF-8') =~ /\bclass_\d+\b/).each { usedClassNames << it[0] }
+		}
+		def currentOwner = null
+		tinyMappings.eachLine { line ->
+			def fields = line.split('\\t', -1)
+			if (fields[0] == 'c') {
+				currentOwner = fields[1]
+				def intermediaryName = fields[2]
+				def simpleIntermediaryName = intermediaryName.substring(intermediaryName.lastIndexOf('/') + 1)
+				if (usedClassNames.contains(simpleIntermediaryName)) {
+					classOwnerCandidates[simpleIntermediaryName] << currentOwner
+				}
+				if (simpleIntermediaryName.contains('$')) {
+					def nestedName = simpleIntermediaryName.substring(simpleIntermediaryName.lastIndexOf('$') + 1)
+					if (usedClassNames.contains(nestedName)) {
+						classOwnerCandidates[nestedName] << currentOwner
+					}
+				}
+			} else if (fields.length > 4 && fields[0].isEmpty() && (fields[1] == 'm' || fields[1] == 'f')) {
+				intermediaryMembers << [owner: currentOwner, kind: fields[1], descriptor: fields[2], official: fields[3], intermediary: fields[4]]
+			}
+		}
+		classOwnerCandidates.each { intermediaryName, owners ->
+			if (owners.size() != 1) {
+				throw new GradleException("Ambiguous intermediary class mapping for ${intermediaryName}: ${owners}")
+			}
+			classNames[intermediaryName] = owners.first()
+		}
+
+		def officialNamesByClass = [:]
+		def officialNamesByObfuscatedName = [:]
+		def memberNamesBySignature = [:].withDefault { new LinkedHashSet<String>() }
+		def mappingsLines = legacyOfficialMappingsFile.get().asFile.readLines('UTF-8')
+		mappingsLines.each { line ->
+			def classMatch = line =~ /^(.+) -> ([^:]+):$/
+			if (classMatch.matches()) {
+				def obfuscatedName = classMatch.group(2).replace('.', '/')
+				def officialName = classMatch.group(1)
+				officialNamesByClass[obfuscatedName] = officialName
+				officialNamesByObfuscatedName[obfuscatedName] = officialName.replace('.', '/')
+			}
+		}
+		String mappingOwner = null
+		mappingsLines.each { line ->
+			def classMatch = line =~ /^(.+) -> ([^:]+):$/
+			if (classMatch.matches()) {
+				mappingOwner = classMatch.group(2)
+			} else if (mappingOwner != null && line.startsWith('    ') && line.contains(' -> ')) {
+				def pair = line.trim().split(' -> ', 2)
+				def signature = pair[0].replaceFirst(/^(?:\d+:\d+:)+/, '')
+				if (signature.contains('(')) {
+					def beforeParameters = signature.substring(0, signature.indexOf('(')).trim()
+					def officialName = beforeParameters.tokenize(' ').last()
+					def parameterText = signature.substring(signature.indexOf('(') + 1, signature.lastIndexOf(')'))
+					def parameterTypes = parameterText.isEmpty() ? [] : parameterText.split(',').collect { it.trim() }
+					def parameterDescriptor = parameterTypes.collect { type ->
+						def dimensions = 0
+						while (type.endsWith('[]')) {
+							dimensions++
+							type = type.substring(0, type.length() - 2)
+						}
+						def primitiveDescriptors = [void: 'V', boolean: 'Z', byte: 'B', char: 'C', short: 'S', int: 'I', long: 'J', float: 'F', double: 'D']
+						def descriptor = primitiveDescriptors[type]
+						if (descriptor == null) {
+						internalName = type.replace('.', '/')
+							def officialType = officialNamesByObfuscatedName.find { obfuscatedType, mappedType -> mappedType == internalName }?.key ?: internalName
+							descriptor = "L${officialType};"
+						}
+						'[' * dimensions + descriptor
+					}.join()
+					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:${parameterDescriptor}"] << officialName
+				} else {
+					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
+				}
+			}
+		}
+
+		def mappedMemberNames = [:].withDefault { alias -> alias }
+		intermediaryMembers.each { member ->
+			def descriptor = member.descriptor.replaceAll(/L([^;]+);/) { match, obfuscatedName ->
+				"L${officialNamesByObfuscatedName[obfuscatedName] ?: obfuscatedName};"
+			}
+			def parameterDescriptor = member.kind == 'm' ? descriptor.substring(1, descriptor.indexOf(')') + 1) : ''
+			def names = memberNamesBySignature["${member.owner}:${member.official}:${parameterDescriptor}"]
+			if (names == null || names.isEmpty()) {
+				throw new GradleException("No official mapping found for ${member.intermediary}")
+			}
+			if (names.size() != 1) {
+				throw new GradleException("Ambiguous official mapping for ${member.intermediary}: ${names}")
+			}
+			def previousName = mappedMemberNames[member.intermediary]
+			if (previousName != null && previousName != names.first()) {
+				throw new GradleException("Conflicting official mappings for ${member.intermediary}: ${previousName} and ${names.first()}")
+			}
+			mappedMemberNames[member.intermediary] = names.first()
+		}
+
+		def resolvedClassNames = [:]
+		classNames.each { intermediaryName, owner ->
+			def officialName = officialNamesByClass[owner]
+			if (officialName == null) {
+				throw new GradleException("No official class mapping found for ${intermediaryName}")
+			}
+			def simpleName = officialName.substring(officialName.lastIndexOf('.') + 1)
+			simpleClassNames[intermediaryName] = simpleName.substring(simpleName.lastIndexOf('$') + 1)
+			resolvedClassNames[intermediaryName] = officialName
+		}
+		classNames = resolvedClassNames
+
+		def outputRoot = generatedSourceDirectory.get().asFile
+		delete(outputRoot)
+		sourceFiles.each { sourceFile ->
+			def source = sourceFile.getText('UTF-8')
+			def importPattern = /(?m)^(\s*import\s+)net\.minecraft\.((?:class_\d+)(?:\.class_\d+)*)(\s*;)/
+			source = source.replaceAll(importPattern) { match, prefix, intermediaryPath, suffix ->
+				def mappedTypes = intermediaryPath.split('\\.').collect { classNames[it] }
+				if (mappedTypes.any { it == null }) {
+					throw new GradleException("No official import mapping found for ${intermediaryPath} in ${sourceFile}")
+				}
+				"${prefix}${mappedTypes.last().replace('$', '.').replace('/', '.')}${suffix}"
+			}
+			source = source.replaceAll(/\bclass_\d+\b/) { match ->
+				def mappedName = simpleClassNames[match]
+				if (mappedName == null) {
+					throw new GradleException("No official class mapping found for ${match} in ${sourceFile}")
+				}
+				mappedName
+			}
+			source = source.replaceAll(/\b(?:method|field)_\d+\b/) { match ->
+				def mappedName = mappedMemberNames[match]
+				if (mappedName == null) {
+					throw new GradleException("No official member mapping found for ${match} in ${sourceFile}")
+				}
+				mappedName
+			}
+			def targetFile = new File(outputRoot, sourceRoot.toPath().relativize(sourceFile.toPath()).toString())
+			targetFile.parentFile.mkdirs()
+			targetFile.setText(source, 'UTF-8')
+		}
+	}
+}
+
+tasks.named('compileJava') {
+	dependsOn tasks.named('remapIntermediarySources')
+}
+
+java {
+	toolchain.languageVersion = JavaLanguageVersion.of(25)
+	withSourcesJar()
+}
+
+processResources {
+	inputs.property 'version', project.version
+	filesMatching('fabric.mod.json') {
+		expand 'version': project.version
+	}
+}
+
+jar {
+	from('LICENSE_roar_of_love') {
+		rename { "${it}_${project.base.archivesName.get()}" }
+	}
+}

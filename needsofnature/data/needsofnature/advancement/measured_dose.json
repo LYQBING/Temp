@@ -1,0 +1,31 @@
+{
+  "parent": "needsofnature:bad",
+  "display": {
+    "icon": {
+      "id": "needsofnature:spray_bottle",
+      "components": {
+        "minecraft:custom_model_data": {
+          "floats": [16.0],
+          "flags": [true],
+          "strings": ["potion"],
+          "colors": [-8437825]
+        }
+      }
+    },
+    "title": {
+      "translate": "advancements.needsofnature.measured_dose.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.measured_dose.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

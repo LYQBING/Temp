@@ -1,0 +1,23 @@
+{
+  "parent": "needsofnature:first_pregnancy",
+  "display": {
+    "icon": {
+      "id": "minecraft:saddle"
+    },
+    "title": {
+      "translate": "advancements.needsofnature.baby_on_board.title"
+    },
+    "description": {
+      "translate": "advancements.needsofnature.baby_on_board.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

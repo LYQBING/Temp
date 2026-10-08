@@ -1,0 +1,235 @@
+{
+    "entity.player.hurt":  {
+                               "replace":  true,
+                               "sounds":  [
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt1",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt2",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt3",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt4",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt5",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt6",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt7",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt8",
+                                                  "attenuation_distance":  256
+                                              },
+                                              {
+                                                  "name":  "roar_of_love:vanilla/hurt/hurt9",
+                                                  "attenuation_distance":  256
+                                              }
+                                          ]
+                           },
+    "entity.player.hurt_drown":  {
+                                     "replace":  true,
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt1",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt2",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt3",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt4",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt5",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt6",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt7",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt8",
+                                                        "attenuation_distance":  256
+                                                    },
+                                                    {
+                                                        "name":  "roar_of_love:vanilla/hurt/hurt9",
+                                                        "attenuation_distance":  256
+                                                    }
+                                                ]
+                                 },
+    "entity.player.hurt_on_fire":  {
+                                       "replace":  true,
+                                       "sounds":  [
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt1",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt2",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt3",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt4",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt5",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt6",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt7",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt8",
+                                                          "attenuation_distance":  256
+                                                      },
+                                                      {
+                                                          "name":  "roar_of_love:vanilla/hurt/hurt9",
+                                                          "attenuation_distance":  256
+                                                      }
+                                                  ]
+                                   },
+    "entity.tnt.primed":  {
+                              "replace":  true,
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:vanilla/tnt/fuse",
+                                                 "attenuation_distance":  256
+                                             }
+                                         ]
+                          },
+    "entity.arrow.shoot":  {
+                               "replace":  true,
+                               "sounds":  [
+                                              {
+                                                  "name":  "roar_of_love:vanilla/bow/bow",
+                                                  "attenuation_distance":  256
+                                              }
+                                          ]
+                           },
+    "block.anvil.land":  {
+                             "replace":  true,
+                             "sounds":  [
+                                            {
+                                                "name":  "roar_of_love:vanilla/anvil/anvil_land",
+                                                "attenuation_distance":  256
+                                            },
+                                            {
+                                                "name":  "roar_of_love:vanilla/anvil/anvil_use",
+                                                "attenuation_distance":  256
+                                            }
+                                        ]
+                         },
+    "block.anvil.place":  {
+                              "replace":  true,
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:vanilla/anvil/anvil_land",
+                                                 "attenuation_distance":  256
+                                             },
+                                             {
+                                                 "name":  "roar_of_love:vanilla/anvil/anvil_use",
+                                                 "attenuation_distance":  256
+                                             }
+                                         ]
+                          },
+    "block.anvil.use":  {
+                            "replace":  true,
+                            "sounds":  [
+                                           {
+                                               "name":  "roar_of_love:vanilla/anvil/anvil_land",
+                                               "attenuation_distance":  256
+                                           },
+                                           {
+                                               "name":  "roar_of_love:vanilla/anvil/anvil_use",
+                                               "attenuation_distance":  256
+                                           }
+                                       ]
+                        },
+    "entity.experience_orb.pickup":  {
+                                         "replace":  true,
+                                         "sounds":  [
+                                                        {
+                                                            "name":  "roar_of_love:vanilla/xp/levelup",
+                                                            "attenuation_distance":  256
+                                                        },
+                                                        {
+                                                            "name":  "roar_of_love:vanilla/xp/orb",
+                                                            "attenuation_distance":  256
+                                                        }
+                                                    ]
+                                     },
+    "entity.player.levelup":  {
+                                  "replace":  true,
+                                  "sounds":  [
+                                                 {
+                                                     "name":  "roar_of_love:vanilla/xp/levelup",
+                                                     "attenuation_distance":  256
+                                                 },
+                                                 {
+                                                     "name":  "roar_of_love:vanilla/xp/orb",
+                                                     "attenuation_distance":  256
+                                                 }
+                                             ]
+                              },
+    "entity.item.break":  {
+                              "replace":  true,
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:vanilla/break/break",
+                                                 "attenuation_distance":  256
+                                             }
+                                         ]
+                          },
+    "item.shield.break":  {
+                              "replace":  true,
+                              "sounds":  [
+                                             {
+                                                 "name":  "roar_of_love:vanilla/break/break",
+                                                 "attenuation_distance":  256
+                                             }
+                                         ]
+                          },
+    "block.lava.extinguish":  {
+                                  "replace":  true,
+                                  "sounds":  [
+                                                 {
+                                                     "name":  "roar_of_love:vanilla/lava/fizz",
+                                                     "attenuation_distance":  256
+                                                 }
+                                             ]
+                              }
+}
