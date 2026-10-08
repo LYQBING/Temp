@@ -124,7 +124,7 @@ tasks.register('remapIntermediarySources') {
 		def officialNamesByObfuscatedName = [:]
 		def memberNamesBySignature = [:].withDefault { new LinkedHashSet<String>() }
 		def memberNamesByOwnerAndName = [:].withDefault { new LinkedHashSet<String>() }
-		def mappingsLines = (legacyClientMappingsFile.get().asFile.readLines('UTF-8') + legacyServerMappingsFile.get().asFile.readLines('UTF-8')).unique()
+		def mappingsLines = legacyClientMappingsFile.get().asFile.readLines('UTF-8') + legacyServerMappingsFile.get().asFile.readLines('UTF-8')
 		mappingsLines.each { line ->
 			def classMatch = line =~ /^(.+) -> ([^:]+):$/
 			if (classMatch.matches()) {
