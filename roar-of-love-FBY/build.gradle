@@ -188,6 +188,9 @@ tasks.register('remapIntermediarySources') {
 			if (names.isEmpty()) {
 				names = memberNamesByOwnerAndName[memberKey]
 			}
+			if (names.isEmpty() && member.intermediary == 'method_66347' && member.owner == 'dwo' && member.official == 'd') {
+				names = ['getEntity'] as Set
+			}
 			if (names == null || names.isEmpty()) {
 				throw new GradleException("No official mapping found for ${member.intermediary}")
 			}
