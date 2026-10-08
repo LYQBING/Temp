@@ -161,7 +161,7 @@ tasks.register('remapIntermediarySources') {
 						}
 						'[' * dimensions + descriptor
 					}.join()
-					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:${parameterDescriptor}"] << officialName
+					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:(${parameterDescriptor})"] << officialName
 				} else {
 					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
 				}
@@ -173,7 +173,7 @@ tasks.register('remapIntermediarySources') {
 			def descriptor = member.descriptor.replaceAll(/L([^;]+);/) { match, obfuscatedName ->
 				"L${officialNamesByObfuscatedName[obfuscatedName] ?: obfuscatedName};"
 			}
-			def parameterDescriptor = member.kind == 'm' ? descriptor.substring(1, descriptor.indexOf(')') + 1) : ''
+			def parameterDescriptor = member.kind == 'm' ? descriptor.substring(0, descriptor.indexOf(')') + 1) : ''
 			def names = memberNamesBySignature["${member.owner}:${member.official}:${parameterDescriptor}"]
 			if (names == null || names.isEmpty()) {
 				throw new GradleException("No official mapping found for ${member.intermediary}")
