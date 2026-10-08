@@ -34,6 +34,7 @@ dependencies {
 }
 
 loom {
+	useLegacyMixinAp = true
 	mixin {
 		defaultRefmapName = 'roar_of_love.refmap.json'
 	}
@@ -152,7 +153,7 @@ tasks.register('remapIntermediarySources') {
 						def primitiveDescriptors = [void: 'V', boolean: 'Z', byte: 'B', char: 'C', short: 'S', int: 'I', long: 'J', float: 'F', double: 'D']
 						def descriptor = primitiveDescriptors[type]
 						if (descriptor == null) {
-						internalName = type.replace('.', '/')
+						def internalName = type.replace('.', '/')
 							def officialType = officialNamesByObfuscatedName.find { obfuscatedType, mappedType -> mappedType == internalName }?.key ?: internalName
 							descriptor = "L${officialType};"
 						}
