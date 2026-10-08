@@ -80,6 +80,7 @@ tasks.register('remapIntermediarySources') {
 		def simpleClassNames = [:]
 		def classOwnerCandidates = [:].withDefault { new LinkedHashSet<String>() }
 		def intermediaryClassOwners = [:]
+		def intermediaryClassSimpleNames = [:]
 		def intermediaryMembers = []
 		def sourceRoot = file('com')
 		def sourceFiles = fileTree(sourceRoot).matching { include '**/*.java' }.files
@@ -98,6 +99,7 @@ tasks.register('remapIntermediarySources') {
 				def intermediaryName = fields[2]
 				intermediaryClassOwners[intermediaryName] = currentOwner
 				def simpleIntermediaryName = intermediaryName.substring(intermediaryName.lastIndexOf('/') + 1)
+				intermediaryClassSimpleNames[simpleIntermediaryName] = intermediaryName
 				if (usedClassNames.contains(simpleIntermediaryName)) {
 					classOwnerCandidates[simpleIntermediaryName] << currentOwner
 				}
@@ -202,6 +204,19 @@ tasks.register('remapIntermediarySources') {
 			resolvedClassNames[intermediaryName] = officialName
 		}
 		classNames = resolvedClassNames
+		intermediaryClassSimpleNames.each { intermediarySimpleName, intermediaryName ->
+			def owner = intermediaryClassOwners[intermediaryName]
+			def officialName = officialNamesByClass[owner]
+			if (officialName != null) {
+				def mappedSimpleName = officialName.substring(officialName.lastIndexOf('.') + 1)
+				simpleClassNames[intermediarySimpleName] = mappedSimpleName.substring(mappedSimpleName.lastIndexOf('$') + 1)
+			}
+		}
+		usedClassNames.each { intermediaryName ->
+			if (!simpleClassNames.containsKey(intermediaryName)) {
+				simpleClassNames[intermediaryName] = intermediaryName
+			}
+		}
 
 		def outputRoot = generatedSourceDirectory.get().asFile
 		delete(outputRoot)
@@ -209,7 +224,11 @@ tasks.register('remapIntermediarySources') {
 			def source = sourceFile.getText('UTF-8')
 			def importPattern = /(?m)^(\s*import\s+)net\.minecraft\.((?:class_\d+)(?:\.class_\d+)*)(\s*;)/
 			source = source.replaceAll(importPattern) { match, prefix, intermediaryPath, suffix ->
-				def intermediaryName = "net/minecraft/${intermediaryPath.replace('.', '$')}"
+				def intermediarySegments = intermediaryPath.split('\\.')
+				def intermediaryName = "net/minecraft/${intermediarySegments[0]}"
+				if (intermediarySegments.length > 1) {
+					intermediaryName += '$' + intermediarySegments.drop(1).join('$')
+				}
 				def owner = intermediaryClassOwners[intermediaryName]
 				def officialName = officialNamesByClass[owner]
 				if (officialName == null) {
@@ -218,11 +237,7 @@ tasks.register('remapIntermediarySources') {
 				"${prefix}${officialName.replace('$', '.')}${suffix}"
 			}
 			source = source.replaceAll(/\bclass_\d+\b/) { match ->
-				def mappedName = simpleClassNames[match]
-				if (mappedName == null) {
-					throw new GradleException("No official class mapping found for ${match} in ${sourceFile}")
-				}
-				mappedName
+				simpleClassNames[match] ?: match
 			}
 			source = source.replaceAll(/\b(?:method|field)_\d+\b/) { match ->
 				def mappedName = mappedMemberNames[match]
