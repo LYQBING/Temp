@@ -26,7 +26,7 @@ configurations {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	legacyIntermediary "net.fabricmc:intermediary:${legacyIntermediaryVersion}:v2"
+	legacyIntermediary "net.fabricmc:intermediary:${sourceIntermediaryVersion}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly files('../needsofnature')
@@ -41,16 +41,16 @@ sourceSets {
 }
 
 tasks.register('downloadLegacyOfficialMappings') {
-	outputs.file(legacyClientMappingsFile)
+	outputs.file(sourceClientMappingsFile)
 	doLast {
 		def versionManifest = new JsonSlurper().parse(new URL('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json'))
-		def legacyVersion = versionManifest.versions.find { it.id == legacyIntermediaryVersion }
+		def legacyVersion = versionManifest.versions.find { it.id == sourceIntermediaryVersion }
 		if (legacyVersion == null) {
-			throw new GradleException("Minecraft ${legacyIntermediaryVersion} mappings were not found")
+			throw new GradleException("Minecraft ${sourceIntermediaryVersion} mappings were not found")
 		}
 		def versionMetadata = new JsonSlurper().parse(new URL(legacyVersion.url))
 		def mappingsUrl = versionMetadata.downloads.client_mappings.url
-		def mappingsFile = legacyClientMappingsFile.get().asFile
+		def mappingsFile = sourceClientMappingsFile.get().asFile
 		mappingsFile.parentFile.mkdirs()
 		mappingsFile.withOutputStream { output ->
 			new URL(mappingsUrl).withInputStream { input -> output << input }
@@ -121,7 +121,7 @@ tasks.register('remapIntermediarySources') {
 		def officialNamesByObfuscatedName = [:]
 		def memberNamesBySignature = [:].withDefault { new LinkedHashSet<String>() }
 		def memberNamesByOwnerAndName = [:].withDefault { new LinkedHashSet<String>() }
-		def mappingsLines = legacyClientMappingsFile.get().asFile.readLines('UTF-8')
+		def mappingsLines = sourceClientMappingsFile.get().asFile.readLines('UTF-8')
 		mappingsLines.each { line ->
 			def classMatch = line =~ /^(.+) -> ([^:]+):$/
 			if (classMatch.matches()) {
