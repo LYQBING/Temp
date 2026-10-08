@@ -80,8 +80,11 @@ tasks.register('remapIntermediarySources') {
 		def sourceRoot = file('com')
 		def sourceFiles = fileTree(sourceRoot).matching { include '**/*.java' }.files
 		def usedClassNames = [] as Set
+		def usedMemberNames = [] as Set
 		sourceFiles.each { sourceFile ->
-			(sourceFile.getText('UTF-8') =~ /\bclass_\d+\b/).each { usedClassNames << it[0] }
+			def sourceText = sourceFile.getText('UTF-8')
+			(sourceText =~ /\bclass_\d+\b/).each { usedClassNames << it[0] }
+			(sourceText =~ /\b(?:method|field)_\d+\b/).each { usedMemberNames << it[0] }
 		}
 		def currentOwner = null
 		tinyMappings.eachLine { line ->
@@ -99,7 +102,7 @@ tasks.register('remapIntermediarySources') {
 						classOwnerCandidates[nestedName] << currentOwner
 					}
 				}
-			} else if (fields.length > 4 && fields[0].isEmpty() && (fields[1] == 'm' || fields[1] == 'f')) {
+			} else if (fields.length > 4 && fields[0].isEmpty() && (fields[1] == 'm' || fields[1] == 'f') && usedMemberNames.contains(fields[4])) {
 				intermediaryMembers << [owner: currentOwner, kind: fields[1], descriptor: fields[2], official: fields[3], intermediary: fields[4]]
 			}
 		}
@@ -158,7 +161,7 @@ tasks.register('remapIntermediarySources') {
 			}
 		}
 
-		def mappedMemberNames = [:].withDefault { alias -> alias }
+		def mappedMemberNames = [:]
 		intermediaryMembers.each { member ->
 			def descriptor = member.descriptor.replaceAll(/L([^;]+);/) { match, obfuscatedName ->
 				"L${officialNamesByObfuscatedName[obfuscatedName] ?: obfuscatedName};"
@@ -176,6 +179,11 @@ tasks.register('remapIntermediarySources') {
 				throw new GradleException("Conflicting official mappings for ${member.intermediary}: ${previousName} and ${names.first()}")
 			}
 			mappedMemberNames[member.intermediary] = names.first()
+		}
+		usedMemberNames.each { intermediaryName ->
+			if (!mappedMemberNames.containsKey(intermediaryName)) {
+				mappedMemberNames[intermediaryName] = intermediaryName
+			}
 		}
 
 		def resolvedClassNames = [:]
