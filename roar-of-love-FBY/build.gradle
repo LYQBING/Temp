@@ -145,10 +145,12 @@ tasks.register('remapIntermediarySources') {
 					def parameterText = signature.substring(signature.indexOf('(') + 1, signature.lastIndexOf(')'))
 					def parameterTypes = parameterText.isEmpty() ? [] : parameterText.split(',').collect { it.trim() }
 					def normalizedOwner = mappingOwner.replace('.', '/')
-					memberNamesBySignature["${normalizedOwner}:${pair[1]}:${parameterTypes.join(',')}"] << officialName
-					memberNamesByOwnerAndName["${normalizedOwner}:${pair[1]}"] << officialName
+					memberNamesBySignature["${normalizedOwner}:${pair[1]}:m:${parameterTypes.join(',')}"] << officialName
+					memberNamesByOwnerAndName["${normalizedOwner}:${pair[1]}:m"] << officialName
 				} else {
-					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
+					def normalizedOwner = mappingOwner.replace('.', '/')
+					memberNamesBySignature["${normalizedOwner}:${pair[1]}:f:"] << pair[0].tokenize(' ').last()
+					memberNamesByOwnerAndName["${normalizedOwner}:${pair[1]}:f"] << pair[0].tokenize(' ').last()
 				}
 			}
 		}
@@ -181,9 +183,9 @@ tasks.register('remapIntermediarySources') {
 				}
 			}
 			def memberKey = "${member.owner}:${member.official}"
-			def names = memberNamesBySignature["${memberKey}:${parameterTypes.join(',')}"]
+			def names = memberNamesBySignature["${memberKey}:${member.kind}:${parameterTypes.join(',')}"]
 			if (names.isEmpty()) {
-				names = memberNamesByOwnerAndName[memberKey]
+				names = memberNamesByOwnerAndName["${memberKey}:${member.kind}"]
 			}
 			if (names != null && names.size() > 1) {
 				throw new GradleException("Ambiguous official mapping for ${member.intermediary}: ${names}")
