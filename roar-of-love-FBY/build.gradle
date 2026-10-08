@@ -146,22 +146,7 @@ tasks.register('remapIntermediarySources') {
 					def officialName = beforeParameters.tokenize(' ').last()
 					def parameterText = signature.substring(signature.indexOf('(') + 1, signature.lastIndexOf(')'))
 					def parameterTypes = parameterText.isEmpty() ? [] : parameterText.split(',').collect { it.trim() }
-					def parameterDescriptor = parameterTypes.collect { type ->
-						def dimensions = 0
-						while (type.endsWith('[]')) {
-							dimensions++
-							type = type.substring(0, type.length() - 2)
-						}
-						def primitiveDescriptors = [void: 'V', boolean: 'Z', byte: 'B', char: 'C', short: 'S', int: 'I', long: 'J', float: 'F', double: 'D']
-						def descriptor = primitiveDescriptors[type]
-						if (descriptor == null) {
-						def internalName = type.replace('.', '/')
-							def officialType = officialNamesByObfuscatedName.find { obfuscatedType, mappedType -> mappedType == internalName }?.key ?: internalName
-							descriptor = "L${officialType};"
-						}
-						'[' * dimensions + descriptor
-					}.join()
-					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:(${parameterDescriptor})"] << officialName
+					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:${parameterTypes.join(',')}"] << officialName
 				} else {
 					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
 				}
@@ -170,11 +155,32 @@ tasks.register('remapIntermediarySources') {
 
 		def mappedMemberNames = [:]
 		intermediaryMembers.each { member ->
-			def descriptor = member.descriptor.replaceAll(/L([^;]+);/) { match, obfuscatedName ->
-				"L${officialNamesByObfuscatedName[obfuscatedName] ?: obfuscatedName};"
+			def parameterTypes = []
+			if (member.kind == 'm') {
+				def descriptor = member.descriptor.substring(1, member.descriptor.indexOf(')'))
+				def cursor = 0
+				def primitiveTypes = [B: 'byte', C: 'char', D: 'double', F: 'float', I: 'int', J: 'long', S: 'short', Z: 'boolean']
+				while (cursor < descriptor.length()) {
+					def dimensions = 0
+					while (descriptor.charAt(cursor) == '[') {
+						dimensions++
+						cursor++
+					}
+					def typeCode = descriptor.charAt(cursor++)
+					def typeName
+					if (typeCode == 'L') {
+						def end = descriptor.indexOf(';', cursor)
+						def obfuscatedType = descriptor.substring(cursor, end)
+						def officialType = officialNamesByObfuscatedName[obfuscatedType] ?: obfuscatedType
+						typeName = officialType.replace('/', '.')
+						cursor = end + 1
+					} else {
+						typeName = primitiveTypes[typeCode.toString()]
+					}
+					parameterTypes << (typeName + '[]' * dimensions)
+				}
 			}
-			def parameterDescriptor = member.kind == 'm' ? descriptor.substring(0, descriptor.indexOf(')') + 1) : ''
-			def names = memberNamesBySignature["${member.owner}:${member.official}:${parameterDescriptor}"]
+			def names = memberNamesBySignature["${member.owner}:${member.official}:${parameterTypes.join(',')}"]
 			if (names == null || names.isEmpty()) {
 				throw new GradleException("No official mapping found for ${member.intermediary}")
 			}
