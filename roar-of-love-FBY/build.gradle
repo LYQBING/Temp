@@ -6,7 +6,8 @@ plugins {
 
 def legacyIntermediaryVersion = '1.21.11'
 def generatedSourceDirectory = layout.buildDirectory.dir('generated/sources/official/main')
-def legacyOfficialMappingsFile = layout.buildDirectory.file("mappings/${legacyIntermediaryVersion}-client.txt")
+def legacyClientMappingsFile = layout.buildDirectory.file("mappings/${legacyIntermediaryVersion}-client.txt")
+def legacyServerMappingsFile = layout.buildDirectory.file("mappings/${legacyIntermediaryVersion}-server.txt")
 
 version = project.mod_version
 group = project.maven_group
@@ -41,7 +42,7 @@ sourceSets {
 }
 
 tasks.register('downloadLegacyOfficialMappings') {
-	outputs.file(legacyOfficialMappingsFile)
+	outputs.files(legacyClientMappingsFile, legacyServerMappingsFile)
 	doLast {
 		def versionManifest = new JsonSlurper().parse(new URL('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json'))
 		def legacyVersion = versionManifest.versions.find { it.id == legacyIntermediaryVersion }
@@ -49,11 +50,13 @@ tasks.register('downloadLegacyOfficialMappings') {
 			throw new GradleException("Minecraft ${legacyIntermediaryVersion} mappings were not found")
 		}
 		def versionMetadata = new JsonSlurper().parse(new URL(legacyVersion.url))
-		def mappingsUrl = versionMetadata.downloads.client_mappings.url
-		def mappingsFile = legacyOfficialMappingsFile.get().asFile
-		mappingsFile.parentFile.mkdirs()
-		mappingsFile.withOutputStream { output ->
-			new URL(mappingsUrl).withInputStream { input -> output << input }
+		[client: legacyClientMappingsFile, server: legacyServerMappingsFile].each { side, mappingFileProvider ->
+			def mappingsUrl = versionMetadata.downloads["${side}_mappings"].url
+			def mappingsFile = mappingFileProvider.get().asFile
+			mappingsFile.parentFile.mkdirs()
+			mappingsFile.withOutputStream { output ->
+				new URL(mappingsUrl).withInputStream { input -> output << input }
+			}
 		}
 	}
 }
@@ -118,7 +121,7 @@ tasks.register('remapIntermediarySources') {
 		def officialNamesByClass = [:]
 		def officialNamesByObfuscatedName = [:]
 		def memberNamesBySignature = [:].withDefault { new LinkedHashSet<String>() }
-		def mappingsLines = legacyOfficialMappingsFile.get().asFile.readLines('UTF-8')
+		def mappingsLines = (legacyClientMappingsFile.get().asFile.readLines('UTF-8') + legacyServerMappingsFile.get().asFile.readLines('UTF-8')).unique()
 		mappingsLines.each { line ->
 			def classMatch = line =~ /^(.+) -> ([^:]+):$/
 			if (classMatch.matches()) {
