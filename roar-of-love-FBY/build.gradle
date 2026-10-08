@@ -161,7 +161,7 @@ tasks.register('remapIntermediarySources') {
 						}
 						'[' * dimensions + descriptor
 					}.join()
-					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:(${parameterDescriptor})"] << officialName
+					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:${parameterDescriptor}"] << officialName
 				} else {
 					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
 				}
