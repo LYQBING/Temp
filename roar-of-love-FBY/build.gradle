@@ -30,14 +30,6 @@ dependencies {
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly files('../needsofnature')
-	annotationProcessor 'net.fabricmc:fabric-mixin-compile-extensions:0.6.0'
-}
-
-loom {
-	useLegacyMixinAp = true
-	mixin {
-		defaultRefmapName = 'roar_of_love.refmap.json'
-	}
 }
 
 sourceSets {
