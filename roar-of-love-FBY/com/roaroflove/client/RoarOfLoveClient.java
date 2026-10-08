@@ -228,7 +228,8 @@ public class RoarOfLoveClient implements ClientModInitializer {
                     if (num2 == null) {
                         num3 = Integer.valueOf(indexInDefinition(stageChangedContext.animationId(), currentStage));
                         for (class_2960 class_2960Var2 : class_2960VarArr) {
-                            if (class_2960Var2 != null && (r3 = NonPeakStages.getPeakStage(class_2960Var2)) != null) {
+                            Integer fallbackPeakStage = class_2960Var2 == null ? null : NonPeakStages.getPeakStage(class_2960Var2);
+                            if (fallbackPeakStage != null) {
                                 str = "def:" + class_2960Var2.method_12832();
                                 break;
                             }

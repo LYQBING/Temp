@@ -554,7 +554,7 @@ public final class AudioPackLoader {
                 }
             }
         }
-        for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+        for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
             Iterator it2 = vanillaGroup.fileNames().iterator();
             while (it2.hasNext()) {
                 String str3 = "assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/" + ((String) it2.next()) + ".ogg";
@@ -685,7 +685,7 @@ public final class AudioPackLoader {
     }
 
     private static Path mapEntry(String str, String[] strArr, Path path) {
-        ZipSpec.VanillaGroup vanillaGroupByKey;
+        ZipSpec$VanillaGroup vanillaGroupByKey;
         char c = 65535;
         switch (str.hashCode()) {
             case 695073197:
@@ -813,7 +813,7 @@ public final class AudioPackLoader {
 
     private static JsonObject buildMinecraftOverrideJson(Path path) {
         JsonObject jsonObject = new JsonObject();
-        for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+        for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
             List<String> filesFor = filesFor("assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/", union(vanillaGroup.fileNames(), dirNames(path.resolve("assets/roar_of_love/sounds/vanilla").resolve(vanillaGroup.key()))));
             if (!filesFor.isEmpty()) {
                 for (String str : vanillaGroup.events()) {
@@ -837,7 +837,7 @@ public final class AudioPackLoader {
     private static JsonObject buildNeedsofnatureOverrideJson(Path path) {
         JsonObject jsonObject = new JsonObject();
         for (String str : RoLSounds.CATEGORIES) {
-            for (String str2 : filesFor("assets/roar_of_love/sounds/actionsounds/" + str + "/", union((List) RoLSounds.CATEGORY_FILES.getOrDefault(str, List.of()), dirNames(path.resolve("assets/roar_of_love/sounds/actionsounds").resolve(str))))) {
+            for (String str2 : filesFor("assets/roar_of_love/sounds/actionsounds/" + str + "/", union(RoLSounds.CATEGORY_FILES.getOrDefault(str, List.of()), dirNames(path.resolve("assets/roar_of_love/sounds/actionsounds").resolve(str))))) {
                 JsonObject jsonObject2 = new JsonObject();
                 jsonObject2.addProperty("replace", true);
                 JsonArray jsonArray = new JsonArray();
@@ -859,7 +859,7 @@ public final class AudioPackLoader {
     }
 
     private static List<String> bundledCallNames(String str) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<String> arrayList = new ArrayList<>();
         for (String str2 : CALL_STANDARD_NAMES) {
             if (AudioPackLoader.class.getResource("/assets/roar_of_love/sounds/" + str + str2 + ".ogg") != null) {
                 arrayList.add(str2);
@@ -878,7 +878,8 @@ public final class AudioPackLoader {
             try {
                 Iterator<Path> it = newDirectoryStream.iterator();
                 while (it.hasNext()) {
-                    arrayList.add(it.next().getFileName().toString().substring(0, r0.length() - 4));
+                    String fileName = it.next().getFileName().toString();
+                    arrayList.add(fileName.substring(0, fileName.length() - 4));
                 }
                 if (newDirectoryStream != null) {
                     newDirectoryStream.close();
@@ -892,7 +893,7 @@ public final class AudioPackLoader {
 
     public static List<Path> detectedZips() {
         Path audioFolder = AudioPaths.audioFolder();
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Path> arrayList = new ArrayList<>();
         if (Files.isDirectory(audioFolder, new LinkOption[0])) {
             try {
                 DirectoryStream<Path> newDirectoryStream = Files.newDirectoryStream(audioFolder, "*.zip");
@@ -987,8 +988,8 @@ public final class AudioPackLoader {
 
     public static class_3414 pickCategoryPreview(String str) {
         class_3300 method_1478 = class_310.method_1551() == null ? null : class_310.method_1551().method_1478();
-        ArrayList arrayList = new ArrayList();
-        for (String str2 : (List) RoLSounds.CATEGORY_FILES.getOrDefault(str, List.of())) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (String str2 : RoLSounds.CATEGORY_FILES.getOrDefault(str, List.of())) {
             if (method_1478 == null || method_1478.method_14486(class_2960.method_60655("roar_of_love", "sounds/actionsounds/" + str + "/" + str2 + ".ogg")).isPresent()) {
                 arrayList.add(str2);
             }
@@ -1051,13 +1052,13 @@ public final class AudioPackLoader {
             ZipOutputStream zipOutputStream = new ZipOutputStream(newOutputStream);
             try {
                 addZipText(zipOutputStream, "README.txt", tr("roar_of_love.readme.template", new Object[0]));
-                for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+                for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
                     for (String str : vanillaGroup.fileNames()) {
                         addZipBytes(zipOutputStream, "minecraft/" + vanillaGroup.display() + "/" + str + ".ogg", AudioPaths.readOwnResource("assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/" + str + ".ogg"));
                     }
                 }
                 for (String str2 : RoLSounds.CATEGORIES) {
-                    for (String str3 : (List) RoLSounds.CATEGORY_FILES.getOrDefault(str2, List.of())) {
+                    for (String str3 : RoLSounds.CATEGORY_FILES.getOrDefault(str2, List.of())) {
                         addZipBytes(zipOutputStream, "roar of love/" + ((String) ZipSpec.CATEGORY_DISPLAY.get(str2)) + "/" + str3 + ".ogg", AudioPaths.readOwnResource("assets/roar_of_love/sounds/actionsounds/" + str2 + "/" + str3 + ".ogg"));
                     }
                 }

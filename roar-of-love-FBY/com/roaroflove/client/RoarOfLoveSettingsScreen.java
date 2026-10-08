@@ -114,22 +114,22 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         int i = this.field_22789 / 2;
         ArrayList arrayList = new ArrayList();
         for (String str2 : RoLSounds.CATEGORIES) {
-            arrayList.add(new Action(previewLabel(str2, str2), str2, () -> {
+            arrayList.add(new RoarOfLoveSettingsScreen$Action(previewLabel(str2, str2), str2, () -> {
                 previewCategory(str2);
             }));
         }
-        arrayList.add(new Action(tr("roar_of_love.ui.hurt_preview", new Object[0]), "hurt", () -> {
+        arrayList.add(new RoarOfLoveSettingsScreen$Action(tr("roar_of_love.ui.hurt_preview", new Object[0]), "hurt", () -> {
             previewHurt();
         }));
-        arrayList.add(new Action(previewGroupLabel("default", "begin"), "default", () -> {
+        arrayList.add(new RoarOfLoveSettingsScreen$Action(previewGroupLabel("default", "begin"), "default", () -> {
             previewCall("default", true);
         }));
-        arrayList.add(new Action(previewGroupLabel("default", "end"), "default", () -> {
+        arrayList.add(new RoarOfLoveSettingsScreen$Action(previewGroupLabel("default", "end"), "default", () -> {
             previewCall("default", false);
         }));
         for (String str3 : RoLSounds.CALL_GROUPS) {
             if (!"default".equals(str3)) {
-                arrayList.add(new Action(previewGroupLabel(str3, str3), str3, () -> {
+                arrayList.add(new RoarOfLoveSettingsScreen$Action(previewGroupLabel(str3, str3), str3, () -> {
                     previewCall(str3, true);
                 }));
             }
@@ -197,7 +197,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             int i9 = i8 / 2;
             int i10 = i8 % 2 == 0 ? i4 : i5;
             int i11 = i3 + 186 + (i9 * 24);
-            Action action = (Action) arrayList.get(i8);
+            RoarOfLoveSettingsScreen$Action action = (RoarOfLoveSettingsScreen$Action) arrayList.get(i8);
             method_37063(btn(class_2561.method_43470(action.label()), class_4185Var8 -> {
                 RoarOfLove.LOGGER.info("[roar_of_love] 点击：{}", action.label());
                 try {
@@ -222,6 +222,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
                 String str4 = (String) detectedZipNames.get(i14);
                 boolean isZipEnabled = AudioPackLoader.isZipEnabled(str4);
                 boolean equals = str4.equals(this.pendingZip);
+                String selectedZip = equals ? null : str4;
                 if (equals != isZipEnabled) {
                     str = equals ? "roar_of_love.ui.zip_pending_on" : "roar_of_love.ui.zip_pending_off";
                 } else {
@@ -229,10 +230,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
                 }
                 method_37063(btn(class_2561.method_43469(str, new Object[0]).method_27692(equals ? class_124.field_1060 : class_124.field_1061).method_10852(class_2561.method_43470(trim(str4, min - 40)).method_27692(class_124.field_1068)), class_4185Var10 -> {
                     RoarOfLove.LOGGER.info("[roar_of_love] 点击：选择压缩包 {} -> 待{}", str4, equals ? "停用" : "启用");
-                    if (equals) {
-                        r4 = null;
-                    }
-                    this.pendingZip = r4;
+                    this.pendingZip = selectedZip;
                     rebuild();
                 }, i12, i3 + i2 + (i14 * 23), min, 20));
                 i13 = i14 + 1;
@@ -276,7 +274,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             List missingDefaultAssets = AudioPackLoader.missingDefaultAssets(class_310.method_1551());
             if (missingDefaultAssets.isEmpty()) {
                 AudioPackLoader.sendChat(tr("roar_of_love.chat.pack_ok", new Object[0]));
-                class_310.method_1551().method_1507(new NoticeScreen(this, new String[]{tr("roar_of_love.chat.pack_ok", new Object[0])}));
+                class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, tr("roar_of_love.chat.pack_ok", new Object[0])));
                 return;
             }
             AudioPackLoader.sendChat(tr("roar_of_love.chat.pack_missing", Integer.valueOf(missingDefaultAssets.size())));
@@ -286,7 +284,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             for (int i = 0; i < min; i++) {
                 strArr[i + 1] = (String) missingDefaultAssets.get(i);
             }
-            class_310.method_1551().method_1507(new NoticeScreen(this, strArr));
+            class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, strArr));
         } catch (Throwable th) {
             RoarOfLove.LOGGER.warn("[roar_of_love] 音效包检查异常", th);
         }

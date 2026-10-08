@@ -250,7 +250,8 @@ public class RoarLayoutScreen extends class_437 {
             while (true) {
                 int i10 = i9;
                 if (i10 < 3) {
-                    class_332Var.method_51439(class_327Var2, class_2561.method_43470(truncate(class_327Var2, class_2561.method_43469("roar_of_love.ui.pos_sample" + (i10 + 1), new Object[0]).getString(), width4 - 10)), posX + 5 + ((int) (((width4 - 10) - class_327Var2.method_27525(class_2561.method_43470(r4))) * (1.0f - (((float) (currentTimeMillis % 3000)) / 3000.0f)))), (i10 * 19) + posY + 7, -251676446, true);
+                    String sampleText = truncate(class_327Var2, class_2561.method_43469("roar_of_love.ui.pos_sample" + (i10 + 1), new Object[0]).getString(), width4 - 10);
+                    class_332Var.method_51439(class_327Var2, class_2561.method_43470(sampleText), posX + 5 + ((int) (((width4 - 10) - class_327Var2.method_27525(class_2561.method_43470(sampleText))) * (1.0f - (((float) (currentTimeMillis % 3000)) / 3000.0f)))), (i10 * 19) + posY + 7, -251676446, true);
                     i9 = i10 + 1;
                 } else {
                     return;

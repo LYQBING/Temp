@@ -82,10 +82,11 @@ public class RoarSubtitleFileScreen extends class_437 {
     }
 
     public boolean method_25401(double d, double d2, double d3, double d4) {
-        if (findFiles().size() <= VISIBLE || d4 == 0.0d) {
+        List<Path> files = findFiles();
+        if (files.size() <= VISIBLE || d4 == 0.0d) {
             return false;
         }
-        int max = Math.max(0, Math.min(r0.size() - 6, (d4 > 0.0d ? 1 : -1) + this.scroll));
+        int max = Math.max(0, Math.min(files.size() - VISIBLE, (d4 > 0.0d ? 1 : -1) + this.scroll));
         if (max != this.scroll) {
             this.scroll = max;
             class_310 method_1551 = class_310.method_1551();

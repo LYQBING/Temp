@@ -28,7 +28,8 @@ public final class RoarAmbience {
                     lastBeat = -1;
                     return;
                 }
-                float min = ((Math.min(1.0f, (r1 + 1) / 6.0f) * 0.5f) + 0.22f) * ((RoarOfLoveConfig.immersionFactor(RoarOfLoveConfig.ambienceStrength()) * 0.85f) + 0.35f);
+                float lust = RoarFilterState.cachedLust();
+                float min = ((Math.min(1.0f, (lust + 1) / 6.0f) * 0.5f) + 0.22f) * ((RoarOfLoveConfig.immersionFactor(RoarOfLoveConfig.ambienceStrength()) * 0.85f) + 0.35f);
                 int beatIndex = RoarBeat.beatIndex();
                 if (beatIndex != lastBeat) {
                     lastBeat = beatIndex;

@@ -27,7 +27,7 @@ public final class RoarFilterState {
     private static final float SUSTAIN_LEVEL = 0.32f;
     private static final long SUSTAIN_SAFETY_MS = 45000;
     private static final Object LOCK = new Object();
-    private static final List<Heart> HEARTS = new ArrayList();
+    private static final List<RoarFilterState$Heart> HEARTS = new ArrayList();
     private static volatile long sustainUntil = 0;
     private static volatile long flashUntil = 0;
     private static volatile long blackUntil = 0;
@@ -340,11 +340,10 @@ public final class RoarFilterState {
                 try {
                     class_1293 method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
                     if (method_6112 != null) {
-                        r0 = Math.max(0, method_6112.method_5578());
-                    } else if (!z) {
-                        r0 = -1;
+                        i = Math.max(0, method_6112.method_5578());
+                    } else {
+                        i = z ? 0 : -1;
                     }
-                    i = r0;
                 } catch (Throwable th) {
                     i = z ? 0 : -1;
                 }
@@ -367,7 +366,7 @@ public final class RoarFilterState {
     }
 
     private static void spawnHeart(long j, int i) {
-        Heart heart = new Heart();
+        RoarFilterState$Heart heart = new RoarFilterState$Heart();
         heart.born = j;
         heart.life = 2400 + ThreadLocalRandom.current().nextLong(1400L);
         heart.x = 0.08f + (ThreadLocalRandom.current().nextFloat() * 0.84f);
@@ -394,7 +393,7 @@ public final class RoarFilterState {
         }
     }
 
-    public static List<Heart> hearts() {
+    public static List<RoarFilterState$Heart> hearts() {
         return HEARTS;
     }
 }

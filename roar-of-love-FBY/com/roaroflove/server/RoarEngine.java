@@ -31,7 +31,7 @@ import net.minecraft.server.MinecraftServer;
 
 public final class RoarEngine {
     private static final long MAX_SESSION_TICKS = 36000;
-    private static final Map<UUID, ActiveAnimation> ACTIVE = new HashMap();
+    private static final Map<UUID, RoarEngine$ActiveAnimation> ACTIVE = new HashMap();
     private static long currentTick = 0;
     private static boolean initialized = false;
 
@@ -51,14 +51,14 @@ public final class RoarEngine {
                         if ((animationId == null || !RoarOfLoveConfig.isBlocked(animationId.toString())) && (choosePlaybackActor = choosePlaybackActor(world, session.actorUuids())) != null) {
                             float f = involvesPlayer(world, session.actorUuids()) ? 1.0f : 0.5f;
                             if (RoarOfLoveConfig.isOtherMobCalls() || f >= 1.0f) {
-                                ACTIVE.put(session.instanceId(), new ActiveAnimation(choosePlaybackActor, currentTick, resolveCallGroup(animationId), f));
+                                ACTIVE.put(session.instanceId(), new RoarEngine$ActiveAnimation(choosePlaybackActor, currentTick, resolveCallGroup(animationId), f));
                             }
                         }
                     }
                 }
             });
             NonAnimationEvents.STOPPED.register(stoppedContext -> {
-                ActiveAnimation remove = ACTIVE.remove(stoppedContext.instanceId());
+                RoarEngine$ActiveAnimation remove = ACTIVE.remove(stoppedContext.instanceId());
                 if (remove != null && RoarOfLoveConfig.isEnabled() && RoarOfLoveConfig.isRoarEnabled()) {
                     class_3218 world = stoppedContext.world();
                     if ((world instanceof class_3218) && RoarOfLoveConfig.isSoundEnabled(remove.group)) {
@@ -90,11 +90,11 @@ public final class RoarEngine {
             boolean anyCallsAvailable = CallsAvailability.anyCallsAvailable();
             int intervalTicks = RoarOfLoveConfig.intervalTicks();
             ACTIVE.entrySet().removeIf(entry -> {
-                return currentTick - ((ActiveAnimation) entry.getValue()).startTick >= MAX_SESSION_TICKS;
+                return currentTick - ((RoarEngine$ActiveAnimation) entry.getValue()).startTick >= MAX_SESSION_TICKS;
             });
-            Iterator<Map.Entry<UUID, ActiveAnimation>> it = ACTIVE.entrySet().iterator();
+            Iterator<Map.Entry<UUID, RoarEngine$ActiveAnimation>> it = ACTIVE.entrySet().iterator();
             while (it.hasNext()) {
-                ActiveAnimation value = it.next().getValue();
+                RoarEngine$ActiveAnimation value = it.next().getValue();
                 if (currentTick >= value.nextCallTick) {
                     value.nextCallTick = currentTick + intervalTicks;
                     if (anyCallsAvailable) {
@@ -109,7 +109,7 @@ public final class RoarEngine {
         }
     }
 
-    private static void playRandomBegin(MinecraftServer minecraftServer, ActiveAnimation activeAnimation) {
+    private static void playRandomBegin(MinecraftServer minecraftServer, RoarEngine$ActiveAnimation activeAnimation) {
         String pickGroupWithCalls = pickGroupWithCalls(activeAnimation.group);
         if (RoarOfLoveConfig.isSoundEnabled(pickGroupWithCalls)) {
             Set<String> availableCallFiles = CallsAvailability.availableCallFiles(pickGroupWithCalls);

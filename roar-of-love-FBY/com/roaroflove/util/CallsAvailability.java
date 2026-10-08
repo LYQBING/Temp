@@ -47,7 +47,8 @@ public final class CallsAvailability {
                     list.filter(path2 -> {
                         return Files.isRegularFile(path2, new LinkOption[0]) && path2.getFileName().toString().toLowerCase(Locale.ROOT).endsWith(".ogg");
                     }).forEach(path3 -> {
-                        set.add(path3.getFileName().toString().substring(0, r0.length() - 4));
+                        String fileName = path3.getFileName().toString();
+                        set.add(fileName.substring(0, fileName.length() - 4));
                     });
                     if (list != null) {
                         list.close();

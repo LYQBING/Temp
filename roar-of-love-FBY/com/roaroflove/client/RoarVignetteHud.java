@@ -155,7 +155,7 @@ public final class RoarVignetteHud {
         long currentTimeMillis = System.currentTimeMillis();
         synchronized (RoarFilterState.hearts()) {
             i3 = BLACK;
-            for (RoarFilterState.Heart heart : RoarFilterState.hearts()) {
+            for (RoarFilterState$Heart heart : RoarFilterState.hearts()) {
                 long j = currentTimeMillis - heart.born;
                 if (j >= 0 && j < heart.life) {
                     float f = ((float) j) / ((float) heart.life);
@@ -244,8 +244,9 @@ public final class RoarVignetteHud {
                             frame(class_332Var, method_51421, method_51443, min, BLACK);
                         }
                         if (RoarOfLoveConfig.isPinkFilter()) {
-                            if (class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED)) != null) {
-                                frame(class_332Var, method_51421, method_51443, Math.min(235, (int) (((Math.max(BLACK, r0.method_5578()) * 34) + 44) * RoarOfLoveConfig.strengthScale(RoarOfLoveConfig.pinkStrength()) * heartPulse)), PINK);
+                            class_1293 energized = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
+                            if (energized != null) {
+                                frame(class_332Var, method_51421, method_51443, Math.min(235, (int) (((Math.max(BLACK, energized.method_5578()) * 34) + 44) * RoarOfLoveConfig.strengthScale(RoarOfLoveConfig.pinkStrength()) * heartPulse)), PINK);
                             }
                             renderHearts(class_332Var, method_51421, method_51443);
                         }
