@@ -158,8 +158,7 @@ tasks.register('remapIntermediarySources') {
 
 		def mappedMemberNames = [:]
 		intermediaryMembers.each { member ->
-			if (member.intermediary == 'method_66347' && member.owner == 'dwo' && member.official == 'd') {
-				mappedMemberNames[member.intermediary] = 'getEntity'
+			if (member.intermediary == 'method_66347') {
 				return
 			}
 			def parameterTypes = []
@@ -203,6 +202,9 @@ tasks.register('remapIntermediarySources') {
 				throw new GradleException("Conflicting official mappings for ${member.intermediary}: ${previousName} and ${names.first()}")
 			}
 			mappedMemberNames[member.intermediary] = names.first()
+		}
+		if (usedMemberNames.contains('method_66347')) {
+			mappedMemberNames['method_66347'] = 'getEntity'
 		}
 		usedMemberNames.each { intermediaryName ->
 			if (!mappedMemberNames.containsKey(intermediaryName)) {
