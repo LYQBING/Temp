@@ -203,9 +203,6 @@ tasks.register('remapIntermediarySources') {
 			}
 			mappedMemberNames[member.intermediary] = names.first()
 		}
-		if (usedMemberNames.contains('method_66347')) {
-			mappedMemberNames['method_66347'] = 'getEntity'
-		}
 		usedMemberNames.each { intermediaryName ->
 			if (!mappedMemberNames.containsKey(intermediaryName)) {
 				mappedMemberNames[intermediaryName] = intermediaryName
@@ -255,10 +252,14 @@ tasks.register('remapIntermediarySources') {
 				}
 				"${prefix}${officialName.replace('$', '.')}${suffix}"
 			}
+			source = source.replaceAll(/(?<=\.)method_66347(?=\s*\()/, 'getEntity')
 			source = source.replaceAll(/\bclass_\d+\b/) { match ->
 				simpleClassNames[match] ?: match
 			}
 			source = source.replaceAll(/\b(?:method|field)_\d+\b/) { match ->
+				if (match == 'method_66347') {
+					return match
+				}
 				def mappedName = mappedMemberNames[match]
 				if (mappedName == null) {
 					throw new GradleException("No official member mapping found for ${match} in ${sourceFile}")
