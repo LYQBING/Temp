@@ -76,6 +76,7 @@ tasks.register('remapIntermediarySources') {
 		def classNames = [:]
 		def simpleClassNames = [:]
 		def classOwnerCandidates = [:].withDefault { new LinkedHashSet<String>() }
+		def intermediaryClassOwners = [:]
 		def intermediaryMembers = []
 		def sourceRoot = file('com')
 		def sourceFiles = fileTree(sourceRoot).matching { include '**/*.java' }.files
@@ -92,6 +93,7 @@ tasks.register('remapIntermediarySources') {
 			if (fields[0] == 'c') {
 				currentOwner = fields[1]
 				def intermediaryName = fields[2]
+				intermediaryClassOwners[intermediaryName] = currentOwner
 				def simpleIntermediaryName = intermediaryName.substring(intermediaryName.lastIndexOf('/') + 1)
 				if (usedClassNames.contains(simpleIntermediaryName)) {
 					classOwnerCandidates[simpleIntermediaryName] << currentOwner
@@ -204,11 +206,13 @@ tasks.register('remapIntermediarySources') {
 			def source = sourceFile.getText('UTF-8')
 			def importPattern = /(?m)^(\s*import\s+)net\.minecraft\.((?:class_\d+)(?:\.class_\d+)*)(\s*;)/
 			source = source.replaceAll(importPattern) { match, prefix, intermediaryPath, suffix ->
-				def mappedTypes = intermediaryPath.split('\\.').collect { classNames[it] }
-				if (mappedTypes.any { it == null }) {
+				def intermediaryName = "net/minecraft/${intermediaryPath.replace('.', '$')}"
+				def owner = intermediaryClassOwners[intermediaryName]
+				def officialName = officialNamesByClass[owner]
+				if (officialName == null) {
 					throw new GradleException("No official import mapping found for ${intermediaryPath} in ${sourceFile}")
 				}
-				"${prefix}${mappedTypes.last().replace('$', '.').replace('/', '.')}${suffix}"
+				"${prefix}${officialName.replace('$', '.')}${suffix}"
 			}
 			source = source.replaceAll(/\bclass_\d+\b/) { match ->
 				def mappedName = simpleClassNames[match]
