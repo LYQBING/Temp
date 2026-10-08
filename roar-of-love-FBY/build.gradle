@@ -123,6 +123,7 @@ tasks.register('remapIntermediarySources') {
 		def officialNamesByClass = [:]
 		def officialNamesByObfuscatedName = [:]
 		def memberNamesBySignature = [:].withDefault { new LinkedHashSet<String>() }
+		def memberNamesByOwnerAndName = [:].withDefault { new LinkedHashSet<String>() }
 		def mappingsLines = (legacyClientMappingsFile.get().asFile.readLines('UTF-8') + legacyServerMappingsFile.get().asFile.readLines('UTF-8')).unique()
 		mappingsLines.each { line ->
 			def classMatch = line =~ /^(.+) -> ([^:]+):$/
@@ -146,7 +147,9 @@ tasks.register('remapIntermediarySources') {
 					def officialName = beforeParameters.tokenize(' ').last()
 					def parameterText = signature.substring(signature.indexOf('(') + 1, signature.lastIndexOf(')'))
 					def parameterTypes = parameterText.isEmpty() ? [] : parameterText.split(',').collect { it.trim() }
-					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:${parameterTypes.join(',')}"] << officialName
+					def normalizedOwner = mappingOwner.replace('.', '/')
+					memberNamesBySignature["${normalizedOwner}:${pair[1]}:${parameterTypes.join(',')}"] << officialName
+					memberNamesByOwnerAndName["${normalizedOwner}:${pair[1]}"] << officialName
 				} else {
 					memberNamesBySignature["${mappingOwner.replace('.', '/')}:${pair[1]}:"] << pair[0].tokenize(' ').last()
 				}
@@ -180,7 +183,11 @@ tasks.register('remapIntermediarySources') {
 					parameterTypes << (typeName + '[]' * dimensions)
 				}
 			}
-			def names = memberNamesBySignature["${member.owner}:${member.official}:${parameterTypes.join(',')}"]
+			def memberKey = "${member.owner}:${member.official}"
+			def names = memberNamesBySignature["${memberKey}:${parameterTypes.join(',')}"]
+			if (names.isEmpty()) {
+				names = memberNamesByOwnerAndName[memberKey]
+			}
 			if (names == null || names.isEmpty()) {
 				throw new GradleException("No official mapping found for ${member.intermediary}")
 			}
