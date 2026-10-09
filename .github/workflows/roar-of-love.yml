@@ -1,14 +1,14 @@
-name: 26.3
+name: Roar of Love 26.3
 
 on:
   push:
     paths:
-      - roar-of-love-FBY/**
+      - roar-of-love/**
       - needsofnature/**
       - .github/workflows/roar-of-love.yml
   pull_request:
     paths:
-      - roar-of-love-FBY/**
+      - roar-of-love/**
       - needsofnature/**
       - .github/workflows/roar-of-love.yml
   workflow_dispatch:
@@ -35,12 +35,12 @@ jobs:
           gradle-version: 9.8.0
 
       - name: Build mod
-        working-directory: roar-of-love-FBY
+        working-directory: roar-of-love
         run: gradle build --no-daemon
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: roar-of-love-26.3
-          path: roar-of-love-FBY/build/libs/*.jar
+          path: roar-of-love/build/libs/*.jar
           if-no-files-found: error
