@@ -39,6 +39,7 @@ dependencies {
 	legacyIntermediary "net.fabricmc:intermediary:${sourceIntermediaryVersion}:v2"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	clientImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly files('../needsofnature')
 }
 

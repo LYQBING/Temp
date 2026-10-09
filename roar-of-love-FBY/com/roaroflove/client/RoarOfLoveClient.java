@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.class_1309;
 import net.minecraft.class_2960;
 import net.minecraft.class_304;
@@ -298,15 +298,15 @@ public class RoarOfLoveClient implements ClientModInitializer {
             RoarSubtitles.onAnimationEnd(stoppedContext.instanceId());
             RoarEcg.onEnd(stoppedContext.instanceId());
         });
-        HudRenderCallback.EVENT.register((class_332Var, class_9779Var) -> {
+        HudElementRegistry.addLast(class_2960.method_60655("roar_of_love", "hud"), (class_332Var, class_9779Var) -> {
             RoarVignetteHud.render(class_332Var, class_9779Var);
         });
         class_304.class_11900 class_11900Var = new class_304.class_11900(class_2960.method_60655("roar_of_love", "settings"));
-        openSettingsKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.open_settings", class_3675.class_307.field_1668, KEY_F7, class_11900Var));
-        openSettingsKeyL = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.open_settings_l", class_3675.class_307.field_1668, KEY_L, class_11900Var));
-        testFlashKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_flash", class_3675.class_307.field_1668, KEY_F8, class_11900Var));
-        testHeartsKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_hearts", class_3675.class_307.field_1668, KEY_F9, class_11900Var));
-        testShakeKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_shake", class_3675.class_307.field_1668, KEY_F10, class_11900Var));
+        openSettingsKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.open_settings", class_3675.class_307.KEYBOARD, KEY_F7, class_11900Var));
+        openSettingsKeyL = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.open_settings_l", class_3675.class_307.KEYBOARD, KEY_L, class_11900Var));
+        testFlashKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_flash", class_3675.class_307.KEYBOARD, KEY_F8, class_11900Var));
+        testHeartsKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_hearts", class_3675.class_307.KEYBOARD, KEY_F9, class_11900Var));
+        testShakeKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_shake", class_3675.class_307.KEYBOARD, KEY_F10, class_11900Var));
         RoarBridge.init();
         if (!RoarMarquee.verify()) {
             RoarOfLove.LOGGER.error("[roar_of_love] 公告文件（assets/roar_of_love/marquee.txt）缺失或被修改，模组拒绝运行");
@@ -347,7 +347,7 @@ public class RoarOfLoveClient implements ClientModInitializer {
             }
         });
         ClientCommandRegistrationCallback.EVENT.register((commandDispatcher, class_7157Var) -> {
-            commandDispatcher.register(ClientCommandManager.literal("roaroflove").executes(commandContext -> {
+            commandDispatcher.register(ClientCommands.literal("roaroflove").executes(commandContext -> {
                 RoarOfLove.LOGGER.info("[roar_of_love] 命令打开设置界面");
                 class_310.method_1551().execute(() -> {
                     class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen(class_310.method_1551().field_1755));

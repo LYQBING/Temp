@@ -5,9 +5,9 @@ package com.roaroflove.client;
 
 import net.minecraft.class_1111;
 import net.minecraft.class_1113;
-import net.minecraft.class_3414;
 import net.minecraft.class_2960;
 import net.minecraft.class_3419;
+import net.minecraft.client.sounds.WeighedSoundEvents;
 
 public class RoarQuietSound implements class_1113 {
     private final class_1113 base;
@@ -24,7 +24,7 @@ public class RoarQuietSound implements class_1113 {
         return this.base.method_4775();
     }
 
-    public class_3414 getSoundEvent() {
+    public WeighedSoundEvents getSoundEvent() {
         return this.base.getSoundEvent();
     }
 
