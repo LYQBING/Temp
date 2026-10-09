@@ -324,6 +324,10 @@ java {
 	withSourcesJar()
 }
 
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('remapIntermediarySources')
+}
+
 processResources {
 	inputs.property 'version', project.version
 	filesMatching('fabric.mod.json') {
