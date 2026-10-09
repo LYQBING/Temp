@@ -9,10 +9,28 @@ import java.util.Locale;
 import java.util.Map;
 
 public final class ZipSpec {
+    public static final class VanillaGroup {
+        private final String key;
+        private final String display;
+        private final List<String> events;
+        private final List<String> fileNames;
+
+        public VanillaGroup(String key, String display, List<String> events, List<String> fileNames) {
+            this.key = key;
+            this.display = display;
+            this.events = events;
+            this.fileNames = fileNames;
+        }
+
+        public String key() { return this.key; }
+        public String display() { return this.display; }
+        public List<String> events() { return this.events; }
+        public List<String> fileNames() { return this.fileNames; }
+    }
     public static final String CALLS_DISPLAY = "calls(叫声)";
     public static final String TOP_MINECRAFT = "minecraft";
     public static final String TOP_ROAR = "roar of love";
-    public static final List<ZipSpec$VanillaGroup> VANILLA_GROUPS = List.of(new ZipSpec$VanillaGroup("hurt", "hurt(受伤声)", List.of("entity.player.hurt", "entity.player.hurt_drown", "entity.player.hurt_on_fire"), List.of("hurt1", "hurt2", "hurt3", "hurt4", "hurt5", "hurt6", "hurt7", "hurt8", "hurt9")), new ZipSpec$VanillaGroup("tnt", "tnt(TNT点燃)", List.of("entity.tnt.primed"), List.of("fuse")), new ZipSpec$VanillaGroup("bow", "bow(弓箭射箭)", List.of("entity.arrow.shoot"), List.of("bow")), new ZipSpec$VanillaGroup("anvil", "anvil(铁砧放置与使用)", List.of("block.anvil.land", "block.anvil.place", "block.anvil.use"), List.of("anvil_land", "anvil_use")), new ZipSpec$VanillaGroup("xp", "xp(升级与拾取经验)", List.of("entity.experience_orb.pickup", "entity.player.levelup"), List.of("orb", "levelup")), new ZipSpec$VanillaGroup("break", "break(装备损坏)", List.of("entity.item.break", "item.shield.break"), List.of("break")), new ZipSpec$VanillaGroup("lava", "lava(岩浆遇水气泡)", List.of("block.lava.extinguish"), List.of("fizz")));
+    public static final List<ZipSpec.VanillaGroup> VANILLA_GROUPS = List.of(new ZipSpec.VanillaGroup("hurt", "hurt(受伤声)", List.of("entity.player.hurt", "entity.player.hurt_drown", "entity.player.hurt_on_fire"), List.of("hurt1", "hurt2", "hurt3", "hurt4", "hurt5", "hurt6", "hurt7", "hurt8", "hurt9")), new ZipSpec.VanillaGroup("tnt", "tnt(TNT点燃)", List.of("entity.tnt.primed"), List.of("fuse")), new ZipSpec.VanillaGroup("bow", "bow(弓箭射箭)", List.of("entity.arrow.shoot"), List.of("bow")), new ZipSpec.VanillaGroup("anvil", "anvil(铁砧放置与使用)", List.of("block.anvil.land", "block.anvil.place", "block.anvil.use"), List.of("anvil_land", "anvil_use")), new ZipSpec.VanillaGroup("xp", "xp(升级与拾取经验)", List.of("entity.experience_orb.pickup", "entity.player.levelup"), List.of("orb", "levelup")), new ZipSpec.VanillaGroup("break", "break(装备损坏)", List.of("entity.item.break", "item.shield.break"), List.of("break")), new ZipSpec.VanillaGroup("lava", "lava(岩浆遇水气泡)", List.of("block.lava.extinguish"), List.of("fizz")));
     public static final Map<String, String> CATEGORY_DISPLAY = new LinkedHashMap();
 
     static {
@@ -55,8 +73,8 @@ public final class ZipSpec {
         return sanitizeKey;
     }
 
-    public static ZipSpec$VanillaGroup vanillaGroupByKey(String str) {
-        for (ZipSpec$VanillaGroup vanillaGroup : VANILLA_GROUPS) {
+    public static ZipSpec.VanillaGroup vanillaGroupByKey(String str) {
+        for (ZipSpec.VanillaGroup vanillaGroup : VANILLA_GROUPS) {
             if (vanillaGroup.key().equals(str)) {
                 return vanillaGroup;
             }

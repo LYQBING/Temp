@@ -554,7 +554,7 @@ public final class AudioPackLoader {
                 }
             }
         }
-        for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+        for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
             Iterator it2 = vanillaGroup.fileNames().iterator();
             while (it2.hasNext()) {
                 String str3 = "assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/" + ((String) it2.next()) + ".ogg";
@@ -685,7 +685,7 @@ public final class AudioPackLoader {
     }
 
     private static Path mapEntry(String str, String[] strArr, Path path) {
-        ZipSpec$VanillaGroup vanillaGroupByKey;
+        ZipSpec.VanillaGroup vanillaGroupByKey;
         char c = 65535;
         switch (str.hashCode()) {
             case 695073197:
@@ -813,7 +813,7 @@ public final class AudioPackLoader {
 
     private static JsonObject buildMinecraftOverrideJson(Path path) {
         JsonObject jsonObject = new JsonObject();
-        for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+        for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
             List<String> filesFor = filesFor("assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/", union(vanillaGroup.fileNames(), dirNames(path.resolve("assets/roar_of_love/sounds/vanilla").resolve(vanillaGroup.key()))));
             if (!filesFor.isEmpty()) {
                 for (String str : vanillaGroup.events()) {
@@ -1052,7 +1052,7 @@ public final class AudioPackLoader {
             ZipOutputStream zipOutputStream = new ZipOutputStream(newOutputStream);
             try {
                 addZipText(zipOutputStream, "README.txt", tr("roar_of_love.readme.template", new Object[0]));
-                for (ZipSpec$VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
+                for (ZipSpec.VanillaGroup vanillaGroup : ZipSpec.VANILLA_GROUPS) {
                     for (String str : vanillaGroup.fileNames()) {
                         addZipBytes(zipOutputStream, "minecraft/" + vanillaGroup.display() + "/" + str + ".ogg", AudioPaths.readOwnResource("assets/roar_of_love/sounds/vanilla/" + vanillaGroup.key() + "/" + str + ".ogg"));
                     }
