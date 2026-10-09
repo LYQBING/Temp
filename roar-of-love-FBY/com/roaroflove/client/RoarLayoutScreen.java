@@ -53,8 +53,9 @@ public class RoarLayoutScreen extends class_437 {
         int i2 = i - (((SNAP * min) + 18) / 2);
         int i3 = 0;
         while (i3 < SNAP) {
-            method_37063(new RoarButton(((min + 6) * i3) + i2, 28, min, 20, class_2561.method_43469(RoarLayout.labelKey(i3) + (this.selected == i3 ? "_sel" : ""), new Object[0]), class_4185Var -> {
-                this.selected = i3;
+            int selectedIndex = i3;
+            method_37063(new RoarButton(((min + 6) * selectedIndex) + i2, 28, min, 20, class_2561.method_43469(RoarLayout.labelKey(selectedIndex) + (this.selected == selectedIndex ? "_sel" : ""), new Object[0]), class_4185Var -> {
+                this.selected = selectedIndex;
                 refresh();
             }));
             i3++;
