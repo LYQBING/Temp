@@ -7,6 +7,7 @@ import net.minecraft.class_1111;
 import net.minecraft.class_1113;
 import net.minecraft.class_2960;
 import net.minecraft.class_3419;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.client.sounds.WeighedSoundEvents;
 
 public class RoarQuietSound implements class_1113 {
@@ -26,6 +27,10 @@ public class RoarQuietSound implements class_1113 {
 
     public WeighedSoundEvents getSoundEvent() {
         return this.base.getSoundEvent();
+    }
+
+    public WeighedSoundEvents getOrResolve(SoundManager soundManager) {
+        return this.base.getOrResolve(soundManager);
     }
 
     public class_1111 method_4776() {

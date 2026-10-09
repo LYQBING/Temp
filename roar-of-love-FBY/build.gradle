@@ -100,7 +100,10 @@ tasks.register('remapIntermediarySources') {
 		def intermediaryClassSimpleNames = [:]
 		def intermediaryMembers = []
 		def sourceRoot = file('com')
-		def sourceFiles = fileTree(sourceRoot).matching { include '**/*.java' }.files
+		def sourceFiles = fileTree(sourceRoot).matching {
+			include '**/*.java'
+			exclude '**/ZipSpec$VanillaGroup.java'
+		}.files
 		def usedClassNames = [] as Set
 		def usedMemberNames = [] as Set
 		sourceFiles.each { sourceFile ->
@@ -290,6 +293,10 @@ tasks.register('remapIntermediarySources') {
 				}
 				"${quoteStart}${mappedName}${quoteEnd}"
 			}
+			source = source.replaceAll(/\.displayClientMessage\(/, '.sendSystemMessage(')
+			source = source.replaceAll(/\.setScreen\(/, '.setScreenAndShow(')
+			source = source.replaceAll(/\.screen\b/, '.gui.screen()')
+			source = source.replaceAll(/\.drawString\(/, '.textRenderer().text(')
 			source = source.replace('net.minecraft.client.gui.GuiGraphics', 'net.minecraft.client.gui.GuiGraphicsExtractor')
 			source = source.replaceAll(/\bGuiGraphics\b/, 'GuiGraphicsExtractor')
 			source = source.replaceAll(/\bpublic void render\(GuiGraphicsExtractor /, 'public void extractRenderState(GuiGraphicsExtractor ')
