@@ -66,7 +66,7 @@ public class RoarOfLoveClient implements ClientModInitializer {
     }
 
     private static int indexInDefinition(class_2960 class_2960Var, NonAnimationStage nonAnimationStage) {
-        NonAnimationDefinition definition;
+        NonAnimationDefinition definition = null;
         try {
             definition = NonAnimationApi.getDefinition(class_2960Var);
         } catch (Throwable th) {
@@ -168,8 +168,8 @@ public class RoarOfLoveClient implements ClientModInitializer {
             AudioPackLoader.onWorldLeave();
         });
         NonAnimationSoundEvents.RESOLVE.register(soundContext -> {
-            String effect;
-            String soundCategoryOf;
+            String effect = null;
+            String soundCategoryOf = null;
             try {
                 effect = soundContext.effect();
                 soundCategoryOf = soundCategoryOf(effect);
