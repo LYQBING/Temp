@@ -589,7 +589,8 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         String str = this.statusText == null ? "" : this.statusText;
         if (!str.isEmpty() && this.field_22793 != null && widthOf(str) > this.field_22789 - 12) {
             int length = str.length();
-            while (length > 1 && widthOf(str.substring(0, length) + "…") > i) {
+            int maxWidth = this.field_22789 - 12;
+            while (length > 1 && widthOf(str.substring(0, length) + "…") > maxWidth) {
                 length--;
             }
             str = str.substring(0, length) + "…";
