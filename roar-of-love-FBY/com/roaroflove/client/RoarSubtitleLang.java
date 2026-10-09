@@ -43,7 +43,7 @@ public final class RoarSubtitleLang {
     }
 
     private static synchronized Map<String, String> table(int i) {
-        Map<String, String> map;
+        Map<String, String> map = null;
         HashMap hashMap;
         synchronized (RoarSubtitleLang.class) {
             if (CACHE.containsKey(Integer.valueOf(i))) {
