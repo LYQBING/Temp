@@ -139,7 +139,9 @@ public final class RoarSubtitles {
             return false;
         }
         try {
-            GenderHolder genderHolder = method_1551.field_1724;
+            if (!(method_1551.field_1724 instanceof GenderHolder genderHolder)) {
+                return false;
+            }
             if (genderHolder.hasGender(1)) {
                 if (!genderHolder.hasGender(2)) {
                     z = true;
@@ -178,7 +180,7 @@ public final class RoarSubtitles {
 
     private static int lustLevel(class_746 class_746Var) {
         try {
-            class_1293 method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
+            var method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
             if (method_6112 == null) {
                 return -1;
             }

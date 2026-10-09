@@ -25,7 +25,7 @@ public abstract class SoundOptionsScreenMixin {
             class_353 body = accessor.roarOfLove$getBody();
             if (body != null) {
                 class_4185 button = class_4185.method_46430(class_2561.method_43470("Roar of Love 设置…"), b -> {
-                    class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen((class_437) this));
+                    class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen((class_437) (Object) this));
                 }).method_46432(150).method_46431();
                 body.method_58227(List.of(button));
             }

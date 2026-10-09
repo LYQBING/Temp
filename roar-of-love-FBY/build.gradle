@@ -15,6 +15,16 @@ base {
 	archivesName = 'roar-of-love'
 }
 
+loom {
+	splitEnvironmentSourceSets()
+	mods {
+		roar_of_love {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
 repositories {
 	maven { url = 'https://maven.fabricmc.net/' }
 	mavenCentral()
@@ -27,16 +37,25 @@ configurations {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	legacyIntermediary "net.fabricmc:intermediary:${sourceIntermediaryVersion}:v2"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly files('../needsofnature')
 }
 
 sourceSets {
 	main {
-		java.setSrcDirs([generatedSourceDirectory])
+		java {
+			setSrcDirs([generatedSourceDirectory])
+			exclude 'roaroflove/client/**', 'roaroflove/mixin/**'
+		}
 		resources.srcDirs = ['.']
 		resources.exclude 'com/**', 'META-INF/**', 'build/**', '.gradle/**', '.github/**', '**/*.java', '**/*.class', 'build.gradle', 'settings.gradle', 'gradle.properties'
+	}
+	client {
+		java {
+			setSrcDirs([generatedSourceDirectory])
+			include 'roaroflove/client/**', 'roaroflove/mixin/**'
+		}
 	}
 }
 
@@ -270,6 +289,12 @@ tasks.register('remapIntermediarySources') {
 				}
 				"${quoteStart}${mappedName}${quoteEnd}"
 			}
+			source = source.replace('net.minecraft.client.gui.GuiGraphics', 'net.minecraft.client.gui.GuiGraphicsExtractor')
+			source = source.replaceAll(/\bGuiGraphics\b/, 'GuiGraphicsExtractor')
+			source = source.replaceAll(/\bpublic void render\(GuiGraphicsExtractor /, 'public void extractRenderState(GuiGraphicsExtractor ')
+			source = source.replaceAll(/\bsuper\.render\(/, 'super.extractRenderState(')
+			source = source.replaceAll(/\bprotected void renderContents\(GuiGraphicsExtractor /, 'protected void extractContents(GuiGraphicsExtractor ')
+			source = source.replace('field_40754', 'Button.DEFAULT_NARRATION')
 			def targetFile = new File(outputRoot, sourceRoot.toPath().relativize(sourceFile.toPath()).toString())
 			targetFile.parentFile.mkdirs()
 			targetFile.setText(source, 'UTF-8')
@@ -278,6 +303,10 @@ tasks.register('remapIntermediarySources') {
 }
 
 tasks.named('compileJava') {
+	dependsOn tasks.named('remapIntermediarySources')
+}
+
+tasks.named('compileClientJava') {
 	dependsOn tasks.named('remapIntermediarySources')
 }
 
