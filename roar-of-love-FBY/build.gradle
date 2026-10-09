@@ -27,8 +27,8 @@ configurations {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	legacyIntermediary "net.fabricmc:intermediary:${sourceIntermediaryVersion}:v2"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	compileOnly files('../needsofnature')
 }
 
@@ -86,7 +86,7 @@ tasks.register('remapIntermediarySources') {
 		sourceFiles.each { sourceFile ->
 			def sourceText = sourceFile.getText('UTF-8')
 			(sourceText =~ /\bclass_\d+\b/).each { usedClassNames << it.toString() }
-			(sourceText =~ /\b(?:method|field)_\d+\b/).each { usedMemberNames << it.toString() }
+			(sourceText =~ /\b(?:method|field|comp)_\d+\b/).each { usedMemberNames << it.toString() }
 		}
 		def currentOwner = null
 		tinyMappings.eachLine { line ->
@@ -249,21 +249,21 @@ tasks.register('remapIntermediarySources') {
 			source = source.replaceAll(/\bclass_\d+\b/) { match ->
 				simpleClassNames[match] ?: match
 			}
-			source = source.replaceAll(/(\.|::)((?:method|field)_\d+)\b/) { match, access, intermediaryName ->
+			source = source.replaceAll(/(\.|::)((?:method|field|comp)_\d+)\b/) { match, access, intermediaryName ->
 				def mappedName = mappedMemberNames[intermediaryName]
 				if (mappedName == null) {
 					throw new GradleException("No official member mapping found for ${intermediaryName} in ${sourceFile}")
 				}
 				"${access}${mappedName}"
 			}
-			source = source.replaceAll(/\b(method_\d+)\b(?=\s*\()/) { match, intermediaryName ->
+			source = source.replaceAll(/\b((?:method|comp)_\d+)\b(?=\s*\()/) { match, intermediaryName ->
 				def mappedName = mappedMemberNames[intermediaryName]
 				if (mappedName == null) {
 					throw new GradleException("No official method mapping found for ${intermediaryName} in ${sourceFile}")
 				}
 				mappedName
 			}
-			source = source.replaceAll(/(["'])(method_\d+|field_\d+)(["'])/) { match, quoteStart, intermediaryName, quoteEnd ->
+			source = source.replaceAll(/(["'])((?:method|field|comp)_\d+)(["'])/) { match, quoteStart, intermediaryName, quoteEnd ->
 				def mappedName = mappedMemberNames[intermediaryName]
 				if (mappedName == null) {
 					throw new GradleException("No official selector mapping found for ${intermediaryName} in ${sourceFile}")

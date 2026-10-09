@@ -73,17 +73,16 @@ public final class RoarSubtitleLang {
                         if (resourceAsStream != null) {
                             try {
                                 resourceAsStream.close();
-                            } catch (Throwable th) {
-                                th = th;
-                                RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, th.toString());
+                            } catch (Throwable closeError) {
+                                RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, closeError.toString());
                                 map = hashMap;
                                 CACHE.put(Integer.valueOf(i), map);
                                 return map;
                             }
                         }
                         map = hashMap;
-                    } catch (Throwable th2) {
-                        th = th2;
+                    } catch (Throwable readError) {
+                        RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, readError.toString());
                         hashMap = null;
                     }
                 }

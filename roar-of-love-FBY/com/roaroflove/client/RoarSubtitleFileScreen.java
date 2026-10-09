@@ -42,7 +42,7 @@ public class RoarSubtitleFileScreen extends class_437 {
     }
 
     private static List<Path> findFiles() {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Path> arrayList = new ArrayList<>();
         Path audioFolder = audioFolder();
         if (audioFolder != null && Files.isDirectory(audioFolder, new LinkOption[0])) {
             try {
