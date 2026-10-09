@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({class_443.class})
 public abstract class SoundOptionsScreenMixin {
-    @Inject(at = {@At("TAIL")}, method = {"method_60325"})
+    @Inject(at = {@At("TAIL")}, method = {"addOptions"})
     private void roarOfLove$addSettingsButton(CallbackInfo ci) {
         if (this instanceof GameOptionsScreenBodyAccessor) {
             GameOptionsScreenBodyAccessor accessor = (GameOptionsScreenBodyAccessor) this;
