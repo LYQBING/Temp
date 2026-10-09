@@ -241,9 +241,10 @@ public final class AudioPackLoader {
             }
             lastAppliedStamp = contentStamp;
             int size = detectedZips.size();
+            int extractedZipCount = i2;
             Runnable runnable2 = () -> {
                 refreshBundledCallsFromClient();
-                updateStatus(i2, size);
+                updateStatus(extractedZipCount, size);
                 if (runnable != null) {
                     runnable.run();
                 }
