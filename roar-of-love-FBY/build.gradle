@@ -294,9 +294,10 @@ tasks.register('remapIntermediarySources') {
 				"${quoteStart}${mappedName}${quoteEnd}"
 			}
 			source = source.replaceAll(/\.displayClientMessage\(/, '.sendSystemMessage(')
+			source = source.replaceAll(/(\.sendSystemMessage\([^\n]*), false\)/, '$1)')
 			source = source.replaceAll(/\.setScreen\(/, '.setScreenAndShow(')
 			source = source.replaceAll(/\.screen\b/, '.gui.screen()')
-			source = source.replaceAll(/\.drawString\(/, '.textRenderer().text(')
+			source = source.replaceAll(/\.drawString\(/, '.text(')
 			source = source.replace('net.minecraft.client.gui.GuiGraphics', 'net.minecraft.client.gui.GuiGraphicsExtractor')
 			source = source.replaceAll(/\bGuiGraphics\b/, 'GuiGraphicsExtractor')
 			source = source.replaceAll(/\bpublic void render\(GuiGraphicsExtractor /, 'public void extractRenderState(GuiGraphicsExtractor ')
