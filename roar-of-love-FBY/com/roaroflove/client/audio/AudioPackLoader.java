@@ -113,10 +113,6 @@ public final class AudioPackLoader {
         return packProfileId;
     }
 
-    public static boolean isBusy() {
-        return busy;
-    }
-
     public static void onClientStarted() {
         try {
             ensureRootFolderAndTemplate();
@@ -156,9 +152,6 @@ public final class AudioPackLoader {
         }
     }
 
-    public static void onWorldLeave() {
-    }
-
     public static void refreshNow(Runnable runnable) {
         refreshSync(() -> {
             refreshBundledCallsFromClient();
@@ -185,6 +178,7 @@ public final class AudioPackLoader {
                                     doRefresh(runnable);
                                 });
                             });
+                            return;
                         } catch (Throwable th2) {
                             RoarOfLove.LOGGER.warn("[roar_of_love] 卸载覆盖包失败，改为直接刷新", th2);
                         }
@@ -636,10 +630,15 @@ public final class AudioPackLoader {
                     if (replace.toLowerCase(Locale.ROOT).endsWith(".ogg")) {
                         String[] split = replace.split("/");
                         if (split.length >= 2 && (normalizeTop = ZipSpec.normalizeTop(split[0])) != null && (mapEntry = mapEntry(normalizeTop, split, path2)) != null) {
-                            Files.createDirectories(mapEntry.getParent(), new FileAttribute[0]);
+                            Path normalizedRoot = path2.toAbsolutePath().normalize();
+                            Path normalizedEntry = mapEntry.toAbsolutePath().normalize();
+                            if (!normalizedEntry.startsWith(normalizedRoot)) {
+                                continue;
+                            }
+                            Files.createDirectories(normalizedEntry.getParent(), new FileAttribute[0]);
                             InputStream inputStream = zipFile.getInputStream(nextElement);
                             try {
-                                OutputStream newOutputStream = Files.newOutputStream(mapEntry, new OpenOption[0]);
+                                OutputStream newOutputStream = Files.newOutputStream(normalizedEntry, new OpenOption[0]);
                                 while (true) {
                                     try {
                                         int read = inputStream.read(bArr);
@@ -656,7 +655,7 @@ public final class AudioPackLoader {
                                 if (inputStream != null) {
                                     inputStream.close();
                                 }
-                                packProvided.add(path2.relativize(mapEntry).toString().replace('\\', '/'));
+                                packProvided.add(path2.toAbsolutePath().normalize().relativize(normalizedEntry).toString().replace('\\', '/'));
                                 if (normalizeTop.equals("roar of love")) {
                                     z = true;
                                     z2 = z;
@@ -937,7 +936,6 @@ public final class AudioPackLoader {
     }
 
     private static void refreshBundledCallsFromClient() {
-        new LinkedHashSet();
         LinkedHashMap linkedHashMap = new LinkedHashMap();
         class_310 method_1551 = class_310.method_1551();
         if (method_1551 != null && method_1551.method_1478() != null) {

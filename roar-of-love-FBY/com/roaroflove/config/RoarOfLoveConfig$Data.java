@@ -12,7 +12,6 @@ public class RoarOfLoveConfig$Data {
     public double intervalSeconds = 1.0d;
     public float volume = 1.0f;
     public float pitch = 1.0f;
-    public int beginCount = 9;
     public boolean roarEnabled = true;
     public boolean zipEnabled = true;
     public boolean pinkFilter = true;

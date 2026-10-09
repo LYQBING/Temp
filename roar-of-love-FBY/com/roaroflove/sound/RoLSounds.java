@@ -17,8 +17,6 @@ import net.minecraft.class_7923;
 
 public final class RoLSounds {
     public static final List<String> CALL_BEGIN_FILES;
-    public static final String CALL_END_FILE = "end";
-    public static final int MAX_BEGIN = 10;
     public static final List<String> CATEGORIES = List.of("dryimpacts", "motions", "retract", "shots", "wet", "wetimpacts");
     public static final Map<String, List<String>> CATEGORY_FILES = new LinkedHashMap();
     public static final String CALL_GROUP_DEFAULT = "default";
@@ -111,13 +109,6 @@ public final class RoLSounds {
         return class_3414Var == null ? (class_3414) class_7923.field_41172.method_63535(class_2960.method_12829(str)) : class_3414Var;
     }
 
-    public static boolean isRegistered(String str) {
-        if (!str.contains(":")) {
-            str = "roar_of_love:" + str;
-        }
-        return BY_ID.containsKey(str);
-    }
-
     public static String callEventKey(String str, String str2) {
         if (str == null || str.isEmpty()) {
             str = CALL_GROUP_DEFAULT;
@@ -152,11 +143,4 @@ public final class RoLSounds {
         return CALL_GROUP_DEFAULT;
     }
 
-    public static List<String> callGroups() {
-        return CALL_GROUPS;
-    }
-
-    public static List<String> callGroupTags(String str) {
-        return CALL_GROUP_TAGS.getOrDefault(str, List.of());
-    }
 }

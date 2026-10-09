@@ -164,9 +164,6 @@ public class RoarOfLoveClient implements ClientModInitializer {
                 RoarOfLove.LOGGER.info("[roar_of_love] 首次进入存档，稍后显示引导窗口");
             }
         });
-        ClientPlayConnectionEvents.DISCONNECT.register((class_634Var2, class_310Var3) -> {
-            AudioPackLoader.onWorldLeave();
-        });
         NonAnimationSoundEvents.RESOLVE.register(soundContext -> {
             String effect = null;
             String soundCategoryOf = null;
@@ -226,10 +223,14 @@ public class RoarOfLoveClient implements ClientModInitializer {
                         i++;
                     }
                     if (num2 == null) {
-                        num3 = Integer.valueOf(indexInDefinition(stageChangedContext.animationId(), currentStage));
+                        int definitionStageNumber = indexInDefinition(stageChangedContext.animationId(), currentStage);
+                        if (definitionStageNumber > 0) {
+                            num = Integer.valueOf(definitionStageNumber);
+                        }
                         for (class_2960 class_2960Var2 : class_2960VarArr) {
                             Integer fallbackPeakStage = class_2960Var2 == null ? null : NonPeakStages.getPeakStage(class_2960Var2);
                             if (fallbackPeakStage != null) {
+                                num2 = fallbackPeakStage;
                                 str = "def:" + class_2960Var2.method_12832();
                                 break;
                             }

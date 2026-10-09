@@ -634,10 +634,6 @@ public class RoarOfLoveConfig {
         return data.pitch;
     }
 
-    public static int beginCount() {
-        return Math.min(9, Math.max(0, data.beginCount));
-    }
-
     public static boolean isRoarEnabled() {
         return data.roarEnabled;
     }

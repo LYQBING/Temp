@@ -18,25 +18,19 @@ import java.util.stream.Stream;
 
 public final class CallsAvailability {
     private static volatile Map<String, Set<String>> bundledByGroup = Collections.emptyMap();
-    private static volatile Set<String> bundledFlat = Collections.emptySet();
 
     private CallsAvailability() {
     }
 
     public static void setBundledCallFiles(Map<String, Set<String>> map) {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        LinkedHashSet linkedHashSet = new LinkedHashSet();
         if (map != null) {
             for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
                 LinkedHashSet linkedHashSet2 = new LinkedHashSet(entry.getValue());
                 linkedHashMap.put(entry.getKey(), Collections.unmodifiableSet(linkedHashSet2));
-                if ("default".equals(entry.getKey())) {
-                    linkedHashSet.addAll(linkedHashSet2);
-                }
             }
         }
         bundledByGroup = Collections.unmodifiableMap(linkedHashMap);
-        bundledFlat = Collections.unmodifiableSet(linkedHashSet);
     }
 
     private static void scanOgg(Path path, Set<String> set) {
@@ -108,6 +102,19 @@ public final class CallsAvailability {
     }
 
     public static boolean anyCallsAvailable() {
-        return (bundledFlat.isEmpty() && availableCallFiles().isEmpty()) ? false : true;
+        for (Set<String> calls : bundledByGroup.values()) {
+            if (!calls.isEmpty()) {
+                return true;
+            }
+        }
+        Map<String, Set<String>> diskCalls = diskPackCallFiles();
+        for (String group : RoLSounds.CALL_GROUPS) {
+            Set<String> bundledCalls = bundledByGroup.get(group);
+            Set<String> diskGroupCalls = diskCalls.get(group);
+            if ((bundledCalls != null && !bundledCalls.isEmpty()) || (diskGroupCalls != null && !diskGroupCalls.isEmpty())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
