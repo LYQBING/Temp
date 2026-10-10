@@ -1,4 +1,5 @@
 {
+	"itemGroup.semen_syringe.items": "Semen Syringe",
 	"item.semen_syringe.syringe": "Semen Syringe",
 	"semen_syringe.tooltip.empty": "Empty — craft it with a liquid bottle to fill it",
 	"semen_syringe.tooltip.donor": "Donor: %s",

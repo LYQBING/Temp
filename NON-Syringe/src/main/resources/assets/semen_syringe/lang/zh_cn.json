@@ -1,4 +1,5 @@
 {
+	"itemGroup.semen_syringe.items": "注射器",
 	"item.semen_syringe.syringe": "精液注射器",
 	"semen_syringe.tooltip.empty": "空的——与液体瓶一起在工作台合成即可灌装",
 	"semen_syringe.tooltip.donor": "供体：%s",
