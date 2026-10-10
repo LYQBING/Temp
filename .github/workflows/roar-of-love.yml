@@ -1,16 +1,6 @@
 name: Roar of Love 26.3
 
 on:
-  push:
-    paths:
-      - roar-of-love/**
-      - needsofnature/**
-      - .github/workflows/roar-of-love.yml
-  pull_request:
-    paths:
-      - roar-of-love/**
-      - needsofnature/**
-      - .github/workflows/roar-of-love.yml
   workflow_dispatch:
 
 permissions:
