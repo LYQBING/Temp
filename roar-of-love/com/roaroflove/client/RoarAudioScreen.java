@@ -36,7 +36,7 @@ public class RoarAudioScreen extends class_437 {
     private static final int LEFT_W = 124;
     private static final int ROW_H = 14;
     private final String category;
-    private final List<Column> columns;
+    private final List<RoarAudioScreen$Column> columns;
     private int listBottom;
     private int listTop;
     private int maxScroll;
@@ -109,26 +109,26 @@ public class RoarAudioScreen extends class_437 {
         switch (c) {
             case 0:
                 if (RoLSounds.isSplitCategory(this.category)) {
-                    Column column = new Column("roar_of_love.ui.col_shot_in");
+                    RoarAudioScreen$Column column = new RoarAudioScreen$Column("roar_of_love.ui.col_shot_in");
                     column.files.addAll(RoLSounds.shotInFiles());
-                    Column column2 = new Column("roar_of_love.ui.col_shot_out");
+                    RoarAudioScreen$Column column2 = new RoarAudioScreen$Column("roar_of_love.ui.col_shot_out");
                     column2.files.addAll(RoLSounds.shotOutFiles());
                     this.columns.add(column);
                     this.columns.add(column2);
                     break;
                 } else {
-                    Column column3 = new Column("roar_of_love.ui.col_single");
+                    RoarAudioScreen$Column column3 = new RoarAudioScreen$Column("roar_of_love.ui.col_single");
                     column3.files.addAll((Collection) RoLSounds.CATEGORY_FILES.getOrDefault(this.category, List.of()));
                     this.columns.add(column3);
                     break;
                 }
             case 1:
-                Column column4 = new Column("roar_of_love.ui.col_single");
+                RoarAudioScreen$Column column4 = new RoarAudioScreen$Column("roar_of_love.ui.col_single");
                 column4.files.addAll(RoLSounds.callSlotsFor(this.category));
                 this.columns.add(column4);
                 break;
             case 2:
-                Column column5 = new Column("roar_of_love.ui.col_single");
+                RoarAudioScreen$Column column5 = new RoarAudioScreen$Column("roar_of_love.ui.col_single");
                 column5.files.addAll(RoLSounds.hurtSlots());
                 this.columns.add(column5);
                 break;
@@ -141,19 +141,19 @@ public class RoarAudioScreen extends class_437 {
         }
     }
 
-    private Column columnAt(int i) {
+    private RoarAudioScreen$Column columnAt(int i) {
         if (i < 0 || i >= this.columns.size()) {
             return null;
         }
         return this.columns.get(i);
     }
 
-    private Column activeColumn() {
+    private RoarAudioScreen$Column activeColumn() {
         return columnAt(this.selectedColumn);
     }
 
     private String selectedFile() {
-        Column activeColumn = activeColumn();
+        RoarAudioScreen$Column activeColumn = activeColumn();
         if (activeColumn == null || activeColumn.files.isEmpty()) {
             return null;
         }
@@ -190,7 +190,7 @@ public class RoarAudioScreen extends class_437 {
         reloadEntries();
         this.listTop = 48;
         this.listBottom = this.field_22790 - 58;
-        Column activeColumn = activeColumn();
+        RoarAudioScreen$Column activeColumn = activeColumn();
         this.maxScroll = Math.max(0, (activeColumn == null ? 0 : activeColumn.files.size()) - Math.max(1, (this.listBottom - this.listTop) / ROW_H));
         if (this.scrollY > this.maxScroll) {
             this.scrollY = this.maxScroll;
@@ -335,7 +335,7 @@ public class RoarAudioScreen extends class_437 {
     }
 
     public boolean method_25401(double d, double d2, double d3, double d4) {
-        Column activeColumn;
+        RoarAudioScreen$Column activeColumn;
         if (d4 == 0.0d || (activeColumn = activeColumn()) == null || activeColumn.files.isEmpty()) {
             return false;
         }
@@ -375,7 +375,7 @@ public class RoarAudioScreen extends class_437 {
             for (int i2 = 0; i2 < this.columns.size(); i2++) {
                 int[] columnSpan = columnSpan(i2);
                 if (class_11909Var.comp_4798() >= columnSpan[0] && class_11909Var.comp_4798() <= columnSpan[1]) {
-                    Column column = this.columns.get(i2);
+                    RoarAudioScreen$Column column = this.columns.get(i2);
                     if (i >= 0 && i < column.files.size()) {
                         this.selectedColumn = i2;
                         this.selectedRow = i;
@@ -419,7 +419,7 @@ public class RoarAudioScreen extends class_437 {
                 if (i5 >= this.columns.size()) {
                     break;
                 }
-                Column column = this.columns.get(i5);
+                RoarAudioScreen$Column column = this.columns.get(i5);
                 int[] columnSpan = columnSpan(i5);
                 class_332Var.method_25294(columnSpan[0] - 2, this.listTop - 2, columnSpan[1] + 2, this.listBottom + 2, Integer.MIN_VALUE);
                 if (this.columns.size() > 1) {

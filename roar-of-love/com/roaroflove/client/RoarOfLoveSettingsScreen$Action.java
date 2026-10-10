@@ -12,7 +12,7 @@ final class RoarOfLoveSettingsScreen$Action extends Record {
     private final String label;
     private final Runnable run;
 
-    private RoarOfLoveSettingsScreen$Action(String str, String str2, Runnable runnable) {
+    RoarOfLoveSettingsScreen$Action(String str, String str2, Runnable runnable) {
         this.label = str;
         this.key = str2;
         this.run = runnable;

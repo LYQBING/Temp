@@ -53,7 +53,7 @@ public final class RoarSubtitles {
     public static final String PEAK = "peak";
     private static final int RECENT_KEEP = 4;
     public static final String SELF = "self";
-    private static final List<Sub> SUBS = new ArrayList();
+    private static final List<RoarSubtitles$Sub> SUBS = new ArrayList();
     private static final Map<String, List<String>> CUSTOM = new HashMap();
     private static long lastMs = 0;
     private static UUID selfInstance = null;
@@ -315,7 +315,7 @@ public final class RoarSubtitles {
                 }
                 int i4 = 0;
                 int i5 = 0;
-                Iterator<Sub> it = SUBS.iterator();
+                Iterator<RoarSubtitles$Sub> it = SUBS.iterator();
                 while (true) {
                     i2 = i5;
                     if (!it.hasNext()) {
@@ -329,7 +329,7 @@ public final class RoarSubtitles {
                     }
                 }
                 if ((!nextBoolean || i2 < 4) && (nextBoolean || i4 < MAX_FLOAT)) {
-                    Sub sub = new Sub();
+                    RoarSubtitles$Sub sub = new RoarSubtitles$Sub();
                     sub.text = fillPlaceholders;
                     sub.danmaku = nextBoolean;
                     sub.bornMs = System.currentTimeMillis();
@@ -467,11 +467,11 @@ public final class RoarSubtitles {
 
     private static float laneProgress(int i, long j) {
         float f = -1.0f;
-        Iterator<Sub> it = SUBS.iterator();
+        Iterator<RoarSubtitles$Sub> it = SUBS.iterator();
         while (true) {
             float f2 = f;
             if (it.hasNext()) {
-                Sub next = it.next();
+                RoarSubtitles$Sub next = it.next();
                 if (next.danmaku && next.lane == i) {
                     f = ((float) (j - next.bornMs)) / ((float) next.lifeMs);
                     if (f > f2) {
@@ -537,7 +537,7 @@ public final class RoarSubtitles {
             int boxHeight = boxHeight();
             int x = RoarLayout.x(1, i, i2);
             int y = RoarLayout.y(1, i, i2);
-            Iterator<Sub> it = SUBS.iterator();
+            Iterator<RoarSubtitles$Sub> it = SUBS.iterator();
             while (true) {
                 if (!it.hasNext()) {
                     z = false;
@@ -550,7 +550,7 @@ public final class RoarSubtitles {
             if (z) {
                 class_332Var.method_25294(x, y, x + boxWidth, boxHeight + y, 0x40000000);
             }
-            for (Sub sub : SUBS) {
+            for (RoarSubtitles$Sub sub : SUBS) {
                 float max = Math.max(0.0f, Math.min(1.0f, ((float) (currentTimeMillis - sub.bornMs)) / ((float) sub.lifeMs)));
                 float max2 = Math.max(0.0f, Math.min(1.0f, Math.min(max / 0.12f, (1.0f - max) / 0.18f)));
                 if (sub.danmaku) {

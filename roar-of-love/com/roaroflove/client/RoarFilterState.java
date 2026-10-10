@@ -28,7 +28,7 @@ public final class RoarFilterState {
     private static final float SUSTAIN_LEVEL = 0.32f;
     private static final long SUSTAIN_SAFETY_MS = 45000;
     private static final Object LOCK = new Object();
-    private static final List<Heart> HEARTS = new ArrayList();
+    private static final List<RoarFilterState$Heart> HEARTS = new ArrayList();
     private static int maxLustSeen = -1;
     private static boolean maxLustLogged = false;
     private static volatile long sustainUntil = 0;
@@ -441,7 +441,7 @@ public final class RoarFilterState {
     }
 
     private static void spawnHeart(long j, int i) {
-        Heart heart = new Heart();
+        RoarFilterState$Heart heart = new RoarFilterState$Heart();
         heart.born = j;
         heart.life = 2400 + ThreadLocalRandom.current().nextLong(1400L);
         heart.x = 0.08f + (ThreadLocalRandom.current().nextFloat() * 0.84f);
@@ -472,7 +472,7 @@ public final class RoarFilterState {
         return System.currentTimeMillis() < forceHeartsUntil;
     }
 
-    public static List<Heart> hearts() {
+    public static List<RoarFilterState$Heart> hearts() {
         return HEARTS;
     }
 }

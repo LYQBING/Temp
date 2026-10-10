@@ -9,6 +9,6 @@ final class RoarBeat$Entry {
     long atMs;
     class_1113 instance;
 
-    private RoarBeat$Entry() {
+    RoarBeat$Entry() {
     }
 }

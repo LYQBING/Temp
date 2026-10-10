@@ -24,7 +24,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public class RoarOfLoveConfig {
     private static Path file;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static Data data = new Data();
+    private static RoarOfLoveConfig$Data data = new RoarOfLoveConfig$Data();
     private static long lastLoadedAt = -1;
     private static long cachedMtime = -1;
 
@@ -38,7 +38,7 @@ public class RoarOfLoveConfig {
                 if (Files.exists(file, new LinkOption[0])) {
                     BufferedReader newBufferedReader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
                     try {
-                        Data data2 = (Data) GSON.fromJson(newBufferedReader, Data.class);
+                        RoarOfLoveConfig$Data data2 = (RoarOfLoveConfig$Data) GSON.fromJson(newBufferedReader, RoarOfLoveConfig$Data.class);
                         if (data2 != null) {
                             data = data2;
                         }
@@ -112,7 +112,7 @@ public class RoarOfLoveConfig {
         }
     }
 
-    public static Data get() {
+    public static RoarOfLoveConfig$Data get() {
         return data;
     }
 
@@ -220,7 +220,7 @@ public class RoarOfLoveConfig {
     }
 
     public static void setSubCustomFile(String str) {
-        Data data2 = data;
+        RoarOfLoveConfig$Data data2 = data;
         if (str == null) {
             str = "";
         }

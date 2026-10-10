@@ -11,7 +11,7 @@ import net.minecraft.class_310;
 public final class RoarBeat {
     private static final long MAX_ALIGN_MS = 170;
     private static final int QUEUE_LIMIT = 12;
-    private static final ArrayDeque<Entry> QUEUE = new ArrayDeque<>();
+    private static final ArrayDeque<RoarBeat$Entry> QUEUE = new ArrayDeque<>();
     private static volatile boolean replaying = false;
     private static int alignedCount = 0;
     private static volatile long epochMs = System.currentTimeMillis();
@@ -80,7 +80,7 @@ public final class RoarBeat {
             if (nextBeatInMs <= MAX_ALIGN_MS) {
                 synchronized (QUEUE) {
                     if (QUEUE.size() < QUEUE_LIMIT) {
-                        Entry entry = new Entry();
+                        RoarBeat$Entry entry = new RoarBeat$Entry();
                         entry.instance = class_1113Var;
                         entry.atMs = nextBeatInMs + System.currentTimeMillis();
                         QUEUE.add(entry);

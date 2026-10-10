@@ -15,6 +15,6 @@ final class RoarSubtitles$Sub {
     float x;
     float y;
 
-    private RoarSubtitles$Sub() {
+    RoarSubtitles$Sub() {
     }
 }

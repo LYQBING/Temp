@@ -95,7 +95,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         int i = this.field_22789 / 2;
         int i2 = (i - 150) - 4;
         int i3 = i + 4;
-        List<Action> buildPreviews = buildPreviews();
+        List<RoarOfLoveSettingsScreen$Action> buildPreviews = buildPreviews();
         int size = (buildPreviews.size() + 1) / 2;
         this.maxScroll = Math.max(0, (((((size * ROW_H) + SECTION_H) + 220) + 98) + 16) - ((this.field_22790 - 34) - 64));
         if (this.scrollY > this.maxScroll) {
@@ -161,7 +161,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             int i11 = i10 / 2;
             int i12 = i10 % 2 == 0 ? i2 : i3;
             int i13 = section3 + (i11 * ROW_H);
-            Action action = buildPreviews.get(i10);
+            RoarOfLoveSettingsScreen$Action action = buildPreviews.get(i10);
             method_37063(btn(class_2561.method_43470(action.label()), class_4185Var -> {
                 try {
                     action.run().run();
@@ -234,22 +234,22 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         tip(i, i2, i3, 20, str2);
     }
 
-    private List<Action> buildPreviews() {
+    private List<RoarOfLoveSettingsScreen$Action> buildPreviews() {
         ArrayList arrayList = new ArrayList();
         for (String str : RoLSounds.CATEGORIES) {
-            arrayList.add(new Action(tr("roar_of_love.cat." + str, new Object[0]), "cat:" + str, () -> {
+            arrayList.add(new RoarOfLoveSettingsScreen$Action(tr("roar_of_love.cat." + str, new Object[0]), "cat:" + str, () -> {
                 openAudioScreen("cat:" + str);
             }));
         }
-        arrayList.add(new Action(tr("roar_of_love.ui.hurt_preview", new Object[0]), "hunt:hurt", () -> {
+        arrayList.add(new RoarOfLoveSettingsScreen$Action(tr("roar_of_love.ui.hurt_preview", new Object[0]), "hunt:hurt", () -> {
             openAudioScreen("hunt:hurt");
         }));
-        arrayList.add(new Action(tr("roar_of_love.call.group.default", new Object[0]), "call:default", () -> {
+        arrayList.add(new RoarOfLoveSettingsScreen$Action(tr("roar_of_love.call.group.default", new Object[0]), "call:default", () -> {
             openAudioScreen("call:default");
         }));
         for (String str2 : RoLSounds.CALL_GROUPS) {
             if (!"default".equals(str2)) {
-                arrayList.add(new Action(tr("roar_of_love.call.group." + str2, new Object[0]), "call:" + str2, () -> {
+                arrayList.add(new RoarOfLoveSettingsScreen$Action(tr("roar_of_love.call.group." + str2, new Object[0]), "call:" + str2, () -> {
                     openAudioScreen("call:" + str2);
                 }));
             }
@@ -354,7 +354,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             List missingDefaultAssets = AudioPackLoader.missingDefaultAssets(class_310.method_1551());
             if (missingDefaultAssets.isEmpty()) {
                 AudioPackLoader.sendChat(tr("roar_of_love.chat.builtin_ok", new Object[0]));
-                class_310.method_1551().method_1507(new NoticeScreen(this, new String[]{tr("roar_of_love.chat.builtin_ok", new Object[0])}));
+                class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, new String[]{tr("roar_of_love.chat.builtin_ok", new Object[0])}));
                 return;
             }
             AudioPackLoader.sendChat(tr("roar_of_love.chat.builtin_missing", Integer.valueOf(missingDefaultAssets.size())));
@@ -364,7 +364,7 @@ public class RoarOfLoveSettingsScreen extends class_437 {
             for (int i = 0; i < min; i++) {
                 strArr[i + 1] = (String) missingDefaultAssets.get(i);
             }
-            class_310.method_1551().method_1507(new NoticeScreen(this, strArr));
+            class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, strArr));
         } catch (Throwable th) {
             RoarOfLove.LOGGER.warn("[roar_of_love] 内置音频自检异常", th);
         }

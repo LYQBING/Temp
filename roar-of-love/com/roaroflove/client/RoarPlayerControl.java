@@ -34,7 +34,7 @@ public final class RoarPlayerControl {
     private static boolean frozen = false;
     private static int speedIndex = 2;
     private static int lastStageNumber = -1;
-    private static final Map<String, Cycle> CYCLE_CACHE = new LinkedHashMap();
+    private static final Map<String, RoarPlayerControl$Cycle> CYCLE_CACHE = new LinkedHashMap();
     private static final List<String> CYCLE_TRIED = new ArrayList();
 
     private RoarPlayerControl() {
@@ -124,11 +124,11 @@ public final class RoarPlayerControl {
         return class_2960Var;
     }
 
-    public static Cycle currentCycle() {
+    public static RoarPlayerControl$Cycle currentCycle() {
         return null;
     }
 
-    private static Cycle parseCycle(class_2960 class_2960Var) {
+    private static RoarPlayerControl$Cycle parseCycle(class_2960 class_2960Var) {
         String str;
         boolean z;
         double d;
@@ -335,7 +335,7 @@ public final class RoarPlayerControl {
             if (d12 == Double.MAX_VALUE || d12 <= 1.0E-6d) {
                 return null;
             }
-            return new Cycle(d12, z2 ? (d5 / d12) % 1.0d : 0.0d, z2 ? (d6 / d12) % 1.0d : 0.5d, str);
+            return new RoarPlayerControl$Cycle(d12, z2 ? (d5 / d12) % 1.0d : 0.0d, z2 ? (d6 / d12) % 1.0d : 0.5d, str);
         } catch (Throwable th7) {
             RoarOfLove.LOGGER.debug("[roar_of_love] 动画节奏解析异常", th7);
             return null;
