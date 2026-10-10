@@ -258,7 +258,7 @@ public class RoarAudioSlotScreen extends class_437 {
 	}
 
 	public void method_25394(class_332 context, int mouseX, int mouseY, float delta) {
-		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0.0f, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
+		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
 		super.method_25394(context, mouseX, mouseY, delta);
 		RoarHoverTooltip.render(context, mouseX, mouseY, this.field_22789, this.field_22790);
 		if (System.currentTimeMillis() < noticeUntil && this.field_22793 != null && !notice.isEmpty()) {
