@@ -5,11 +5,11 @@
 		"component": "semen_syringe:contents",
 		"on_true": {
 			"type": "minecraft:model",
-			"model": "minecraft:item/potion"
+			"model": "semen_syringe:item/syringe_filled"
 		},
 		"on_false": {
 			"type": "minecraft:model",
-			"model": "minecraft:item/glass_bottle"
+			"model": "semen_syringe:item/syringe"
 		}
 	}
 }

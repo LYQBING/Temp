@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "semen_syringe:item/syringe_filled"
+  }
+}
