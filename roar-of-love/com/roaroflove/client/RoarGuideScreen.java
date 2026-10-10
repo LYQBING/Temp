@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 722ms
+// Decompiled by Jadx - 771ms
 //
 package com.roaroflove.client;
 
@@ -90,7 +90,7 @@ public class RoarGuideScreen extends class_437 {
             line(class_332Var, "roar_of_love.guide.line3", i3, 90, -20304);
             line(class_332Var, "roar_of_love.guide.line4", i3, 102, -20304);
             line(class_332Var, RoarOfLoveConfig.isFilterViewed() ? "roar_of_love.guide.hint_ok" : "roar_of_love.guide.close_locked", i3, 182, RoarOfLoveConfig.isFilterViewed() ? -7536756 : -32640);
-            class_332Var.method_27535(this.field_22793, class_2561.method_43470("Roar of Love 1.9.5.1 · " + tr("roar_of_love.ui.author")), 6, this.field_22790 - 11, -6381922);
+            class_332Var.method_27535(this.field_22793, class_2561.method_43470("Roar of Love 2.0.23 · " + tr("roar_of_love.ui.author")), 6, this.field_22790 - 11, -6381922);
         }
     }
 

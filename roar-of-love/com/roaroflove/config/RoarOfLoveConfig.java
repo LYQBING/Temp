@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 643ms
+// Decompiled by Jadx - 1009ms
 //
 package com.roaroflove.config;
 
@@ -16,6 +16,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,7 +24,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public class RoarOfLoveConfig {
     private static Path file;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static RoarOfLoveConfig$Data data = new RoarOfLoveConfig$Data();
+    private static Data data = new Data();
     private static long lastLoadedAt = -1;
     private static long cachedMtime = -1;
 
@@ -37,7 +38,7 @@ public class RoarOfLoveConfig {
                 if (Files.exists(file, new LinkOption[0])) {
                     BufferedReader newBufferedReader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
                     try {
-                        RoarOfLoveConfig$Data data2 = (RoarOfLoveConfig$Data) GSON.fromJson(newBufferedReader, RoarOfLoveConfig$Data.class);
+                        Data data2 = (Data) GSON.fromJson(newBufferedReader, Data.class);
                         if (data2 != null) {
                             data = data2;
                         }
@@ -111,7 +112,7 @@ public class RoarOfLoveConfig {
         }
     }
 
-    public static RoarOfLoveConfig$Data get() {
+    public static Data get() {
         return data;
     }
 
@@ -219,7 +220,7 @@ public class RoarOfLoveConfig {
     }
 
     public static void setSubCustomFile(String str) {
-        RoarOfLoveConfig$Data data2 = data;
+        Data data2 = data;
         if (str == null) {
             str = "";
         }
@@ -480,6 +481,90 @@ public class RoarOfLoveConfig {
         save();
     }
 
+    public static boolean isTooltips() {
+        return data.tooltips;
+    }
+
+    public static void setTooltips(boolean z) {
+        data.tooltips = z;
+        save();
+    }
+
+    public static boolean isDirSub() {
+        return data.dirSub;
+    }
+
+    public static void setDirSub(boolean z) {
+        data.dirSub = z;
+        save();
+    }
+
+    public static boolean isPushEffect() {
+        return data.pushEffect;
+    }
+
+    public static void setPushEffect(boolean z) {
+        data.pushEffect = z;
+        save();
+    }
+
+    public static boolean isHeatBar() {
+        return data.heatBar;
+    }
+
+    public static void setHeatBar(boolean z) {
+        data.heatBar = z;
+        save();
+    }
+
+    public static boolean isOverload() {
+        return data.overload;
+    }
+
+    public static void setOverload(boolean z) {
+        data.overload = z;
+        save();
+    }
+
+    public static boolean isDirector() {
+        return data.director;
+    }
+
+    public static void setDirector(boolean z) {
+        data.director = z;
+        save();
+    }
+
+    public static int subtitleGender() {
+        return Math.max(0, Math.min(2, data.subtitleGender));
+    }
+
+    public static void setSubtitleGender(int i) {
+        data.subtitleGender = Math.max(0, Math.min(2, i));
+        save();
+    }
+
+    public static int soundVolumeSteps(String str) {
+        if (str == null || data.soundVolume == null) {
+            return 10;
+        }
+        Integer num = (Integer) data.soundVolume.get(str);
+        if (num == null) {
+            return 10;
+        }
+        return Math.max(0, Math.min(20, num.intValue()));
+    }
+
+    public static void setSoundVolumeSteps(String str, int i) {
+        if (str != null) {
+            if (data.soundVolume == null) {
+                data.soundVolume = new HashMap();
+            }
+            data.soundVolume.put(str, Integer.valueOf(Math.max(0, Math.min(20, i))));
+            save();
+        }
+    }
+
     public static boolean isHrv() {
         return data.hrv;
     }
@@ -634,12 +719,12 @@ public class RoarOfLoveConfig {
         return data.pitch;
     }
 
-    public static boolean isRoarEnabled() {
-        return data.roarEnabled;
+    public static int beginCount() {
+        return Math.min(9, Math.max(0, data.beginCount));
     }
 
-    public static boolean isZipEnabled() {
-        return data.zipEnabled;
+    public static boolean isRoarEnabled() {
+        return data.roarEnabled;
     }
 
     public static List<String> blockedAnimations() {
@@ -657,61 +742,5 @@ public class RoarOfLoveConfig {
             }
         }
         return false;
-    }
-
-    public static boolean isZipDisabled(String str) {
-        return !isZipEnabled(str);
-    }
-
-    public static boolean isZipEnabled(String str) {
-        if (data.enabledZips == null) {
-            return data.disabledZips == null || !data.disabledZips.contains(str);
-        }
-        return data.enabledZips.contains(str);
-    }
-
-    public static boolean needsZipMigration() {
-        return data.enabledZips == null;
-    }
-
-    public static synchronized void migrateZipAllowlist(List<String> list) {
-        synchronized (RoarOfLoveConfig.class) {
-            if (data.enabledZips == null) {
-                ArrayList arrayList = new ArrayList();
-                if (list != null) {
-                    for (String str : list) {
-                        if (data.disabledZips == null || !data.disabledZips.contains(str)) {
-                            arrayList.add(str);
-                        }
-                    }
-                }
-                data.enabledZips = arrayList;
-                data.disabledZips = new ArrayList();
-                save();
-            }
-        }
-    }
-
-    public static void setZipEnabled(String str, boolean z) {
-        if (data.enabledZips == null) {
-            if (data.disabledZips == null) {
-                data.disabledZips = new ArrayList();
-            }
-            if (z) {
-                data.disabledZips.remove(str);
-            } else if (!data.disabledZips.contains(str)) {
-                data.disabledZips.add(str);
-            }
-            save();
-            return;
-        }
-        if (z) {
-            if (!data.enabledZips.contains(str)) {
-                data.enabledZips.add(str);
-            }
-        } else {
-            data.enabledZips.remove(str);
-        }
-        save();
     }
 }

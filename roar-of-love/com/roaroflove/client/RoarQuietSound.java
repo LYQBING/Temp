@@ -1,14 +1,14 @@
 //
-// Decompiled by Jadx - 917ms
+// Decompiled by Jadx - 611ms
 //
 package com.roaroflove.client;
 
 import net.minecraft.class_1111;
 import net.minecraft.class_1113;
+import net.minecraft.class_1144;
+import net.minecraft.class_1146;
 import net.minecraft.class_2960;
 import net.minecraft.class_3419;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.client.sounds.WeighedSoundEvents;
 
 public class RoarQuietSound implements class_1113 {
     private final class_1113 base;
@@ -25,12 +25,8 @@ public class RoarQuietSound implements class_1113 {
         return this.base.method_4775();
     }
 
-    public WeighedSoundEvents getSoundEvent() {
-        return this.base.getSoundEvent();
-    }
-
-    public WeighedSoundEvents getOrResolve(SoundManager soundManager) {
-        return this.base.getOrResolve(soundManager);
+    public class_1146 method_4783(class_1144 class_1144Var) {
+        return this.base.method_4783(class_1144Var);
     }
 
     public class_1111 method_4776() {

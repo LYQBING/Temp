@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 687ms
+// Decompiled by Jadx - 617ms
 //
 package com.roaroflove.client;
 
@@ -53,14 +53,15 @@ public final class RoarSoundDistance {
                         }
                         float pitchScale = 1.0f * RoarStyle.pitchScale();
                         if (RoarOfLoveConfig.isOcclusion() && sqrt > 2.5d && blocked(method_1551, method_23317, method_23318, method_23321, method_4784, method_4779, method_4778)) {
-                            f2 = f3 * WALL_VOLUME;
+                            f2 = WALL_VOLUME * f3;
                             f = pitchScale * WALL_PITCH;
                         } else {
                             f = pitchScale;
                             f2 = f3;
                         }
-                        float pulse = (0.96f + (0.08f * RoarBeat.pulse())) * RoarStyle.muffle() * RoarFilterState.postPeakFactor() * f2 * RoarFilterState.breathHoldFactor();
-                        return (pulse < 0.999f || f < 0.999f) ? new RoarQuietSound(class_1113Var, pulse, f) : class_1113Var;
+                        float postPeakFactor = RoarFilterState.postPeakFactor() * f2 * RoarFilterState.breathHoldFactor() * (1.0f + (0.25f * RoarFilterState.overloadLevel())) * (0.96f + (0.08f * RoarBeat.pulse())) * RoarStyle.muffle();
+                        float soundVolumeSteps = "roar_of_love".equals(class_1113Var.method_4775().method_12836()) ? postPeakFactor * (RoarOfLoveConfig.soundVolumeSteps(class_1113Var.method_4775().method_12832()) / 10.0f) : postPeakFactor;
+                        return (soundVolumeSteps < 0.999f || f < 0.999f) ? new RoarQuietSound(class_1113Var, soundVolumeSteps, f) : class_1113Var;
                     }
                     return class_1113Var;
                 }

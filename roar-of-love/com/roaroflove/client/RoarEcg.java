@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 752ms
+// Decompiled by Jadx - 789ms
 //
 package com.roaroflove.client;
 
@@ -103,6 +103,7 @@ public final class RoarEcg {
         activeInstance = uuid;
         introUntil = INTRO_MS + currentTimeMillis;
         RoarBeat.setEpoch(currentTimeMillis);
+        RoarPlayerControl.setInstance(activeInstance);
         lastEventMs = currentTimeMillis;
         stageStart = currentTimeMillis;
         peakNow = false;
@@ -122,6 +123,7 @@ public final class RoarEcg {
     public static void onEnd(UUID uuid) {
         if (activeInstance == null || uuid == null || activeInstance.equals(uuid)) {
             tailUntil = System.currentTimeMillis() + 3200;
+            RoarPlayerControl.setInstance((UUID) null);
             active = false;
             activeInstance = null;
             peakNow = false;
@@ -142,6 +144,7 @@ public final class RoarEcg {
         stageStart = currentTimeMillis;
         peakNow = z;
         RoarBeat.setEpoch(currentTimeMillis);
+        RoarPlayerControl.setInstance(activeInstance);
         long max = Math.max(180L, periodMs);
         bpm = (int) Math.max(30L, Math.min(200L, 60000 / max));
         if (isExercising()) {

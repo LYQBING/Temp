@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 828ms
+// Decompiled by Jadx - 954ms
 //
 package com.roaroflove.client;
 
@@ -17,19 +17,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.class_1309;
 import net.minecraft.class_2960;
 import net.minecraft.class_304;
 import net.minecraft.class_310;
 import net.minecraft.class_3675;
 import net.minecraft.class_437;
+import net.minecraft.class_746;
 
 public class RoarOfLoveClient implements ClientModInitializer {
     private static final int KEY_F10 = 299;
@@ -39,6 +40,9 @@ public class RoarOfLoveClient implements ClientModInitializer {
     private static final int KEY_L = 76;
     private static class_304 openSettingsKey;
     private static class_304 openSettingsKeyL;
+    private static class_304 pcHoldKey;
+    private static class_304 pcNextKey;
+    private static class_304 pcSpeedKey;
     private static class_304 testFlashKey;
     private static class_304 testHeartsKey;
     private static class_304 testShakeKey;
@@ -66,7 +70,7 @@ public class RoarOfLoveClient implements ClientModInitializer {
     }
 
     private static int indexInDefinition(class_2960 class_2960Var, NonAnimationStage nonAnimationStage) {
-        NonAnimationDefinition definition = null;
+        NonAnimationDefinition definition;
         try {
             definition = NonAnimationApi.getDefinition(class_2960Var);
         } catch (Throwable th) {
@@ -164,9 +168,12 @@ public class RoarOfLoveClient implements ClientModInitializer {
                 RoarOfLove.LOGGER.info("[roar_of_love] 首次进入存档，稍后显示引导窗口");
             }
         });
+        ClientPlayConnectionEvents.DISCONNECT.register((class_634Var2, class_310Var3) -> {
+            AudioPackLoader.onWorldLeave();
+        });
         NonAnimationSoundEvents.RESOLVE.register(soundContext -> {
-            String effect = null;
-            String soundCategoryOf = null;
+            String effect;
+            String soundCategoryOf;
             try {
                 effect = soundContext.effect();
                 soundCategoryOf = soundCategoryOf(effect);
@@ -223,14 +230,9 @@ public class RoarOfLoveClient implements ClientModInitializer {
                         i++;
                     }
                     if (num2 == null) {
-                        int definitionStageNumber = indexInDefinition(stageChangedContext.animationId(), currentStage);
-                        if (definitionStageNumber > 0) {
-                            num = Integer.valueOf(definitionStageNumber);
-                        }
+                        num3 = Integer.valueOf(indexInDefinition(stageChangedContext.animationId(), currentStage));
                         for (class_2960 class_2960Var2 : class_2960VarArr) {
-                            Integer fallbackPeakStage = class_2960Var2 == null ? null : NonPeakStages.getPeakStage(class_2960Var2);
-                            if (fallbackPeakStage != null) {
-                                num2 = fallbackPeakStage;
+                            if (class_2960Var2 != null && (r3 = NonPeakStages.getPeakStage(class_2960Var2)) != null) {
                                 str = "def:" + class_2960Var2.method_12832();
                                 break;
                             }
@@ -258,7 +260,9 @@ public class RoarOfLoveClient implements ClientModInitializer {
                         RoarSubtitles.onPeak(true);
                         RoarFilterState.triggerReflux();
                         RoarFilterState.triggerPostPeak();
+                        RoarDirector.onPeak();
                         RoarFilterState.stopBreathHold();
+                        RoarFilterState.triggerOverload();
                         RoarEcg.onStage(true);
                         RoarEcg.onReflux();
                         return;
@@ -278,20 +282,60 @@ public class RoarOfLoveClient implements ClientModInitializer {
         }
         ClientTickEvents.END_CLIENT_TICK.register(class_310Var4 -> {
             RoarEcg.tick();
+            RoarDirector.tick();
+            RoarFilterState.sampleMotion();
             RoarFilterState.tick();
             RoarPregnancy.tick();
             RoarBeat.tick();
             RoarAmbience.tick();
+            if (class_310Var4.field_1687 != null && class_310Var4.field_1755 == null && RoarOfLoveConfig.subtitleGender() == 0 && RoarSubtitles.isBothGender()) {
+                class_310Var4.method_1507(new RoarGenderScreen((class_437) null));
+            }
             RoarVignetteHud.watchdog();
         });
         NonAnimationEvents.STARTED.register(startedContext -> {
+            double d;
+            boolean z;
             try {
                 if (startedContext.session() != null && involvesLocalPlayer(startedContext.session().actorUuids())) {
                     RoarSubtitles.onAnimationStart(startedContext.session().instanceId(), startedContext.session().animationId());
+                    RoarDirector.onAnimationStart();
+                    RoarSubtitles.setPaired(startedContext.session().actorUuids() != null && startedContext.session().actorUuids().size() >= 2);
+                    RoarHandbook.noteAnimation(startedContext.session().actorUuids());
+                    try {
+                        class_310 method_1551 = class_310.method_1551();
+                        if (method_1551 != null && method_1551.field_1724 != null && method_1551.field_1687 != null && startedContext.session().actorUuids() != null) {
+                            for (class_746 class_746Var : method_1551.field_1687.method_18456()) {
+                                if (class_746Var != method_1551.field_1724 && startedContext.session().actorUuids().contains(class_746Var.method_5667())) {
+                                    d = Math.cos(Math.atan2(class_746Var.method_23321() - method_1551.field_1724.method_23321(), class_746Var.method_23317() - method_1551.field_1724.method_23317()) - Math.toRadians(method_1551.field_1724.method_36454() + 90.0d));
+                                    break;
+                                }
+                            }
+                        }
+                        d = 0.0d;
+                    } catch (Throwable th) {
+                        d = 0.0d;
+                    }
+                    RoarSubtitles.setSide(d);
+                    try {
+                        class_310 method_15512 = class_310.method_1551();
+                        if (method_15512 != null && method_15512.field_1687 != null && method_15512.field_1724 != null && startedContext.session().actorUuids() != null) {
+                            for (class_746 class_746Var2 : method_15512.field_1687.method_18456()) {
+                                if (class_746Var2 != method_15512.field_1724 && startedContext.session().actorUuids().contains(class_746Var2.method_5667()) && RoarHandbook.isClose(class_746Var2.method_5477().getString())) {
+                                    z = true;
+                                    break;
+                                }
+                            }
+                        }
+                        z = false;
+                    } catch (Throwable th2) {
+                        z = false;
+                    }
+                    RoarSubtitles.setClosePartner(z);
                     RoarEcg.onStart(startedContext.session().instanceId());
                 }
-            } catch (Throwable th) {
-                RoarOfLove.LOGGER.debug("[roar_of_love] 字幕启动监听异常", th);
+            } catch (Throwable th3) {
+                RoarOfLove.LOGGER.debug("[roar_of_love] 字幕启动监听异常", th3);
             }
         });
         NonAnimationEvents.STOPPED.register(stoppedContext -> {
@@ -299,15 +343,15 @@ public class RoarOfLoveClient implements ClientModInitializer {
             RoarSubtitles.onAnimationEnd(stoppedContext.instanceId());
             RoarEcg.onEnd(stoppedContext.instanceId());
         });
-        HudElementRegistry.addLast(class_2960.method_60655("roar_of_love", "hud"), (class_332Var, class_9779Var) -> {
+        HudRenderCallback.EVENT.register((class_332Var, class_9779Var) -> {
             RoarVignetteHud.render(class_332Var, class_9779Var);
         });
         class_304.class_11900 class_11900Var = new class_304.class_11900(class_2960.method_60655("roar_of_love", "settings"));
-        openSettingsKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.open_settings", class_3675.class_307.KEYBOARD, KEY_F7, class_11900Var));
-        openSettingsKeyL = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.open_settings_l", class_3675.class_307.KEYBOARD, KEY_L, class_11900Var));
-        testFlashKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_flash", class_3675.class_307.KEYBOARD, KEY_F8, class_11900Var));
-        testHeartsKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_hearts", class_3675.class_307.KEYBOARD, KEY_F9, class_11900Var));
-        testShakeKey = KeyMappingHelper.registerKeyMapping(new class_304("key.roar_of_love.test_shake", class_3675.class_307.KEYBOARD, KEY_F10, class_11900Var));
+        openSettingsKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.open_settings", class_3675.class_307.field_1668, KEY_F7, class_11900Var));
+        openSettingsKeyL = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.open_settings_l", class_3675.class_307.field_1668, KEY_L, class_11900Var));
+        testFlashKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_flash", class_3675.class_307.field_1668, KEY_F8, class_11900Var));
+        testHeartsKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_hearts", class_3675.class_307.field_1668, KEY_F9, class_11900Var));
+        testShakeKey = KeyBindingHelper.registerKeyBinding(new class_304("key.roar_of_love.test_shake", class_3675.class_307.field_1668, KEY_F10, class_11900Var));
         RoarBridge.init();
         if (!RoarMarquee.verify()) {
             RoarOfLove.LOGGER.error("[roar_of_love] 公告文件（assets/roar_of_love/marquee.txt）缺失或被修改，模组拒绝运行");
@@ -342,13 +386,28 @@ public class RoarOfLoveClient implements ClientModInitializer {
                 RoarOfLove.LOGGER.info("[roar_of_love] F9 测试爱心");
                 RoarFilterState.debugBurstHearts();
             }
+            if (pcHoldKey != null) {
+                while (pcHoldKey.method_1436()) {
+                    RoarPlayerControl.toggleHold();
+                }
+            }
+            if (pcNextKey != null) {
+                while (pcNextKey.method_1436()) {
+                    RoarPlayerControl.nextStage();
+                }
+            }
+            if (pcSpeedKey != null) {
+                while (pcSpeedKey.method_1436()) {
+                    RoarPlayerControl.cycleSpeed();
+                }
+            }
             while (testShakeKey.method_1436()) {
                 RoarOfLove.LOGGER.info("[roar_of_love] F10 测试屏幕抖动（开关={}）", Boolean.valueOf(RoarOfLoveConfig.isShakeEffect()));
                 RoarFilterState.triggerShakeForced(2.5f);
             }
         });
         ClientCommandRegistrationCallback.EVENT.register((commandDispatcher, class_7157Var) -> {
-            commandDispatcher.register(ClientCommands.literal("roaroflove").executes(commandContext -> {
+            commandDispatcher.register(ClientCommandManager.literal("roaroflove").executes(commandContext -> {
                 RoarOfLove.LOGGER.info("[roar_of_love] 命令打开设置界面");
                 class_310.method_1551().execute(() -> {
                     class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen(class_310.method_1551().field_1755));

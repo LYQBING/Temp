@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 427ms
+// Decompiled by Jadx - 650ms
 //
 package com.roaroflove.client;
 
@@ -15,6 +15,6 @@ final class RoarSubtitles$Sub {
     float x;
     float y;
 
-    RoarSubtitles$Sub() {
+    private RoarSubtitles$Sub() {
     }
 }

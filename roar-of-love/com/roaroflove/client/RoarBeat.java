@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 651ms
+// Decompiled by Jadx - 572ms
 //
 package com.roaroflove.client;
 
@@ -11,7 +11,7 @@ import net.minecraft.class_310;
 public final class RoarBeat {
     private static final long MAX_ALIGN_MS = 170;
     private static final int QUEUE_LIMIT = 12;
-    private static final ArrayDeque<RoarBeat$Entry> QUEUE = new ArrayDeque<>();
+    private static final ArrayDeque<Entry> QUEUE = new ArrayDeque<>();
     private static volatile boolean replaying = false;
     private static int alignedCount = 0;
     private static volatile long epochMs = System.currentTimeMillis();
@@ -28,7 +28,7 @@ public final class RoarBeat {
     }
 
     public static long periodMs() {
-        return 1150 - (Math.max(0, Math.min(5, RoarFilterState.cachedLust())) * 90);
+        return 1150 - (Math.max(0, Math.min(3, RoarFilterState.cachedLust())) * (200 / Math.max(1, 3)));
     }
 
     public static void setEpoch(long j) {
@@ -48,9 +48,8 @@ public final class RoarBeat {
     }
 
     public static double phaseAt(long j) {
-        long period = effectivePeriodMs();
-        double phase = ((j - epochMs) % period) / (double) period;
-        return phase < 0.0d ? phase + 1.0d : phase;
+        double effectivePeriodMs = ((j - epochMs) % r0) / effectivePeriodMs();
+        return effectivePeriodMs < 0.0d ? effectivePeriodMs + 1.0d : effectivePeriodMs;
     }
 
     public static float pulse() {
@@ -81,7 +80,7 @@ public final class RoarBeat {
             if (nextBeatInMs <= MAX_ALIGN_MS) {
                 synchronized (QUEUE) {
                     if (QUEUE.size() < QUEUE_LIMIT) {
-                        RoarBeat$Entry entry = new RoarBeat$Entry();
+                        Entry entry = new Entry();
                         entry.instance = class_1113Var;
                         entry.atMs = nextBeatInMs + System.currentTimeMillis();
                         QUEUE.add(entry);

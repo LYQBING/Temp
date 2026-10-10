@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 587ms
+// Decompiled by Jadx - 566ms
 //
 package com.roaroflove.client;
 
@@ -9,6 +9,6 @@ final class RoarBeat$Entry {
     long atMs;
     class_1113 instance;
 
-    RoarBeat$Entry() {
+    private RoarBeat$Entry() {
     }
 }
