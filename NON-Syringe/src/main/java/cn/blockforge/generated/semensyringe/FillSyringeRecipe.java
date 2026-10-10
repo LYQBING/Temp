@@ -63,6 +63,11 @@ public final class FillSyringeRecipe implements CraftingRecipe {
     }
 
     @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(List.of(Ingredient.of(SemenSyringeMod.SYRINGE), Ingredient.of(Items.POTION)));
     }
