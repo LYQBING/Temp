@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,8 +58,6 @@ public final class SyringeLogic {
 			return false;
 		}
 		consume(serverInjector, hand, contents, Math.min(accepted, contents.milliliters()));
-		injector.swing(hand, true);
-		target.playSound(SoundEvents.GENERIC_DRINK, 0.5F, 1.7F);
 		injector.sendSystemMessage(Component.translatable("semen_syringe.msg.injected", donorText(contents.donorId()), accepted));
 		if (target != injector) {
 			target.sendSystemMessage(Component.translatable("semen_syringe.msg.injected_by", injector.getDisplayName(), accepted));
