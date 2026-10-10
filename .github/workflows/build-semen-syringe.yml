@@ -1,0 +1,49 @@
+name: Build Semen Syringe
+
+on:
+	push:
+		paths:
+			- 'NON-Syringe/**'
+			- '.github/workflows/build-semen-syringe.yml'
+	pull_request:
+		paths:
+			- 'NON-Syringe/**'
+			- '.github/workflows/build-semen-syringe.yml'
+	workflow_dispatch:
+
+permissions:
+	contents: read
+
+jobs:
+	build:
+		runs-on: ubuntu-latest
+		defaults:
+			run:
+				working-directory: NON-Syringe
+		steps:
+			- uses: actions/checkout@v4
+
+			- uses: actions/setup-java@v4
+				with:
+					distribution: temurin
+					java-version: '25'
+
+			- uses: gradle/actions/setup-gradle@v4
+				with:
+					gradle-version: '9.5.0'
+
+			- name: Build
+				run: gradle clean build --no-daemon
+
+			- name: Verify mod resources
+				run: |
+					jar_file=$(find build/libs -maxdepth 1 -name 'semen-syringe-*.jar' ! -name '*sources.jar' | head -n 1)
+					test -n "$jar_file"
+					jar tf "$jar_file" | grep -Fx 'fabric.mod.json'
+					jar tf "$jar_file" | grep -Fx 'data/semen_syringe/recipe/fill_syringe.json'
+					jar tf "$jar_file" | grep -Fx 'assets/semen_syringe/lang/en_us.json'
+
+			- uses: actions/upload-artifact@v4
+				with:
+					name: semen-syringe
+					path: NON-Syringe/build/libs/semen-syringe-*.jar

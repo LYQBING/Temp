@@ -1,0 +1,15 @@
+{
+	"item.semen_syringe.syringe": "精液注射器",
+	"semen_syringe.tooltip.empty": "空的——与液体瓶一起在工作台合成即可灌装",
+	"semen_syringe.tooltip.donor": "供体：%s",
+	"semen_syringe.tooltip.mixed": "混合液体",
+	"semen_syringe.tooltip.amount": "内含 %s mL",
+	"semen_syringe.tooltip.dose": "每次注射：%s mL",
+	"semen_syringe.tooltip.usage": "右键空气给自己注射；按住 Shift 右键玩家给对方注射",
+	"semen_syringe.msg.empty": "注射器是空的",
+	"semen_syringe.msg.injected": "已注入 %1$s 的液体 %2$s mL",
+	"semen_syringe.msg.injected_by": "%1$s 给你注射了 %2$s mL 液体",
+	"semen_syringe.msg.rejected": "注射失败：目标的液体罐已满或未启用",
+	"semen_syringe.msg.need_sneak": "给其他玩家注射需要按住 Shift 并右键对方",
+	"semen_syringe.msg.tank_disabled": "Needs of Nature 的液体罐功能当前未启用"
+}

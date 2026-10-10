@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:has_component",
+    "component": "semen_syringe:contents",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "semen_syringe:item/syringe_filled"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "semen_syringe:item/syringe"
+    }
+  }
+}

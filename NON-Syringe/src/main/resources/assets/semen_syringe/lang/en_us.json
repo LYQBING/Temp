@@ -1,0 +1,15 @@
+{
+	"item.semen_syringe.syringe": "Semen Syringe",
+	"semen_syringe.tooltip.empty": "Empty — craft it with a liquid bottle to fill it",
+	"semen_syringe.tooltip.donor": "Donor: %s",
+	"semen_syringe.tooltip.mixed": "Mixed",
+	"semen_syringe.tooltip.amount": "Contains %s mL",
+	"semen_syringe.tooltip.dose": "Per injection: %s mL",
+	"semen_syringe.tooltip.usage": "Right-click air to inject yourself; Shift + right-click a player to inject them",
+	"semen_syringe.msg.empty": "The syringe is empty",
+	"semen_syringe.msg.injected": "Injected %2$s mL of %1$s liquid",
+	"semen_syringe.msg.injected_by": "%1$s injected you with %2$s mL of liquid",
+	"semen_syringe.msg.rejected": "Injection failed: the target's liquid tank is full or disabled",
+	"semen_syringe.msg.need_sneak": "To inject another player, hold Shift and right-click them",
+	"semen_syringe.msg.tank_disabled": "The Needs of Nature liquid tank is currently disabled"
+}
