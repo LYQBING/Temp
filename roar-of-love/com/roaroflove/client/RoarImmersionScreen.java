@@ -18,7 +18,10 @@ import net.minecraft.class_5250;
 
 public class RoarImmersionScreen extends class_437 {
     private static final class_2960 BACKGROUND = class_2960.method_60655("roar_of_love", "textures/gui/settings_background.png");
-    private static final int CONTENT_HEIGHT = 408;
+    private static final int CONTENT_HEIGHT = 382;
+    private static final int FOOTER_H = 34;
+    private static final int HEADER_H = 30;
+    private static final int ROW_STEP = 22;
     private int maxScroll;
     private final class_437 parent;
     private int scrollY;
@@ -28,6 +31,14 @@ public class RoarImmersionScreen extends class_437 {
         this.scrollY = 0;
         this.maxScroll = 0;
         this.parent = class_437Var;
+    }
+
+    private void scrollBy(int amount) {
+        int next = Math.max(0, Math.min(this.maxScroll, this.scrollY + amount));
+        if (next != this.scrollY) {
+            this.scrollY = next;
+            refresh();
+        }
     }
 
     private void refresh() {
@@ -42,10 +53,10 @@ public class RoarImmersionScreen extends class_437 {
     protected void method_25426() {
         method_37067();
         RoarButton.resetVariants();
-        this.maxScroll = Math.max(0, 276 - ((this.field_22790 - 36) - 32));
-        if (this.scrollY > this.maxScroll) {
-            this.scrollY = this.maxScroll;
-        }
+        this.maxScroll = Math.max(0, CONTENT_HEIGHT - ((this.field_22790 - HEADER_H) - FOOTER_H));
+        if (this.scrollY > this.maxScroll) this.scrollY = this.maxScroll;
+        int extraScroll = (414 - this.maxScroll) - (this.field_22790 - FOOTER_H);
+        if (extraScroll > 0) this.maxScroll += extraScroll;
         int i = this.field_22789 / 2;
         int i2 = 32 - this.scrollY;
         row(i, i2 + 34, "roar_of_love.ui.breath", RoarOfLoveConfig.isBreathEffect(), bool -> {
@@ -131,6 +142,14 @@ public class RoarImmersionScreen extends class_437 {
         }));
     }
 
+    public boolean method_25401(double x, double y, double horizontalAmount, double verticalAmount) {
+        if (this.maxScroll > 0 && verticalAmount != 0.0d) {
+            scrollBy(verticalAmount > 0.0d ? -22 : ROW_STEP);
+            return true;
+        }
+        return false;
+    }
+
     private void row(int i, int i2, String str, boolean z, Consumer<Boolean> consumer, int i3, IntConsumer intConsumer, String str2, boolean z2, Consumer<Boolean> consumer2) {
         method_37063(new RoarButton(i - 180, i2, 150, 20, class_2561.method_43469(z ? str + "_on" : str + "_off", new Object[0]), class_4185Var -> {
             consumer.accept(Boolean.valueOf(!z));
@@ -171,11 +190,17 @@ public class RoarImmersionScreen extends class_437 {
         if (this.field_22787 != null && this.field_22793 != null) {
             int i4 = 32 - this.scrollY;
             line(class_332Var, "roar_of_love.ui.immersion_title", this.field_22789 / 2, 10, -1);
-            line(class_332Var, "roar_of_love.ui.immersion_hint", this.field_22789 / 2, i4 + 240, -5185281);
-            line(class_332Var, "roar_of_love.ui.immersion_hint2", this.field_22789 / 2, i4 + 252, -7695450);
+            line(class_332Var, "roar_of_love.ui.immersion_hint", this.field_22789 / 2, i4 + 372, -5185281);
+            line(class_332Var, "roar_of_love.ui.immersion_hint2", this.field_22789 / 2, i4 + 386, -7695450);
             if (this.maxScroll > 0) {
+                int trackHeight = i3 - HEADER_H;
+                int thumbHeight = Math.max(16, (trackHeight * trackHeight) / (this.maxScroll + trackHeight));
+                int thumbY = HEADER_H + (((trackHeight - thumbHeight) * this.scrollY) / this.maxScroll);
+                int scrollbarX = this.field_22789 - 6;
+                class_332Var.method_25294(scrollbarX, HEADER_H, scrollbarX + 3, i3, 0x60ffffff);
+                class_332Var.method_25294(scrollbarX, thumbY, scrollbarX + 3, thumbY + thumbHeight, -1056964609);
                 class_5250 method_43469 = class_2561.method_43469("roar_of_love.ui.scroll_hint", new Object[0]);
-                class_332Var.method_27535(this.field_22793, method_43469, (this.field_22789 - 6) - this.field_22793.method_27525(method_43469), this.field_22790 - 11, -6381922);
+                class_332Var.method_27535(this.field_22793, method_43469, (this.field_22789 - 12) - this.field_22793.method_27525(method_43469), this.field_22790 - 11, -6381922);
             }
         }
     }

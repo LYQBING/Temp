@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.class_10799;
 import net.minecraft.class_11909;
-import net.minecraft.class_124;
 import net.minecraft.class_2561;
 import net.minecraft.class_2960;
 import net.minecraft.class_310;
@@ -26,14 +25,22 @@ import net.minecraft.class_5250;
 public class RoarOfLoveSettingsScreen extends class_437 {
     public static final String AUTHOR = "哔哩哔哩：佳佳不好";
     private static final class_2960 BACKGROUND = class_2960.method_60655("roar_of_love", "textures/gui/settings_background.png");
+    private static final int COL_GAP = 8;
+    private static final int COL_W = 150;
+    private static final int CONTENT_TOP = 38;
+    private static final int FOOTER_GAP = 30;
+    private static final int FOOTER_H = 34;
+    private static final int HEADER_H = 34;
+    private static final int PV_MAIN_W = 112;
+    private static final int PV_SWITCH_W = 34;
+    private static final int ROW_H = 24;
+    private static final int SECTION_H = 26;
     public static final String TITLE = "音频设置";
     private final List<String[]> sectionHeaderRects;
     private String cachedStatus;
     private int cachedStatusWidth;
     private int maxScroll;
-    private String missingNote;
     private final class_437 parent;
-    private String pendingZip;
     private int scrollY;
     private String statusLine;
     private String statusText;
@@ -41,31 +48,14 @@ public class RoarOfLoveSettingsScreen extends class_437 {
     public RoarOfLoveSettingsScreen(class_437 class_437Var) {
         super(class_2561.method_43469("roar_of_love.ui.title", new Object[0]));
         this.statusText = "";
-        this.missingNote = "";
         this.cachedStatus = null;
         this.statusLine = "";
         this.cachedStatusWidth = -1;
-        this.pendingZip = null;
         this.sectionHeaderRects = new ArrayList();
         this.scrollY = 0;
         this.maxScroll = 0;
         this.parent = class_437Var;
         this.statusText = AudioPackLoader.lastStatus();
-        this.pendingZip = AudioPackLoader.activeZipName();
-        List missingDefaultAssets = AudioPackLoader.missingDefaultAssets(class_310.method_1551());
-        if (!missingDefaultAssets.isEmpty()) {
-            StringBuilder sb = new StringBuilder(tr("roar_of_love.ui.missing_prefix", new Object[0]));
-            for (int i = 0; i < Math.min(3, missingDefaultAssets.size()); i++) {
-                if (i > 0) {
-                    sb.append(tr("roar_of_love.ui.missing_sep", new Object[0]));
-                }
-                sb.append((String) missingDefaultAssets.get(i));
-            }
-            if (missingDefaultAssets.size() > 3) {
-                sb.append(tr("roar_of_love.ui.missing_more", Integer.valueOf(missingDefaultAssets.size())));
-            }
-            this.missingNote = sb.toString();
-        }
     }
 
     private static String tr(String str, Object... objArr) {
@@ -80,18 +70,6 @@ public class RoarOfLoveSettingsScreen extends class_437 {
     private void openAudioEditor(String slotId) {
         class_310 client = class_310.method_1551();
         if (client != null) client.method_1507(new RoarAudioSlotScreen(this, slotId));
-    }
-
-    private boolean isDirty() {
-        String activeZipName = AudioPackLoader.activeZipName();
-        return this.pendingZip == null ? activeZipName != null : !this.pendingZip.equals(activeZipName);
-    }
-
-    private void commitPending() {
-        for (String str : AudioPackLoader.detectedZipNames()) {
-            AudioPackLoader.setZipEnabled(str, str.equals(this.pendingZip));
-        }
-        refreshAndRebuild();
     }
 
     protected void method_25426() {
@@ -121,14 +99,11 @@ public class RoarOfLoveSettingsScreen extends class_437 {
                 }));
             }
         }
-        List<String> detectedZipNames = AudioPackLoader.detectedZipNames();
         int previewRows = (previews.size() + 1) / 2;
-        int zipTopOffset = 38 + 26 + (4 * 24) + 26 + (4 * 24) + 26 + (previewRows * 24) + 26 + (3 * 24) + 24 + 26;
-        int contentBottom = zipTopOffset + (Math.max(1, detectedZipNames.size()) * 23) + (this.missingNote.isEmpty() ? 0 : 10) + (detectedZipNames.isEmpty() ? 10 : 0);
-        this.maxScroll = Math.max(0, contentBottom - (this.field_22790 - 64));
+        this.maxScroll = Math.max(0, ((previewRows * ROW_H) + SECTION_H + 220 + 98 + 16) - ((this.field_22790 - 34) - 64));
         if (this.scrollY > this.maxScroll) this.scrollY = this.maxScroll;
 
-        int top = 38 - this.scrollY;
+        int top = CONTENT_TOP - this.scrollY;
         int y = section("roar_of_love.ui.section_fx", center, top);
         toggle(left, y, 150, RoarOfLoveConfig.isFlashEffect(), "flash", () -> RoarOfLoveConfig.setFlashEffect(!RoarOfLoveConfig.isFlashEffect()), "roar_of_love.tip.flash");
         toggle(right, y, 150, RoarOfLoveConfig.isShakeEffect(), "shake", () -> RoarOfLoveConfig.setShakeEffect(!RoarOfLoveConfig.isShakeEffect()), "roar_of_love.tip.shake");
@@ -138,9 +113,6 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         y += 24;
         toggle(left, y, 150, RoarOfLoveConfig.isOverload(), "overload", () -> RoarOfLoveConfig.setOverload(!RoarOfLoveConfig.isOverload()), "roar_of_love.tip.overload");
         toggle(right, y, 150, RoarOfLoveConfig.isDirector(), "director", () -> RoarOfLoveConfig.setDirector(!RoarOfLoveConfig.isDirector()), "roar_of_love.tip.director");
-        y += 24;
-        toggle(left, y, 308, RoarOfLoveConfig.isDirSub(), "dirsub", () -> RoarOfLoveConfig.setDirSub(!RoarOfLoveConfig.isDirSub()), "");
-
         y = section("roar_of_love.ui.section_audio", center, y + 24);
         toggle(left, y, 150, RoarOfLoveConfig.isSoundEnabled("hurt"), "hurt", () -> RoarOfLoveConfig.setSoundEnabled("hurt", !RoarOfLoveConfig.isSoundEnabled("hurt")), "roar_of_love.tip.hurt");
         toggle(right, y, 150, RoarOfLoveConfig.isOtherMobCalls(), "mob_calls", () -> RoarOfLoveConfig.setOtherMobCalls(!RoarOfLoveConfig.isOtherMobCalls()), "roar_of_love.tip.mob_calls");
@@ -158,59 +130,36 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         for (int index = 0; index < previews.size(); index++) {
             RoarOfLoveSettingsScreen$Action action = previews.get(index);
             int x = index % 2 == 0 ? left : right;
-            int rowY = previewTop + (index / 2) * 24;
-            method_37063(btn(class_2561.method_43470(action.label()), button -> action.run().run(), x, rowY, 112, 20));
+            int rowY = previewTop + (index / 2) * ROW_H;
+            method_37063(btn(class_2561.method_43470(action.label()), button -> action.run().run(), x, rowY, PV_MAIN_W, 20));
             method_37063(btn(class_2561.method_43469(RoarOfLoveConfig.isSoundEnabled(action.key()) ? "roar_of_love.ui.snd_on" : "roar_of_love.ui.snd_off", new Object[0]), button -> {
                 RoarOfLoveConfig.setSoundEnabled(action.key(), !RoarOfLoveConfig.isSoundEnabled(action.key()));
                 rebuild();
-            }, x + 116, rowY, 34, 20));
+            }, x + PV_MAIN_W + 4, rowY, PV_SWITCH_W, 20));
         }
 
-        int toolTop = section("roar_of_love.ui.section_tools", center, previewTop + ((previews.size() + 1) / 2) * 24);
+        int toolTop = section("roar_of_love.ui.section_tools", center, previewTop + (previewRows * ROW_H));
         link(left, toolTop, 150, "roar_of_love.ui.filters_open", this::openFilters);
         link(right, toolTop, 150, "roar_of_love.ui.subtitles_open", this::openSubtitles);
         toolTop += 24;
         link(left, toolTop, 150, "roar_of_love.ui.immersion_open", this::openImmersion);
         link(right, toolTop, 150, "roar_of_love.ui.layout_open", this::openLayout);
         toolTop += 24;
-        method_37063(btn(class_2561.method_43469("roar_of_love.ui.audio_editor", new Object[0]), button -> openAudioEditor(""), left, toolTop, 150, 20));
-        link(right, toolTop, 150, "roar_of_love.ui.handbook_open", this::openHandbook);
-        toolTop += 24;
-        method_37063(btn(class_2561.method_43469("roar_of_love.ui.open_audio_folder", new Object[0]), button -> AudioPackLoader.openAudioFolder(), left, toolTop, 150, 20));
-        method_37063(btn(class_2561.method_43469("roar_of_love.ui.pack_check", new Object[0]), button -> checkPack(), right, toolTop, 150, 20));
+        link(left, toolTop, 150, "roar_of_love.ui.handbook_open", this::openHandbook);
+        link(right, toolTop, 150, "roar_of_love.ui.open_audio_folder", AudioPackLoader::openAudioFolder);
 
-        int zipTop = section(isDirty() ? "roar_of_love.ui.group_header_dirty" : "roar_of_love.ui.group_header", center, toolTop + 24);
-        int zipWidth = Math.min(308, this.field_22789 - 24);
-        int zipX = center - zipWidth / 2;
-        for (int index = 0; index < detectedZipNames.size(); index++) {
-            String zipName = detectedZipNames.get(index);
-            boolean selected = zipName.equals(this.pendingZip);
-            boolean enabled = AudioPackLoader.isZipEnabled(zipName);
-            String key = selected != enabled ? (selected ? "roar_of_love.ui.zip_pending_on" : "roar_of_love.ui.zip_pending_off") : (enabled ? "roar_of_love.ui.zip_on" : "roar_of_love.ui.zip_off");
-            String nextZip = selected ? null : zipName;
-            method_37063(btn(class_2561.method_43469(key, new Object[0]).method_27692(selected ? class_124.field_1060 : class_124.field_1061).method_10852(class_2561.method_43470(trim(zipName, zipWidth - 40)).method_27692(class_124.field_1068)), button -> {
-                this.pendingZip = nextZip;
-                rebuild();
-            }, zipX, zipTop + index * 23, zipWidth, 20));
-        }
-        int footerY = this.field_22790 - 26;
-        int footerWidth = Math.min(130, (this.field_22789 - 20) / 3);
-        int footerGap = 4;
-        int footerX = Math.max(4, center - ((footerWidth * 3 + footerGap * 2) / 2));
-        RoarButton checkButton = new RoarButton(footerX, footerY, footerWidth, 20, class_2561.method_43469("roar_of_love.ui.builtin_check", new Object[0]), button -> checkPack());
+        RoarButton checkButton = new RoarButton(COL_GAP, this.field_22790 - 26, 130, 20, class_2561.method_43469("roar_of_love.ui.builtin_check", new Object[0]), button -> checkBuiltin());
         checkButton.field_22763 = this.scrollY >= this.maxScroll - 1;
         method_37063(checkButton);
-        method_37063(new RoarButton(footerX + footerWidth + footerGap, footerY, footerWidth, 20, class_2561.method_43469("roar_of_love.ui.apply", new Object[0]), button -> commitPending()));
-        method_37063(new RoarButton(footerX + (footerWidth + footerGap) * 2, footerY, footerWidth, 20, class_2561.method_43469("roar_of_love.ui.done", new Object[0]), button -> method_25419()));
-        RoarHoverTooltip.register(footerX, footerY, footerWidth, 20, "roar_of_love.tip.builtin_check");
-        RoarOfLove.LOGGER.debug("[roar_of_love] 设置界面重建：试听 {} 项，音频包 {} 个，滚动 {}/{}", previews.size(), detectedZipNames.size(), this.scrollY, this.maxScroll);
+        RoarHoverTooltip.register(COL_GAP, this.field_22790 - 26, 130, 20, "roar_of_love.tip.builtin_check");
+        RoarOfLove.LOGGER.debug("[roar_of_love] 设置界面重建：试听 {} 项，滚动 {}/{}", previews.size(), this.scrollY, this.maxScroll);
     }
 
     private int section(String key, int center, int y) {
         // Align stored section header Y to the same drawing baseline used by the scrollbar (32),
         // so helpers that lookup section positions and the scrollbar use the same coordinates.
         this.sectionHeaderRects.add(new String[]{key, String.valueOf(y - 6)});
-        return y + 26;
+        return y + SECTION_H;
     }
 
     private void toggle(int x, int y, int width, boolean enabled, String key, Runnable action, String tooltip) {
@@ -246,18 +195,18 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         }
     }
 
-    private void checkPack() {
+    private void checkBuiltin() {
         try {
             List missingDefaultAssets = AudioPackLoader.missingDefaultAssets(class_310.method_1551());
             if (missingDefaultAssets.isEmpty()) {
-                AudioPackLoader.sendChat(tr("roar_of_love.chat.pack_ok", new Object[0]));
-                class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, tr("roar_of_love.chat.pack_ok", new Object[0])));
+                AudioPackLoader.sendChat(tr("roar_of_love.chat.builtin_ok", new Object[0]));
+                class_310.method_1551().method_1507(new RoarOfLoveSettingsScreen$NoticeScreen(this, tr("roar_of_love.chat.builtin_ok", new Object[0])));
                 return;
             }
-            AudioPackLoader.sendChat(tr("roar_of_love.chat.pack_missing", Integer.valueOf(missingDefaultAssets.size())));
+            AudioPackLoader.sendChat(tr("roar_of_love.chat.builtin_missing", Integer.valueOf(missingDefaultAssets.size())));
             int min = Math.min(9, missingDefaultAssets.size());
             String[] strArr = new String[min + 1];
-            strArr[0] = tr("roar_of_love.chat.pack_missing", Integer.valueOf(missingDefaultAssets.size()));
+            strArr[0] = tr("roar_of_love.chat.builtin_missing", Integer.valueOf(missingDefaultAssets.size()));
             for (int i = 0; i < min; i++) {
                 strArr[i + 1] = (String) missingDefaultAssets.get(i);
             }
@@ -308,21 +257,6 @@ public class RoarOfLoveSettingsScreen extends class_437 {
         }
     }
 
-    private static String trim(String str, int i) {
-        int max = Math.max(6, i / 6);
-        return str.length() <= max ? str : str.substring(0, Math.max(4, max - 1)) + "…";
-    }
-
-    private void refreshAndRebuild() {
-        AudioPackLoader.refreshNow(() -> {
-            class_310.method_1551().execute(() -> {
-                this.statusText = AudioPackLoader.lastStatus();
-                AudioPackLoader.sendChat(tr("roar_of_love.chat.refresh_done", this.statusText));
-                method_25426();
-            });
-        });
-    }
-
     public boolean method_25402(class_11909 class_11909Var, boolean z) {
         RoarOfLove.LOGGER.info("[roar_of_love] 设置界面 mouseClicked x={} y={} button={}", new Object[]{Double.valueOf(class_11909Var.comp_4798()), Double.valueOf(class_11909Var.comp_4799()), Integer.valueOf(class_11909Var.method_74245())});
         try {
@@ -358,40 +292,13 @@ public class RoarOfLoveSettingsScreen extends class_437 {
                     centered(class_332Var, class_2561.method_43469(section[0], new Object[0]), center, y + 4, -2039553);
                 }
             }
-            List<String> detectedZipNames = AudioPackLoader.detectedZipNames();
-            int zipHeaderY = findSectionY("roar_of_love.ui.group_header", "roar_of_love.ui.group_header_dirty");
-            if (zipHeaderY >= 0 && detectedZipNames.isEmpty()) {
-                drawRegionText(class_332Var, class_2561.method_43469("roar_of_love.ui.no_pack", new Object[0]), zipHeaderY + 26, 32, contentBottom, -7303024);
-            }
-            if (zipHeaderY >= 0 && !this.missingNote.isEmpty()) {
-                int noteY = zipHeaderY + 26 + (Math.max(1, detectedZipNames.size()) * 23);
-                drawRegionText(class_332Var, class_2561.method_43470(this.missingNote), noteY, 32, contentBottom, -39322);
-            }
             drawScrollbar(class_332Var, 32, contentBottom);
             class_332Var.method_27535(this.field_22793, class_2561.method_43469("roar_of_love.ui.author", new Object[0]), 6, this.field_22790 - 11, -6381922);
-            if (isDirty()) {
-                class_5250 dirtyText = class_2561.method_43469("roar_of_love.ui.apply_now_dirty", new Object[0]);
-                class_332Var.method_27535(this.field_22793, dirtyText, (this.field_22789 - 8) - this.field_22793.method_27525(dirtyText), this.field_22790 - 11, -15797);
-            } else if (this.maxScroll > 0) {
+            if (this.maxScroll > 0) {
                 class_5250 scrollHint = class_2561.method_43469(this.scrollY >= this.maxScroll - 1 ? "roar_of_love.ui.scroll_end" : "roar_of_love.ui.scroll_hint", new Object[0]);
                 class_332Var.method_27535(this.field_22793, scrollHint, (this.field_22789 - 8) - this.field_22793.method_27525(scrollHint), this.field_22790 - 11, -6381828);
             }
             RoarHoverTooltip.render(class_332Var, i, i2, this.field_22789, this.field_22790);
-        }
-    }
-
-    private int findSectionY(String... keys) {
-        for (String[] section : this.sectionHeaderRects) {
-            for (String key : keys) {
-                if (section[0].equals(key)) return Integer.parseInt(section[1]);
-            }
-        }
-        return -1;
-    }
-
-    private void drawRegionText(class_332 class_332Var, class_2561 class_2561Var, int i, int i2, int i3, int i4) {
-        if (i >= i2 - 8 && i + 9 <= i3) {
-            centered(class_332Var, class_2561Var, this.field_22789 / 2, i, i4);
         }
     }
 
