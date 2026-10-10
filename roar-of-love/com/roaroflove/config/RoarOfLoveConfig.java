@@ -54,6 +54,16 @@ public class RoarOfLoveConfig {
                                 th.addSuppressed(th2);
                             }
                         }
+                        throw th;
+                    }
+                } else {
+                    save();
+                }
+            } catch (Exception e) {
+                RoarOfLove.LOGGER.error("[roar_of_love] 配置文件读取失败，使用默认值", e);
+            }
+        }
+    }
 
     public static boolean isTooltips() {
         return data.tooltips;
@@ -98,16 +108,6 @@ public class RoarOfLoveConfig {
     public static void setDirSub(boolean enabled) {
         data.dirSub = enabled;
         save();
-    }
-                        throw th;
-                    }
-                } else {
-                    save();
-                }
-            } catch (Exception e) {
-                RoarOfLove.LOGGER.error("[roar_of_love] 配置文件读取失败，使用默认值", e);
-            }
-        }
     }
 
     public static synchronized void save() {
