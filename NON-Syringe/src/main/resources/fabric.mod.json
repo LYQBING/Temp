@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "semen_syringe",
+	"version": "${version}",
+	"name": "Semen Syringe (Needs of Nature Addon)",
+	"description": "Semen Syringe: fill a syringe from a Needs of Nature semen bottle in a crafting table, then inject it into a player. Conception chances are fully delegated to Needs of Nature's normal mating logic.",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"cn.blockforge.generated.semensyringe.SemenSyringeMod"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"needsofnature": "*"
+	}
+}

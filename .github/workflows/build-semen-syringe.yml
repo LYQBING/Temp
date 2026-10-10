@@ -30,10 +30,17 @@ jobs:
       - name: Verify mod resources
         run: |
           jar_file=$(find build/libs -maxdepth 1 -name 'semen-syringe-*.jar' ! -name '*sources.jar' | head -n 1)
-          test -n "$jar_file"
-          jar tf "$jar_file" | grep -Fx 'fabric.mod.json'
-          jar tf "$jar_file" | grep -Fx 'data/semen_syringe/recipe/fill_syringe.json'
-          jar tf "$jar_file" | grep -Fx 'assets/semen_syringe/lang/en_us.json'
+          if [ -z "$jar_file" ]; then
+            echo "No main Semen Syringe jar found in build/libs"
+            ls -la build/libs
+            exit 1
+          fi
+          echo "Verifying $jar_file"
+          jar tf "$jar_file" > /tmp/semen-syringe-jar-contents.txt
+          cat /tmp/semen-syringe-jar-contents.txt
+          grep -Fx 'fabric.mod.json' /tmp/semen-syringe-jar-contents.txt
+          grep -Fx 'data/semen_syringe/recipe/fill_syringe.json' /tmp/semen-syringe-jar-contents.txt
+          grep -Fx 'assets/semen_syringe/lang/en_us.json' /tmp/semen-syringe-jar-contents.txt
 
       - uses: actions/upload-artifact@v4
         with:
