@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.class_310;
-import net.minecraft.class_746;
 
 public final class RoarHandbook {
 	private static final int CLOSE = 8;
@@ -73,7 +72,7 @@ public final class RoarHandbook {
 		}
 		int found = 0;
 		try {
-			for (class_746 player : client.field_1687.method_18456()) {
+			for (var player : client.field_1687.method_18456()) {
 				if (actors.contains(player.method_5667())) {
 					found++;
 					if (player != client.field_1724) {

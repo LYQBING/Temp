@@ -18,6 +18,7 @@ import net.minecraft.class_310;
 import net.minecraft.class_332;
 import net.minecraft.class_3414;
 import net.minecraft.class_437;
+import net.minecraft.class_11909;
 
 public class RoarAudioSlotScreen extends class_437 {
 	private static final class_2960 BACKGROUND = class_2960.method_60655("roar_of_love", "textures/gui/settings_background.png");
@@ -51,7 +52,7 @@ public class RoarAudioSlotScreen extends class_437 {
 	}
 
 	private int visibleRows() {
-		return Math.max(0, (field_22790 - 154) / 17);
+		return Math.max(0, (this.field_22790 - 154) / 17);
 	}
 
 	private int selectedRow() {
@@ -75,9 +76,9 @@ public class RoarAudioSlotScreen extends class_437 {
 		RoarHoverTooltip.reset();
 		if (slotId.isEmpty()) {
 			int y = 34;
-			int columnHeight = Math.max(23, field_22790 - 102);
+			int columnHeight = Math.max(23, this.field_22790 - 102);
 			int rowsPerColumn = Math.max(1, columnHeight / 23);
-			int buttonWidth = Math.max(1, (field_22789 - 36) / 2);
+			int buttonWidth = Math.max(1, (this.field_22789 - 36) / 2);
 			int secondColumnX = 12 + buttonWidth + 12;
 			int index = 0;
 			for (String category : RoLSounds.CATEGORIES) {
@@ -95,7 +96,7 @@ public class RoarAudioSlotScreen extends class_437 {
 				method_37063(new RoarButton(x, rowY, buttonWidth, 20, class_2561.method_43469("roar_of_love.call.group." + group, new Object[0]), button -> openSlot(id)));
 				index++;
 			}
-			method_37063(new RoarButton(12, field_22790 - 52, Math.max(1, field_22789 - 24), 20, class_2561.method_43469("roar_of_love.ui.hurt_preview", new Object[0]), button -> openSlot("hunt:hurt")));
+			method_37063(new RoarButton(12, this.field_22790 - 52, Math.max(1, this.field_22789 - 24), 20, class_2561.method_43469("roar_of_love.ui.hurt_preview", new Object[0]), button -> openSlot("hunt:hurt")));
 		} else {
 			int visible = visibleRows();
 			boolean splitShots = "cat:shots".equals(slotId);
@@ -105,25 +106,25 @@ public class RoarAudioSlotScreen extends class_437 {
 				int index = scroll + row;
 				int leftIndex = splitShots ? index : index;
 				int rightIndex = splitShots ? rowsPerColumn + index : -1;
-				if (leftIndex < files.size()) addFileRow(leftIndex, row, splitShots ? Math.max(1, (field_22789 / 2) - 12) : Math.max(1, field_22789 - 16));
-				if (rightIndex >= 0 && rightIndex < files.size()) addFileRow(rightIndex, row, Math.max(1, field_22789 - (field_22789 / 2) - 8));
+				if (leftIndex < files.size()) addFileRow(leftIndex, row, splitShots ? Math.max(1, (this.field_22789 / 2) - 12) : Math.max(1, this.field_22789 - 16));
+				if (rightIndex >= 0 && rightIndex < files.size()) addFileRow(rightIndex, row, Math.max(1, this.field_22789 - (this.field_22789 / 2) - 8));
 			}
-			if (splitShots && field_22793 != null) {
-				int leftWidth = Math.max(1, (field_22789 / 2) - 12);
-				int rightX = field_22789 / 2;
+			if (splitShots && this.field_22793 != null) {
+				int leftWidth = Math.max(1, (this.field_22789 / 2) - 12);
+				int rightX = this.field_22789 / 2;
 				method_37063(new RoarButton(8, 28, leftWidth, 16, class_2561.method_43469("roar_of_love.ui.col_shot_in", new Object[0]), button -> {}));
-				method_37063(new RoarButton(rightX, 28, Math.max(1, field_22789 - rightX - 8), 16, class_2561.method_43469("roar_of_love.ui.col_shot_out", new Object[0]), button -> {}));
+				method_37063(new RoarButton(rightX, 28, Math.max(1, this.field_22789 - rightX - 8), 16, class_2561.method_43469("roar_of_love.ui.col_shot_out", new Object[0]), button -> {}));
 			}
-			int firstActionY = field_22790 - 76;
-			int secondActionY = field_22790 - 52;
+			int firstActionY = this.field_22790 - 76;
+			int secondActionY = this.field_22790 - 52;
 			int firstGap = 4;
-			int firstWidth = Math.max(1, (field_22789 - 24 - (firstGap * 3)) / 4);
+			int firstWidth = Math.max(1, (this.field_22789 - 24 - (firstGap * 3)) / 4);
 			int previewX = 8;
 			int toggleX = previewX + firstWidth + firstGap;
 			int downX = toggleX + firstWidth + firstGap;
 			int upX = downX + firstWidth + firstGap;
 			int secondGap = 4;
-			int secondWidth = Math.max(1, (field_22789 - 24 - (secondGap * 2)) / 3);
+			int secondWidth = Math.max(1, (this.field_22789 - 24 - (secondGap * 2)) / 3);
 			int replaceX = 8;
 			int resetX = replaceX + secondWidth + secondGap;
 			int folderX = resetX + secondWidth + secondGap;
@@ -136,17 +137,17 @@ public class RoarAudioSlotScreen extends class_437 {
 			method_37063(new RoarButton(replaceX, secondActionY, secondWidth, 20, class_2561.method_43469("roar_of_love.ui.replace_one", new Object[0]), button -> pickFile()));
 			method_37063(new RoarButton(resetX, secondActionY, secondWidth, 20, class_2561.method_43469("roar_of_love.ui.reset_one", new Object[0]), button -> reset()));
 			method_37063(new RoarButton(folderX, secondActionY, folderWidth, 20, class_2561.method_43469("roar_of_love.ui.open_slot_folder", new Object[0]), button -> openSlotFolder()));
-			int footerWidth = Math.max(1, Math.min(120, field_22789 - 16));
-			method_37063(new RoarButton(8, field_22790 - 26, footerWidth, 20, class_2561.method_43469(AudioPackLoader.isPackDirty() ? "roar_of_love.ui.apply_now_dirty" : "roar_of_love.ui.apply_now", new Object[0]), button -> setNotice(AudioPackLoader.applyNow())));
+			int footerWidth = Math.max(1, Math.min(120, this.field_22789 - 16));
+			method_37063(new RoarButton(8, this.field_22790 - 26, footerWidth, 20, class_2561.method_43469(AudioPackLoader.isPackDirty() ? "roar_of_love.ui.apply_now_dirty" : "roar_of_love.ui.apply_now", new Object[0]), button -> setNotice(AudioPackLoader.applyNow())));
 			RoarHoverTooltip.register(downX, firstActionY, firstWidth, 20, "roar_of_love.tip.volume");
 			RoarHoverTooltip.register(upX, firstActionY, firstWidth, 20, "roar_of_love.tip.volume");
 			RoarHoverTooltip.register(replaceX, secondActionY, secondWidth, 20, "roar_of_love.tip.replace");
 			RoarHoverTooltip.register(resetX, secondActionY, secondWidth, 20, "roar_of_love.tip.reset");
 			RoarHoverTooltip.register(folderX, secondActionY, folderWidth, 20, "roar_of_love.tip.slot_folder");
-			RoarHoverTooltip.register(8, field_22790 - 26, footerWidth, 20, "roar_of_love.tip.apply");
+			RoarHoverTooltip.register(8, this.field_22790 - 26, footerWidth, 20, "roar_of_love.tip.apply");
 		}
 		if (slotId.isEmpty()) {
-			method_37063(new RoarButton(field_22789 - 88, field_22790 - 26, 80, 20, class_2561.method_43469("roar_of_love.ui.back", new Object[0]), button -> method_25419()));
+			method_37063(new RoarButton(this.field_22789 - 88, this.field_22790 - 26, 80, 20, class_2561.method_43469("roar_of_love.ui.back", new Object[0]), button -> method_25419()));
 		}
 	}
 
@@ -166,7 +167,7 @@ public class RoarAudioSlotScreen extends class_437 {
 		String stateKey = !enabled ? "roar_of_love.ui.tag_off" : custom ? "roar_of_love.ui.tag_custom" : builtin ? "roar_of_love.ui.tag_builtin" : "roar_of_love.ui.tag_empty";
 		String state = class_2561.method_43469(stateKey, new Object[0]).getString();
 		String label = (index == selected ? "> " : "  ") + file + "  " + state + "  " + (RoarOfLoveConfig.soundVolumeSteps(key) * 5) + "%";
-		int x = ("cat:shots".equals(slotId) && index >= rowsPerColumn()) ? (field_22789 / 2) : 8;
+		int x = ("cat:shots".equals(slotId) && index >= rowsPerColumn()) ? (this.field_22789 / 2) : 8;
 		method_37063(new RoarButton(x, 46 + row * 17, width, 16, class_2561.method_43470(label), button -> { selected = index; clampScroll(); method_25426(); }));
 	}
 
@@ -239,14 +240,14 @@ public class RoarAudioSlotScreen extends class_437 {
 		return true;
 	}
 
-	public boolean method_25402(net.minecraft.class_11909 event, boolean doubleClick) {
+	public boolean method_25402(class_11909 event, boolean doubleClick) {
 		int mouseY = (int) event.comp_4799();
 		if (visibleRows() > 0 && event.method_74245() == 0 && mouseY >= 46 && mouseY < 46 + visibleRows() * 17) {
 			int row = scroll + ((mouseY - 46) / 17);
-			int leftWidth = "cat:shots".equals(slotId) ? (field_22789 / 2) - 8 : field_22789 - 16;
+			int leftWidth = "cat:shots".equals(slotId) ? (this.field_22789 / 2) - 8 : this.field_22789 - 16;
 			int index = row;
-			if ("cat:shots".equals(slotId) && event.comp_4798() >= field_22789 / 2) index = rowsPerColumn() + row;
-			if (index >= 0 && index < files.size() && ("cat:shots".equals(slotId) ? event.comp_4798() >= field_22789 / 2 && event.comp_4798() < field_22789 - 8 || event.comp_4798() >= 8 && event.comp_4798() <= leftWidth + 8 : event.comp_4798() >= 8 && event.comp_4798() < field_22789 - 8)) {
+			if ("cat:shots".equals(slotId) && event.comp_4798() >= this.field_22789 / 2) index = rowsPerColumn() + row;
+			if (index >= 0 && index < files.size() && ("cat:shots".equals(slotId) ? event.comp_4798() >= this.field_22789 / 2 && event.comp_4798() < this.field_22789 - 8 || event.comp_4798() >= 8 && event.comp_4798() <= leftWidth + 8 : event.comp_4798() >= 8 && event.comp_4798() < this.field_22789 - 8)) {
 				selected = index;
 				clampScroll();
 				method_25426();
@@ -257,25 +258,25 @@ public class RoarAudioSlotScreen extends class_437 {
 	}
 
 	public void method_25394(class_332 context, int mouseX, int mouseY, float delta) {
-		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0.0f, 0.0f, 0.0f, field_22789, field_22790, field_22789, field_22790);
+		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0.0f, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
 		super.method_25394(context, mouseX, mouseY, delta);
-		RoarHoverTooltip.render(context, mouseX, mouseY, field_22789, field_22790);
-		if (System.currentTimeMillis() < noticeUntil && field_22793 != null && !notice.isEmpty()) {
-			context.method_27535(field_22793, class_2561.method_43470(notice), 8, 12, -1);
-		} else if (!slotId.isEmpty() && AudioPackLoader.isPackDirty() && field_22793 != null) {
-			context.method_27535(field_22793, class_2561.method_43469("roar_of_love.ui.dirty_hint", new Object[0]), 8, 12, -15797);
+		RoarHoverTooltip.render(context, mouseX, mouseY, this.field_22789, this.field_22790);
+		if (System.currentTimeMillis() < noticeUntil && this.field_22793 != null && !notice.isEmpty()) {
+			context.method_27535(this.field_22793, class_2561.method_43470(notice), 8, 12, -1);
+		} else if (!slotId.isEmpty() && AudioPackLoader.isPackDirty() && this.field_22793 != null) {
+			context.method_27535(this.field_22793, class_2561.method_43469("roar_of_love.ui.dirty_hint", new Object[0]), 8, 12, -15797);
 		}
-		if (slotId.equals("cat:shots") && field_22793 != null && rowsPerColumn() > visibleRows()) {
-			context.method_27535(field_22793, class_2561.method_43469("roar_of_love.ui.scroll_hint", new Object[0]), field_22789 - 120, 30, -6381828);
+		if (slotId.equals("cat:shots") && this.field_22793 != null && rowsPerColumn() > visibleRows()) {
+			context.method_27535(this.field_22793, class_2561.method_43469("roar_of_love.ui.scroll_hint", new Object[0]), this.field_22789 - 120, 30, -6381828);
 		}
 	}
 
 	public void method_25419() {
-		if (field_22787 != null && !slotId.isEmpty()) {
+		if (this.field_22787 != null && !slotId.isEmpty()) {
 			if (AudioPackLoader.isPackDirty()) setNotice(AudioPackLoader.applyNow());
-			field_22787.method_1507(parent);
-		} else if (field_22787 != null) {
-			field_22787.method_1507(parent);
+			this.field_22787.method_1507(parent);
+		} else if (this.field_22787 != null) {
+			this.field_22787.method_1507(parent);
 		}
 	}
 }

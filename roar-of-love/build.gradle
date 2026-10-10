@@ -269,6 +269,7 @@ tasks.register('remapIntermediarySources') {
 				}
 				"${prefix}${officialName.replace('$', '.')}${suffix}"
 			}
+			source = source.replace('net.minecraft.MouseButtonEvent', 'net.minecraft.client.input.MouseButtonEvent')
 			source = source.replaceAll(/\bclass_\d+\b/) { match ->
 				simpleClassNames[match] ?: match
 			}

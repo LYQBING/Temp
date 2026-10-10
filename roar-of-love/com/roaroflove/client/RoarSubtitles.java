@@ -406,7 +406,7 @@ public final class RoarSubtitles {
             i = i2 + 1;
         }
         if (arrayList.isEmpty() && male) {
-            for (int j = band[0]; j <= band[1]; j++) {
+            for (int j = bandStart; j <= bandEnd; j++) {
                 String key = "roar_of_love.sub." + str + "." + j;
                 String lk = RoarSubtitleLang.lookup(key);
                 if (lk == null || lk.isEmpty()) {

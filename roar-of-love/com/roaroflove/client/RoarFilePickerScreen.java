@@ -60,16 +60,16 @@ public class RoarFilePickerScreen extends class_437 {
 	}
 
 	private int count() { return dirs.size() + files.size(); }
-	private int visibleRows() { return Math.max(0, (field_22790 - 92) / 16); }
+	private int visibleRows() { return Math.max(0, (this.field_22790 - 92) / 16); }
 	private Path item(int index) { return index < dirs.size() ? dirs.get(index) : index - dirs.size() < files.size() ? files.get(index - dirs.size()) : null; }
 
 	protected void method_25426() {
 		method_37067();
 		RoarButton.resetVariants();
-		int y = field_22790 - 26;
+		int y = this.field_22790 - 26;
 		int margin = 8;
 		int gap = 4;
-		int available = Math.max(4, field_22789 - (margin * 2) - (gap * 3));
+		int available = Math.max(4, this.field_22789 - (margin * 2) - (gap * 3));
 		int upWidth = Math.max(1, Math.min(70, available / 4));
 		int audioWidth = Math.max(1, Math.min(110, available / 3));
 		int backWidth = Math.max(1, Math.min(70, available / 4));
@@ -117,20 +117,20 @@ public class RoarFilePickerScreen extends class_437 {
 	}
 
 	public void method_25394(class_332 context, int mouseX, int mouseY, float delta) {
-		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0, 0.0f, 0.0f, field_22789, field_22790, field_22789, field_22790);
+		context.method_25290(class_10799.field_56883, BACKGROUND, 0, 0, 0.0f, 0.0f, this.field_22789, this.field_22790, this.field_22789, this.field_22790);
 		super.method_25394(context, mouseX, mouseY, delta);
-		if (field_22793 != null) {
-			context.method_27535(field_22793, class_2561.method_43470(dir == null ? "" : dir.toAbsolutePath().toString()), 10, 10, -1);
-			context.method_27535(field_22793, class_2561.method_43470(slotLabel), 10, 24, -5185281);
-			context.method_27535(field_22793, class_2561.method_43470(note), 10, 36, -256);
+		if (this.field_22793 != null) {
+			context.method_27535(this.field_22793, class_2561.method_43470(dir == null ? "" : dir.toAbsolutePath().toString()), 10, 10, -1);
+			context.method_27535(this.field_22793, class_2561.method_43470(slotLabel), 10, 24, -5185281);
+			context.method_27535(this.field_22793, class_2561.method_43470(note), 10, 36, -256);
 			for (int row = 0; row < visibleRows() && scroll + row < count(); row++) {
 				int index = scroll + row;
 				Path entry = item(index);
 				String label = (index == selected ? "> " : "  ") + entry.getFileName() + (Files.isDirectory(entry) ? "/" : "");
-				context.method_27535(field_22793, class_2561.method_43470(label), 16, 58 + row * 16, -1);
+				context.method_27535(this.field_22793, class_2561.method_43470(label), 16, 58 + row * 16, -1);
 			}
 		}
 	}
 
-	public void method_25419() { if (field_22787 != null) field_22787.method_1507(parent); }
+	public void method_25419() { if (this.field_22787 != null) this.field_22787.method_1507(parent); }
 }

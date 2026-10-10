@@ -325,7 +325,7 @@ public class RoarOfLoveClient implements ClientModInitializer {
                     try {
                         class_310 client = class_310.method_1551();
                         if (client != null && client.field_1724 != null && client.field_1687 != null && startedContext.session().actorUuids() != null) {
-                            for (class_746 actor : client.field_1687.method_18456()) {
+                            for (var actor : client.field_1687.method_18456()) {
                                 if (actor != client.field_1724 && startedContext.session().actorUuids().contains(actor.method_5667())) {
                                     double angle = Math.atan2(actor.method_23321() - client.field_1724.method_23321(), actor.method_23317() - client.field_1724.method_23317());
                                     RoarSubtitles.setSide(Math.cos(angle - Math.toRadians(client.field_1724.method_36454() + 90.0d)));
