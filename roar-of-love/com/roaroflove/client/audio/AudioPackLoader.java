@@ -952,17 +952,6 @@ public final class AudioPackLoader {
                 for (String str4 : filesFor) {
                     jsonObject.add(str3 + "." + str4, event("actionsounds/" + str3, List.of(str4)));
                 }
-
-    private static List<String> categoryFiles(String category, Path path) {
-        LinkedHashSet<String> names = new LinkedHashSet<>();
-        for (String name : RoLSounds.CATEGORY_FILES.getOrDefault(category, List.of())) {
-            if (AudioPackLoader.class.getResource("/assets/roar_of_love/sounds/actionsounds/" + category + "/" + name + ".ogg") != null) {
-                names.add(name);
-            }
-        }
-        names.addAll(dirNames(path.resolve("assets/roar_of_love/sounds/actionsounds").resolve(category)));
-        return new ArrayList<>(names);
-    }
             }
         }
         List<String> union2 = union(bundledCallNames("calls/"), dirNames(packRoot().resolve("assets/roar_of_love/sounds/calls")));
@@ -985,6 +974,17 @@ public final class AudioPackLoader {
             jsonObject.add("call.end", event("calls", List.of("end")));
         }
         return jsonObject;
+    }
+
+    private static List<String> categoryFiles(String category, Path path) {
+        LinkedHashSet<String> names = new LinkedHashSet<>();
+        for (String name : RoLSounds.CATEGORY_FILES.getOrDefault(category, List.of())) {
+            if (AudioPackLoader.class.getResource("/assets/roar_of_love/sounds/actionsounds/" + category + "/" + name + ".ogg") != null) {
+                names.add(name);
+            }
+        }
+        names.addAll(dirNames(path.resolve("assets/roar_of_love/sounds/actionsounds").resolve(category)));
+        return new ArrayList<>(names);
     }
 
     private static JsonObject event(String str, List<String> list) {
@@ -1034,6 +1034,14 @@ public final class AudioPackLoader {
                         jsonArray.add(jsonObject3);
                     }
 
+                    jsonObject2.add("sounds", jsonArray);
+                    jsonObject.add(str, jsonObject2);
+                }
+            }
+        }
+        return jsonObject;
+    }
+
     public static void openFolder(Path folder) {
         if (folder == null) {
             return;
@@ -1052,13 +1060,6 @@ public final class AudioPackLoader {
         } catch (Exception e) {
             RoarOfLove.LOGGER.warn("[roar_of_love] 打开目录失败 {}", folder, e);
         }
-    }
-                    jsonObject2.add("sounds", jsonArray);
-                    jsonObject.add(str, jsonObject2);
-                }
-            }
-        }
-        return jsonObject;
     }
 
     private static JsonObject buildNeedsofnatureOverrideJson(Path path) {

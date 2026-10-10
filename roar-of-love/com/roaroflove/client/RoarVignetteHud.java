@@ -38,11 +38,6 @@ public final class RoarVignetteHud {
 
     private RoarVignetteHud() {
     }
-                    try {
-                        heatBar(class_332Var, method_51421, method_51443);
-                    } catch (Throwable heatError) {
-                        RoarOfLove.LOGGER.debug("[roar_of_love] 热度条绘制异常", heatError);
-                    }
 
     private static void frame(class_332 class_332Var, int i, int i2, int i3, int i4) {
         if (i3 > 0) {
@@ -66,6 +61,8 @@ public final class RoarVignetteHud {
                     return;
                 }
             }
+        }
+    }
 
     private static void heatBar(class_332 context, int width, int height) {
         if (!RoarOfLoveConfig.isHeatBar()) {
@@ -82,13 +79,6 @@ public final class RoarVignetteHud {
                     | ((120 - ((int) (80.0f * heat))) << 8) | (200 - ((int) (150.0f * heat)));
             context.method_25294(x, y, x + fillWidth, y + fillHeight, color);
         }
-    }
-        }
-                    try {
-                        heatBar(class_332Var, method_51421, method_51443);
-                    } catch (Throwable heatError) {
-                        RoarOfLove.LOGGER.debug("[roar_of_love] 热度条绘制异常", heatError);
-                    }
     }
 
     private static void reflux(class_332 class_332Var, int i, int i2) {
