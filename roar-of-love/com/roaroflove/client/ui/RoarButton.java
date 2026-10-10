@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 647ms
+// Decompiled by Jadx - 697ms
 //
 package com.roaroflove.client.ui;
 
@@ -74,6 +74,9 @@ public class RoarButton extends class_4185 {
         class_310 method_1551 = class_310.method_1551();
         if (method_1551 != null && (class_327Var = method_1551.field_1772) != null) {
             class_332Var.method_27535(class_327Var, this.field_22754, i5 + ((i7 - class_327Var.method_27525(this.field_22754)) / 2), i6 + ((i8 - 8) / 2), z ? TEXT : TEXT_DISABLED);
+        }
+        if (z2) {
+            RoarHoverTooltip.render(class_332Var, i, i2, method_1551 == null ? i + i7 : method_1551.method_22683().method_4486(), method_1551 == null ? i2 + i8 : method_1551.method_22683().method_4502());
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 628ms
+// Decompiled by Jadx - 692ms
 //
 package com.roaroflove.client;
 
@@ -84,17 +84,6 @@ public final class RoarMarquee {
     }
 
     public static void tick() {
-        long currentTimeMillis = System.currentTimeMillis();
-        if (lastCheckMs == 0) {
-            lastCheckMs = currentTimeMillis;
-            return;
-        }
-        if (currentTimeMillis - lastCheckMs >= RECHECK_MS) {
-            lastCheckMs = currentTimeMillis;
-            if (!locked && !verify()) {
-                RoarOfLove.LOGGER.error("[roar_of_love] 公告文件校验失败，模组已锁定");
-            }
-        }
     }
 
     private static void fail(String str) {

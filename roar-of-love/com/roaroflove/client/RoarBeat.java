@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 572ms
+// Decompiled by Jadx - 651ms
 //
 package com.roaroflove.client;
 
@@ -28,7 +28,7 @@ public final class RoarBeat {
     }
 
     public static long periodMs() {
-        return 1150 - (Math.max(0, Math.min(3, RoarFilterState.cachedLust())) * (200 / Math.max(1, 3)));
+        return 1150 - (Math.max(0, Math.min(5, RoarFilterState.cachedLust())) * 90);
     }
 
     public static void setEpoch(long j) {
@@ -48,8 +48,9 @@ public final class RoarBeat {
     }
 
     public static double phaseAt(long j) {
-        double effectivePeriodMs = ((j - epochMs) % r0) / effectivePeriodMs();
-        return effectivePeriodMs < 0.0d ? effectivePeriodMs + 1.0d : effectivePeriodMs;
+        long period = effectivePeriodMs();
+        double phase = ((j - epochMs) % period) / (double) period;
+        return phase < 0.0d ? phase + 1.0d : phase;
     }
 
     public static float pulse() {

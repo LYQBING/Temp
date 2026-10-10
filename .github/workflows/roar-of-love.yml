@@ -41,6 +41,6 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: roar-of-love-2.0.23-26.3
+          name: roar-of-love-26.3
           path: roar-of-love/build/libs/*.jar
           if-no-files-found: error

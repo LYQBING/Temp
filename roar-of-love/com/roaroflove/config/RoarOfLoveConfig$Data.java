@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 676ms
+// Decompiled by Jadx - 577ms
 //
 package com.roaroflove.config;
 
@@ -14,8 +14,8 @@ public class RoarOfLoveConfig$Data {
     public double intervalSeconds = 1.0d;
     public float volume = 1.0f;
     public float pitch = 1.0f;
-    public int beginCount = 9;
     public boolean roarEnabled = true;
+    public boolean zipEnabled = true;
     public boolean pinkFilter = true;
     public boolean blackFilter = true;
     public boolean flashEffect = false;
@@ -32,7 +32,9 @@ public class RoarOfLoveConfig$Data {
     public boolean subPeak = true;
     public boolean subSelf = true;
     public boolean subOral = true;
+    public boolean dirSub = true;
     public int subForm = 0;
+    public int subtitleGender = 0;
     public String subCustomFile = "";
     public List<String> disabledSounds = new ArrayList();
     public boolean breathEffect = true;
@@ -63,20 +65,20 @@ public class RoarOfLoveConfig$Data {
     public int ambienceStrength = 5;
     public boolean hrv = true;
     public boolean breathHold = true;
+    public boolean director = true;
+    public boolean pushEffect = true;
+    public boolean heatBar = true;
+    public boolean overload = true;
+    public boolean tooltips = true;
     public boolean fovBreath = true;
     public boolean ecgTail = true;
     public boolean typewriter = true;
     public int subLang = 0;
     public int palette = 0;
     public boolean adaptHud = true;
-    public boolean tooltips = true;
-    public int subtitleGender = 0;
-    public boolean pushEffect = true;
-    public boolean dirSub = true;
-    public boolean heatBar = true;
-    public boolean overload = true;
-    public boolean director = true;
-    public Map<String, Integer> soundVolume = new HashMap();
     public int blackSeconds = 180;
     public List<String> blockedAnimations = new ArrayList();
+    public List<String> enabledZips = null;
+    public List<String> disabledZips = new ArrayList();
+    public Map<String, Integer> soundVolume = new HashMap();
 }

@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 832ms
+// Decompiled by Jadx - 854ms
 //
 package com.roaroflove.client;
 
@@ -22,15 +22,12 @@ public final class RoarFilterState {
     private static final long FLASH_MS = 750;
     private static final float FLASH_PEAK = 0.82f;
     private static final long HOLD_MS = 6000;
-    public static final int LUST_MAX = 3;
     private static final long REFLUX_MS = 4200;
     private static final long SHAKE_MS = 700;
     private static final float SUSTAIN_LEVEL = 0.32f;
     private static final long SUSTAIN_SAFETY_MS = 45000;
     private static final Object LOCK = new Object();
     private static final List<RoarFilterState$Heart> HEARTS = new ArrayList();
-    private static int maxLustSeen = -1;
-    private static boolean maxLustLogged = false;
     private static volatile long sustainUntil = 0;
     private static volatile long flashUntil = 0;
     private static volatile long blackUntil = 0;
@@ -44,6 +41,8 @@ public final class RoarFilterState {
     private static volatile long refluxUntil = 0;
     private static volatile int cachedLust = -1;
     private static int lastLust = -1;
+    private static int maxLustSeen = -1;
+    private static boolean maxLustLogged = false;
     private static long lastLustMs = 0;
     private static volatile long dipUntil = 0;
     private static volatile long overloadUntil = 0;
@@ -112,6 +111,29 @@ public final class RoarFilterState {
         return 1.0f - (((float) currentTimeMillis) / 4200.0f);
     }
 
+    public static void triggerOverload() {
+        if (RoarOfLoveConfig.isOverload()) {
+            overloadUntil = System.currentTimeMillis() + 1400;
+        }
+    }
+
+    public static float overloadLevel() {
+        long remaining = overloadUntil - System.currentTimeMillis();
+        return remaining <= 0 ? 0.0f : ((float) remaining) / 1400.0f;
+    }
+
+    public static int filledLevel() {
+        return filledLevel;
+    }
+
+    public static int maxLustSeen() {
+        return maxLustSeen;
+    }
+
+    public static float heatLevel() {
+        return filledLevel < 0 ? 0.0f : Math.max(0.0f, Math.min(1.0f, filledLevel / 3.0f));
+    }
+
     public static void triggerPostPeak() {
         dipUntil = System.currentTimeMillis() + DIP_MS;
     }
@@ -127,44 +149,17 @@ public final class RoarFilterState {
         return 1.0f;
     }
 
-    public static void triggerOverload() {
-        if (RoarOfLoveConfig.isOverload()) {
-            overloadUntil = System.currentTimeMillis() + 1400;
-        }
-    }
-
-    public static float overloadLevel() {
-        long currentTimeMillis = overloadUntil - System.currentTimeMillis();
-        if (currentTimeMillis <= 0) {
-            return 0.0f;
-        }
-        return ((float) currentTimeMillis) / 1400.0f;
-    }
-
-    public static int filledLevel() {
-        return filledLevel;
-    }
-
-    public static int maxLustSeen() {
-        return maxLustSeen;
-    }
-
-    public static float heatLevel() {
-        if (filledLevel < 0) {
-            return 0.0f;
-        }
-        return Math.max(0.0f, Math.min(1.0f, filledLevel / 3.0f));
-    }
-
     public static float fovBreathFactor() {
         if (cachedLust < 0) {
             return 1.0f;
         }
-        double max = (Math.max(0.0f, Math.min(1.0f, cachedLust / 3.0f)) * 0.01d) + 0.008d + (0.012d * RoarOfLoveConfig.immersionFactor(RoarOfLoveConfig.breathStrength()));
+        double max = ((Math.max(0.0f, Math.min(1.0f, cachedLust / 3.0f)) * 0.01d) + 0.008d)
+                + (0.012d * RoarOfLoveConfig.immersionFactor(RoarOfLoveConfig.breathStrength()));
         if (isBreathHolding()) {
             max *= 1.6d;
         }
-        return ((float) ((max * (RoarBeat.pulse() - 0.35d) * 2.0d) + 1.0d)) + (RoarOfLoveConfig.isPushEffect() ? (0.01f + (0.03f * overloadLevel())) * RoarBeat.pulse() : 0.0f);
+        return (float) ((max * (RoarBeat.pulse() - 0.35d) * 2.0d) + 1.0d)
+                + (RoarOfLoveConfig.isPushEffect() ? (0.01f + (0.03f * overloadLevel())) * RoarBeat.pulse() : 0.0f);
     }
 
     public static void triggerBreathHold() {
@@ -191,7 +186,7 @@ public final class RoarFilterState {
         }
         double immersionFactor = 0.03d + (RoarOfLoveConfig.immersionFactor(RoarOfLoveConfig.breathStrength()) * 0.15d);
         double currentTimeMillis = System.currentTimeMillis();
-        return ((float) ((Math.sin(currentTimeMillis / (RoarOfLoveConfig.isHrv() ? 820.0d + (160.0d * Math.sin(currentTimeMillis / 4300.0d)) : 900.0d)) * immersionFactor) + 1.0d + (0.005d * RoarBeat.pulse()))) + (RoarOfLoveConfig.isPushEffect() ? (0.01f + (0.03f * overloadLevel())) * RoarBeat.pulse() : 0.0f);
+        return (float) ((Math.sin(currentTimeMillis / (RoarOfLoveConfig.isHrv() ? 820.0d + (160.0d * Math.sin(currentTimeMillis / 4300.0d)) : 900.0d)) * immersionFactor) + 1.0d + (0.005d * RoarBeat.pulse())) + (RoarOfLoveConfig.isPushEffect() ? (0.01f + (0.03f * overloadLevel())) * RoarBeat.pulse() : 0.0f);
     }
 
     private static double gauss(double d, double d2, double d3) {
@@ -251,23 +246,39 @@ public final class RoarFilterState {
         return min * min;
     }
 
+    public static float shakeYaw() {
+        float shakeFade = shakeFade();
+        if (shakeFade <= 0.0f) {
+            return 0.0f;
+        }
+        return (float) (shakeFade * Math.sin(System.currentTimeMillis() / 19.0d) * shakeStrength * shakeMotionScale());
+    }
+
+    public static float shakePitch() {
+        float shakeFade = shakeFade();
+        if (shakeFade <= 0.0f) {
+            return 0.0f;
+        }
+        return (float) (shakeFade * Math.cos(System.currentTimeMillis() / 15.0d) * shakeStrength * 0.55d * shakeMotionScale());
+    }
+
     public static void sampleMotion() {
         try {
-            class_310 method_1551 = class_310.method_1551();
-            if (method_1551 == null || method_1551.field_1724 == null) {
+            class_310 client = class_310.method_1551();
+            if (client == null || client.field_1724 == null) {
                 px = Double.NaN;
                 return;
             }
-            double method_23317 = method_1551.field_1724.method_23317();
-            double method_23321 = method_1551.field_1724.method_23321();
+            double x = client.field_1724.method_23317();
+            double z = client.field_1724.method_23321();
             if (!Double.isNaN(px)) {
-                double d = method_23317 - px;
-                double d2 = method_23321 - pz;
-                moveSpeed = (Math.sqrt((d * d) + (d2 * d2)) * 0.4d) + (moveSpeed * 0.6d);
+                double dx = x - px;
+                double dz = z - pz;
+                moveSpeed = (Math.sqrt(dx * dx + dz * dz) * 0.4d) + (moveSpeed * 0.6d);
             }
-            px = method_23317;
-            pz = method_23321;
-        } catch (Throwable th) {
+            px = x;
+            pz = z;
+        } catch (Throwable ignored) {
         }
     }
 
@@ -279,22 +290,6 @@ public final class RoarFilterState {
             return 0.25f;
         }
         return (float) (1.0d - (((moveSpeed - 0.12d) / 0.12d) * 0.75d));
-    }
-
-    public static float shakeYaw() {
-        float shakeFade = shakeFade();
-        if (shakeFade <= 0.0f) {
-            return 0.0f;
-        }
-        return (float) (shakeFade * Math.sin(System.currentTimeMillis() / 19.0d) * shakeStrength);
-    }
-
-    public static float shakePitch() {
-        float shakeFade = shakeFade();
-        if (shakeFade <= 0.0f) {
-            return 0.0f;
-        }
-        return (float) (shakeFade * Math.cos(System.currentTimeMillis() / 15.0d) * shakeStrength * 0.55d);
     }
 
     public static float flashAlpha() {
@@ -365,6 +360,7 @@ public final class RoarFilterState {
             try {
                 class_1293 method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.FILLED));
                 int method_5578 = method_6112 == null ? -1 : method_6112.method_5578();
+                filledLevel = method_5578;
                 if (lastFilledAmp >= 0 && method_5578 > lastFilledAmp && RoarOfLoveConfig.isFlashEffect()) {
                     RoarOfLove.LOGGER.info("[roar_of_love] 液体充盈等级 {} -> {} 触发白色闪屏", Integer.valueOf(lastFilledAmp), Integer.valueOf(method_5578));
                     triggerFlash();
@@ -372,7 +368,6 @@ public final class RoarFilterState {
                 if (method_5578 > lastFilledAmp && method_5578 >= 3) {
                     triggerBreathHold();
                 }
-                filledLevel = method_5578;
                 lastFilledAmp = method_5578;
             } catch (Throwable th2) {
                 RoarOfLove.LOGGER.debug("[roar_of_love] 液体充盈检测异常", th2);
@@ -392,9 +387,9 @@ public final class RoarFilterState {
                 lastLustMs = currentTimeMillis;
                 if (i > maxLustSeen) {
                     maxLustSeen = i;
-                    if (!maxLustLogged && i >= 3) {
+                    if (!maxLustLogged) {
                         maxLustLogged = true;
-                        RoarOfLove.LOGGER.info("[roar_of_love] 性欲等级达到 {}（按 {} 档满值计算性欲条）", Integer.valueOf(i), 3);
+                        RoarOfLove.LOGGER.info("[roar_of_love] 已记录当前最高欲望等级 {}", Integer.valueOf(i));
                     }
                 }
             }
@@ -414,11 +409,10 @@ public final class RoarFilterState {
                 try {
                     class_1293 method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
                     if (method_6112 != null) {
-                        r0 = Math.max(0, method_6112.method_5578());
-                    } else if (!z) {
-                        r0 = -1;
+                        i = Math.max(0, method_6112.method_5578());
+                    } else {
+                        i = z ? 0 : -1;
                     }
-                    i = r0;
                 } catch (Throwable th) {
                     i = z ? 0 : -1;
                 }
@@ -449,8 +443,8 @@ public final class RoarFilterState {
         heart.rise = (ThreadLocalRandom.current().nextFloat() * 0.18f) + 0.3f;
         heart.sway = 0.015f + (ThreadLocalRandom.current().nextFloat() * 0.035f);
         heart.phase = ThreadLocalRandom.current().nextFloat() * 6.28318f;
-        heart.size = 17.0f + Math.min(14.0f, i * 2.3f) + (ThreadLocalRandom.current().nextFloat() * 5.0f);
-        heart.alpha = Math.min(0.12f, i * 0.04f) + 0.3f;
+        heart.size = 13.0f + Math.min(11.0f, i * 1.8f) + (ThreadLocalRandom.current().nextFloat() * 4.0f);
+        heart.alpha = 0.36f + Math.min(0.3f, i * 0.05f);
         HEARTS.add(heart);
         if (heartSpawnLogs < 5) {
             heartSpawnLogs++;

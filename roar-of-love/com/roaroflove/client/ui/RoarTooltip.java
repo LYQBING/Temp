@@ -13,7 +13,7 @@ import net.minecraft.class_327;
 import net.minecraft.class_332;
 
 public final class RoarTooltip {
-    private static final List<RoarTooltip$Item> ITEMS = new ArrayList();
+    private static final List<Item> ITEMS = new ArrayList();
     private static final int LINE_H = 11;
     private static final int PAD = 4;
     private static final int WRAP_W = 168;
@@ -27,7 +27,7 @@ public final class RoarTooltip {
 
     public static void register(int i, int i2, int i3, int i4, String str) {
         if (str != null && !str.isEmpty()) {
-            ITEMS.add(new RoarTooltip$Item(i, i2, i3, i4, str));
+            ITEMS.add(new Item(i, i2, i3, i4, str));
         }
     }
 
@@ -37,7 +37,7 @@ public final class RoarTooltip {
                 class_310 method_1551 = class_310.method_1551();
                 if (method_1551 != null && method_1551.field_1772 != null) {
                     class_327 class_327Var = method_1551.field_1772;
-                    for (RoarTooltip$Item item : ITEMS) {
+                    for (Item item : ITEMS) {
                         if (i >= item.x && i <= item.x + item.w && i2 >= item.y && i2 <= item.y + item.h) {
                             String string = class_2561.method_43469(item.key, new Object[0]).getString();
                             if (string != null && !string.isEmpty() && !string.equals(item.key)) {

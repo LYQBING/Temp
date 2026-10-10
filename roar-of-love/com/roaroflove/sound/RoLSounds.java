@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 660ms
+// Decompiled by Jadx - 719ms
 //
 package com.roaroflove.sound;
 
@@ -41,13 +41,13 @@ public final class RoLSounds {
         CATEGORY_FILES.put("wetimpacts", names("impactwet", 1, 16));
         HURT_SLOTS = Collections.unmodifiableList(names("hurt", 1, 20, false));
         ArrayList arrayList = new ArrayList();
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= MAX_BEGIN; i++) {
             arrayList.add("begin" + i);
         }
         CALL_BEGIN_FILES = Collections.unmodifiableList(arrayList);
-        ArrayList arrayList2 = new ArrayList(arrayList);
-        arrayList2.add(CALL_END_FILE);
-        CALL_SLOTS = Collections.unmodifiableList(arrayList2);
+        ArrayList callSlots = new ArrayList(arrayList);
+        callSlots.add(CALL_END_FILE);
+        CALL_SLOTS = Collections.unmodifiableList(callSlots);
         CALL_GROUP_TAGS.put("self", List.of("masturbation", "solo", "handjob"));
         CALL_GROUP_TAGS.put("pole", List.of("poledance", "polein", "poleout"));
         CALL_GROUP_TAGS.put("oral", List.of("blowjob", "oral", "facefk"));
@@ -60,10 +60,10 @@ public final class RoLSounds {
         return names(str, i, i2, true);
     }
 
-    private static List<String> names(String str, int i, int i2, boolean z) {
+    private static List<String> names(String str, int i, int i2, boolean padded) {
         ArrayList arrayList = new ArrayList();
         while (i <= i2) {
-            arrayList.add(str + (z ? String.format("%02d", Integer.valueOf(i)) : String.valueOf(i)));
+            arrayList.add(str + (padded ? String.format("%02d", Integer.valueOf(i)) : String.valueOf(i)));
             i++;
         }
         return Collections.unmodifiableList(arrayList);
@@ -102,9 +102,8 @@ public final class RoLSounds {
                 }
             }
             register("hunt");
-            Iterator<String> it4 = HURT_SLOTS.iterator();
-            while (it4.hasNext()) {
-                register("hunt." + it4.next());
+            for (String str3 : HURT_SLOTS) {
+                register("hunt." + str3);
             }
             registered = true;
             RoarOfLove.LOGGER.info("[roar_of_love] 已注册 {} 个声音事件（含 {} 个叫声分组）", Integer.valueOf(BY_ID.size()), Integer.valueOf(CALL_GROUPS.size()));
@@ -129,18 +128,92 @@ public final class RoLSounds {
         return class_3414Var == null ? (class_3414) class_7923.field_41172.method_63535(class_2960.method_12829(str)) : class_3414Var;
     }
 
-    public static boolean isRegistered(String str) {
-        if (!str.contains(":")) {
-            str = "roar_of_love:" + str;
-        }
-        return BY_ID.containsKey(str);
-    }
-
     public static String callEventKey(String str, String str2) {
         if (str == null || str.isEmpty()) {
             str = CALL_GROUP_DEFAULT;
         }
         return CALL_GROUP_DEFAULT.equals(str) ? "call." + str2 : "call." + str + "." + str2;
+    }
+
+    public static List<String> callSlotsFor(String group) {
+        return CALL_SLOTS;
+    }
+
+    public static List<String> hurtSlots() {
+        return HURT_SLOTS;
+    }
+
+    public static List<String> shotInFiles() {
+        return CATEGORY_FILES.getOrDefault("shots_in", List.of());
+    }
+
+    public static List<String> shotOutFiles() {
+        return CATEGORY_FILES.getOrDefault("shots_out", List.of());
+    }
+
+    public static boolean isSplitCategory(String category) {
+        return "shots".equals(category);
+    }
+
+    public static String eventKeyFor(String slotId, String file) {
+        String kind = slotKindOf(slotId);
+        String name = slotNameOf(slotId);
+        if ("cat".equals(kind)) {
+            return name + "." + file;
+        }
+        if ("call".equals(kind)) {
+            return callEventKey(name, file);
+        }
+        if ("hunt".equals(kind)) {
+            return "hunt." + file;
+        }
+        return file;
+    }
+
+    public static String labelKeyFor(String slotId) {
+        String kind = slotKindOf(slotId);
+        String name = slotNameOf(slotId);
+        if ("cat".equals(kind)) {
+            return "roar_of_love.cat." + name;
+        }
+        if ("call".equals(kind)) {
+            return "roar_of_love.call.group." + name;
+        }
+        if ("hunt".equals(kind)) {
+            return "roar_of_love.ui.hurt_preview";
+        }
+        return name;
+    }
+
+    public static boolean isSlotReplaceable(String slotId) {
+        String kind = slotKindOf(slotId);
+        return "cat".equals(kind) || "call".equals(kind) || "hunt".equals(kind);
+    }
+
+    private static String slotKindOf(String slotId) {
+        int separator = slotId == null ? -1 : slotId.indexOf(':');
+        return separator < 0 ? "" : slotId.substring(0, separator);
+    }
+
+    private static String slotNameOf(String slotId) {
+        int separator = slotId == null ? -1 : slotId.indexOf(':');
+        return separator < 0 ? "" : slotId.substring(separator + 1);
+    }
+
+    public static String builtinRelPathFor(String slotId, String file) {
+        String kind = slotKindOf(slotId);
+        String name = slotNameOf(slotId);
+        String fileName = file + ".ogg";
+        if ("cat".equals(kind)) {
+            return "actionsounds/" + name + "/" + fileName;
+        }
+        if ("call".equals(kind)) {
+            return CALL_GROUP_DEFAULT.equals(name) ? "calls/" + fileName : "calls/" + name + "/" + fileName;
+        }
+        if ("hunt".equals(kind)) {
+            return "vanilla/hurt/" + fileName;
+        }
+        return null;
     }
 
     public static String normalizeTag(String str) {
@@ -170,169 +243,4 @@ public final class RoLSounds {
         return CALL_GROUP_DEFAULT;
     }
 
-    public static List<String> callGroups() {
-        return CALL_GROUPS;
-    }
-
-    public static List<String> callGroupTags(String str) {
-        return CALL_GROUP_TAGS.getOrDefault(str, List.of());
-    }
-
-    public static List<String> callSlotsFor(String str) {
-        return CALL_SLOTS;
-    }
-
-    public static List<String> hurtSlots() {
-        return HURT_SLOTS;
-    }
-
-    public static int hurtBuiltinCount() {
-        return 9;
-    }
-
-    public static List<String> shotInFiles() {
-        return CATEGORY_FILES.getOrDefault("shots_in", List.of());
-    }
-
-    public static List<String> shotOutFiles() {
-        return CATEGORY_FILES.getOrDefault("shots_out", List.of());
-    }
-
-    public static boolean isSplitCategory(String str) {
-        return "shots".equals(str);
-    }
-
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
-    /* JADX WARN: Code restructure failed: missing block: B:25:0x003a, code lost:
-    
-        if (r3.equals("cat") != false) goto L12;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    public static String builtinRelPathFor(String str, String str2) {
-        char c = 0;
-        int indexOf = str == null ? -1 : str.indexOf(58);
-        String substring = indexOf < 0 ? "" : str.substring(0, indexOf);
-        String substring2 = indexOf < 0 ? "" : str.substring(indexOf + 1);
-        String str3 = str2 + ".ogg";
-        switch (substring.hashCode()) {
-            case 98262:
-                break;
-            case 3045982:
-                if (substring.equals("call")) {
-                    c = 1;
-                    break;
-                }
-                c = 65535;
-                break;
-            case 3214227:
-                if (substring.equals("hunt")) {
-                    c = 2;
-                    break;
-                }
-                c = 65535;
-                break;
-            default:
-                c = 65535;
-                break;
-        }
-        switch (c) {
-            case 0:
-                return "actionsounds/" + substring2 + "/" + str3;
-            case 1:
-                return CALL_GROUP_DEFAULT.equals(substring2) ? "calls/" + str3 : "calls/" + substring2 + "/" + str3;
-            case 2:
-                return "vanilla/hurt/" + str3;
-            default:
-                return null;
-        }
-    }
-
-    public static String eventKeyFor(String str, String str2) {
-        String slotKindOf = slotKindOf(str);
-        String slotNameOf = slotNameOf(str);
-        char c = 65535;
-        switch (slotKindOf.hashCode()) {
-            case 98262:
-                if (slotKindOf.equals("cat")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case 3045982:
-                if (slotKindOf.equals("call")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case 3214227:
-                if (slotKindOf.equals("hunt")) {
-                    c = 2;
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
-                return slotNameOf + "." + str2;
-            case 1:
-                return callEventKey(slotNameOf, str2);
-            case 2:
-                return "hunt." + str2;
-            default:
-                return str2;
-        }
-    }
-
-    public static String labelKeyFor(String str) {
-        String slotKindOf = slotKindOf(str);
-        String slotNameOf = slotNameOf(str);
-        char c = 65535;
-        switch (slotKindOf.hashCode()) {
-            case 98262:
-                if (slotKindOf.equals("cat")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case 3045982:
-                if (slotKindOf.equals("call")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case 3214227:
-                if (slotKindOf.equals("hunt")) {
-                    c = 2;
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
-                return "roar_of_love.cat." + slotNameOf;
-            case 1:
-                return "roar_of_love.call.group." + slotNameOf;
-            case 2:
-                return "roar_of_love.ui.hurt_preview";
-            default:
-                return slotNameOf;
-        }
-    }
-
-    private static String slotKindOf(String str) {
-        int indexOf = str == null ? -1 : str.indexOf(58);
-        return indexOf < 0 ? "" : str.substring(0, indexOf);
-    }
-
-    private static String slotNameOf(String str) {
-        int indexOf = str == null ? -1 : str.indexOf(58);
-        return indexOf < 0 ? "" : str.substring(indexOf + 1);
-    }
-
-    public static boolean isSlotReplaceable(String str) {
-        String slotKindOf = slotKindOf(str);
-        return "cat".equals(slotKindOf) || "call".equals(slotKindOf) || "hunt".equals(slotKindOf);
-    }
 }

@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 807ms
+// Decompiled by Jadx - 777ms
 //
 package com.roaroflove.server;
 
@@ -61,7 +61,7 @@ public final class RoarEngine {
                 RoarEngine$ActiveAnimation remove = ACTIVE.remove(stoppedContext.instanceId());
                 if (remove != null && RoarOfLoveConfig.isEnabled() && RoarOfLoveConfig.isRoarEnabled()) {
                     class_3218 world = stoppedContext.world();
-                    if ((world instanceof class_3218) && RoarOfLoveConfig.isSoundEnabled(remove.group)) {
+                    if ((world instanceof class_3218) && RoarOfLoveConfig.isSoundEnabled(remove.group) && RoarOfLoveConfig.isSoundEnabled(RoLSounds.callEventKey(remove.group, "end"))) {
                         playCall(world, remove.playAtUuid, "end", remove.group, remove.volumeScale);
                     }
                 }
@@ -75,7 +75,7 @@ public final class RoarEngine {
         if (list != null && !list.isEmpty()) {
             Iterator<UUID> it = list.iterator();
             while (it.hasNext()) {
-                if (class_3218Var.method_66347(it.next()) instanceof class_1657) {
+                if (class_3218Var.getEntity(it.next()) instanceof class_1657) {
                     return true;
                 }
             }
@@ -84,7 +84,7 @@ public final class RoarEngine {
     }
 
     private static void tick(MinecraftServer minecraftServer) {
-        currentTick = minecraftServer.method_3780();
+        currentTick = minecraftServer.getTickCount();
         RoarOfLoveConfig.checkReload(currentTick);
         if (RoarOfLoveConfig.isEnabled() && RoarOfLoveConfig.isRoarEnabled()) {
             boolean anyCallsAvailable = CallsAvailability.anyCallsAvailable();
@@ -115,7 +115,7 @@ public final class RoarEngine {
             Set<String> availableCallFiles = CallsAvailability.availableCallFiles(pickGroupWithCalls);
             ArrayList arrayList = new ArrayList();
             for (String str : availableCallFiles) {
-                if (str.startsWith("begin")) {
+                if (str.startsWith("begin") && RoarOfLoveConfig.isSoundEnabled(RoLSounds.callEventKey(pickGroupWithCalls, str))) {
                     arrayList.add(str);
                 }
             }
@@ -155,18 +155,20 @@ public final class RoarEngine {
     }
 
     private static void playCall(class_3218 class_3218Var, UUID uuid, String str, String str2, float f) {
-        class_1297 method_66347 = uuid == null ? null : class_3218Var.method_66347(uuid);
-        if (method_66347 != null && !method_66347.method_31481()) {
-            playAt(class_3218Var, method_66347.method_23317(), method_66347.method_23318() + (method_66347.method_17682() * 0.5d), method_66347.method_23321(), RoLSounds.get(RoLSounds.callEventKey(str2, str)), RoarOfLoveConfig.volume() * f, RoarOfLoveConfig.pitch());
+        class_1297 entity = uuid == null ? null : class_3218Var.getEntity(uuid);
+        if (entity != null && !entity.method_31481()) {
+            String eventKey = RoLSounds.callEventKey(str2, str);
+            playAt(class_3218Var, entity.method_23317(), entity.method_23318() + (entity.method_17682() * 0.5d), entity.method_23321(), RoLSounds.get(eventKey), RoarOfLoveConfig.volume() * f * (RoarOfLoveConfig.soundVolumeSteps(eventKey) / 10.0f), RoarOfLoveConfig.pitch());
         }
     }
 
     private static void playCallAt(MinecraftServer minecraftServer, UUID uuid, String str, String str2, float f) {
         if (uuid != null) {
             for (class_3218 class_3218Var : minecraftServer.method_3738()) {
-                class_1297 method_66347 = class_3218Var.method_66347(uuid);
-                if (method_66347 != null && !method_66347.method_31481()) {
-                    playAt(class_3218Var, method_66347.method_23317(), method_66347.method_23318() + (method_66347.method_17682() * 0.5d), method_66347.method_23321(), RoLSounds.get(RoLSounds.callEventKey(str2, str)), RoarOfLoveConfig.volume() * f, RoarOfLoveConfig.pitch());
+                class_1297 entity = class_3218Var.getEntity(uuid);
+                if (entity != null && !entity.method_31481()) {
+                    String eventKey = RoLSounds.callEventKey(str2, str);
+                    playAt(class_3218Var, entity.method_23317(), entity.method_23318() + (entity.method_17682() * 0.5d), entity.method_23321(), RoLSounds.get(eventKey), RoarOfLoveConfig.volume() * f * (RoarOfLoveConfig.soundVolumeSteps(eventKey) / 10.0f), RoarOfLoveConfig.pitch());
                     return;
                 }
             }
@@ -187,8 +189,8 @@ public final class RoarEngine {
         Iterator<UUID> it = list.iterator();
         while (it.hasNext()) {
             UUID next = it.next();
-            class_1297 method_66347 = class_3218Var.method_66347(next);
-            if (method_66347 != null && (!isRequirePlayerActor || (method_66347 instanceof class_1657))) {
+            class_1297 entity = class_3218Var.getEntity(next);
+            if (entity != null && (!isRequirePlayerActor || (entity instanceof class_1657))) {
                 return next;
             }
         }

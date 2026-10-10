@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 586ms
+// Decompiled by Jadx - 676ms
 //
 package com.roaroflove.client;
 

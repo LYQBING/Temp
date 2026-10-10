@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 510ms
+// Decompiled by Jadx - 688ms
 //
 package com.roaroflove.client;
 
@@ -15,8 +15,6 @@ import net.minecraft.class_5250;
 
 public class RoarSubtitleScreen extends class_437 {
     private static final class_2960 BACKGROUND = class_2960.method_60655("roar_of_love", "textures/gui/settings_background.png");
-    private static final int CONTENT_H = 232;
-    private static final int TOP_MIN = 30;
     private final class_437 parent;
 
     public RoarSubtitleScreen(class_437 class_437Var) {
@@ -37,36 +35,32 @@ public class RoarSubtitleScreen extends class_437 {
         method_37067();
         RoarButton.resetVariants();
         int i = this.field_22789 / 2;
-        int max = Math.max(0, ((((this.field_22790 - 30) - 34) - 232) + TOP_MIN) / 2) + TOP_MIN;
-        cat(i, max, "lust", "roar_of_love.ui.sub_lust");
-        int i2 = max + 22;
-        cat(i, i2, "anim", "roar_of_love.ui.sub_anim");
-        int i3 = i2 + 22;
-        cat(i, i3, "peak", "roar_of_love.ui.sub_peak");
-        int i4 = i3 + 22;
-        cat(i, i4, "self", "roar_of_love.ui.sub_self");
-        int i5 = i4 + 22;
-        cat(i, i5, "oral", "roar_of_love.ui.sub_oral");
-        int i6 = i5 + 24;
-        method_37063(new RoarButton(i - 120, i6, 240, 20, class_2561.method_43469("roar_of_love.ui.sub_form_" + RoarOfLoveConfig.subForm(), new Object[0]), class_4185Var -> {
+        cat(i, 30, "lust", "roar_of_love.ui.sub_lust");
+        cat(i, 52, "anim", "roar_of_love.ui.sub_anim");
+        cat(i, 74, "peak", "roar_of_love.ui.sub_peak");
+        cat(i, 96, "self", "roar_of_love.ui.sub_self");
+        cat(i, 118, "oral", "roar_of_love.ui.sub_oral");
+        method_37063(new RoarButton(i - 120, 142, 240, 20, class_2561.method_43469("roar_of_love.ui.sub_form_" + RoarOfLoveConfig.subForm(), new Object[0]), class_4185Var -> {
             RoarOfLoveConfig.setSubForm((RoarOfLoveConfig.subForm() + 1) % 3);
             refresh();
         }));
         String subCustomFile = RoarOfLoveConfig.subCustomFile();
-        int i7 = i6 + 22;
-        method_37063(new RoarButton(i - 120, i7, 240, 20, class_2561.method_43469(subCustomFile.isEmpty() ? "roar_of_love.ui.sub_custom_none" : "roar_of_love.ui.sub_custom_loaded", new Object[]{subCustomFile}), class_4185Var2 -> {
+        method_37063(new RoarButton(i - 120, 164, 240, 20, class_2561.method_43469(subCustomFile.isEmpty() ? "roar_of_love.ui.sub_custom_none" : "roar_of_love.ui.sub_custom_loaded", new Object[]{subCustomFile}), class_4185Var2 -> {
             class_310 method_1551 = class_310.method_1551();
             if (method_1551 != null) {
                 method_1551.method_1507(new RoarSubtitleFileScreen(this));
             }
         }));
-        int i8 = i7 + 22;
-        method_37063(new RoarButton(i - 120, i8, 118, 20, class_2561.method_43469(RoarOfLoveConfig.isTypewriter() ? "roar_of_love.ui.typewriter_on" : "roar_of_love.ui.typewriter_off", new Object[0]), class_4185Var3 -> {
+        method_37063(new RoarButton(i - 120, 186, 118, 20, class_2561.method_43469(RoarOfLoveConfig.isTypewriter() ? "roar_of_love.ui.typewriter_on" : "roar_of_love.ui.typewriter_off", new Object[0]), class_4185Var3 -> {
             RoarOfLoveConfig.setTypewriter(!RoarOfLoveConfig.isTypewriter());
             refresh();
         }));
-        method_37063(new RoarButton(i + 2, i8, 118, 20, class_2561.method_43469(RoarSubtitleLang.labelKey(), new Object[0]), class_4185Var4 -> {
+        method_37063(new RoarButton(i + 2, 186, 118, 20, class_2561.method_43469(RoarSubtitleLang.labelKey(), new Object[0]), class_4185Var4 -> {
             RoarOfLoveConfig.setSubLang((RoarOfLoveConfig.subLang() + 1) % 4);
+            refresh();
+        }));
+        method_37063(new RoarButton(i - 120, 208, 240, 20, class_2561.method_43469("roar_of_love.ui.subtitle_gender_" + RoarOfLoveConfig.subtitleGender(), new Object[0]), class_4185Var5 -> {
+            RoarOfLoveConfig.setSubtitleGender((RoarOfLoveConfig.subtitleGender() + 1) % 3);
             refresh();
         }));
         method_37063(new RoarButton(i - 50, this.field_22790 - 24, 100, 20, class_2561.method_43469("roar_of_love.ui.back", new Object[0]), class_4185Var5 -> {

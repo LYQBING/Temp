@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 447ms
+// Decompiled by Jadx - 499ms
 //
 package com.roaroflove.mixin;
 
@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({class_1144.class})
 public abstract class SoundMuteMixin {
     @Shadow
-    public abstract class_1140.class_11518 method_4873(class_1113 class_1113Var);
+    public abstract class_1140.class_11518 play(class_1113 class_1113Var);
 
-    @Inject(at = {@At("HEAD")}, cancellable = true, method = {"method_4873"})
+    @Inject(at = {@At("HEAD")}, cancellable = true, method = {"play"})
     private void roarOfLove$muteOtherHurt(class_1113 class_1113Var, CallbackInfoReturnable<class_1140.class_11518> callbackInfoReturnable) {
         if (class_1113Var != null) {
             class_2960 method_4775 = class_1113Var.method_4775();
@@ -35,7 +35,7 @@ public abstract class SoundMuteMixin {
             }
             class_1113 adjust = RoarSoundDistance.adjust(class_1113Var);
             if (adjust != class_1113Var) {
-                callbackInfoReturnable.setReturnValue(method_4873(adjust));
+                callbackInfoReturnable.setReturnValue(play(adjust));
             }
         }
     }

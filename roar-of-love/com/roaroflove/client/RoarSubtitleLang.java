@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 519ms
+// Decompiled by Jadx - 583ms
 //
 package com.roaroflove.client;
 
@@ -43,7 +43,7 @@ public final class RoarSubtitleLang {
     }
 
     private static synchronized Map<String, String> table(int i) {
-        Map<String, String> map;
+        Map<String, String> map = null;
         HashMap hashMap;
         synchronized (RoarSubtitleLang.class) {
             if (CACHE.containsKey(Integer.valueOf(i))) {
@@ -73,17 +73,16 @@ public final class RoarSubtitleLang {
                         if (resourceAsStream != null) {
                             try {
                                 resourceAsStream.close();
-                            } catch (Throwable th) {
-                                th = th;
-                                RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, th.toString());
+                            } catch (Throwable closeError) {
+                                RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, closeError.toString());
                                 map = hashMap;
                                 CACHE.put(Integer.valueOf(i), map);
                                 return map;
                             }
                         }
                         map = hashMap;
-                    } catch (Throwable th2) {
-                        th = th2;
+                    } catch (Throwable readError) {
+                        RoarOfLove.LOGGER.warn("[roar_of_love] 字幕语言 {} 读取失败：{}", code, readError.toString());
                         hashMap = null;
                     }
                 }

@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 538ms
+// Decompiled by Jadx - 684ms
 //
 package com.roaroflove.client;
 
@@ -18,7 +18,7 @@ public class RoarOfLoveSettingsScreen$NoticeScreen extends class_437 {
     public RoarOfLoveSettingsScreen$NoticeScreen(class_437 class_437Var, String... strArr) {
         super(class_2561.method_43470("Roar of Love"));
         this.parent = class_437Var;
-        this.lines = List.of((Object[]) strArr);
+        this.lines = List.of(strArr);
     }
 
     protected void method_25426() {

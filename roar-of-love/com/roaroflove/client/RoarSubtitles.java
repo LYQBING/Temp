@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 1013ms
+// Decompiled by Jadx - 878ms
 //
 package com.roaroflove.client;
 
@@ -32,16 +32,12 @@ import net.minecraft.class_2960;
 import net.minecraft.class_310;
 import net.minecraft.class_327;
 import net.minecraft.class_332;
-import net.minecraft.class_5250;
 import net.minecraft.class_746;
 import net.minecraft.class_7923;
-import org.joml.Matrix3x2fStack;
-import org.slf4j.Logger;
 
 public final class RoarSubtitles {
     public static final String ANIM = "anim";
     public static final String ANY = "any";
-    private static final int BANDS = 3;
     private static final int DANMAKU_COLOR = -18206;
     private static final int FLOAT_COLOR = -25896;
     private static final int LANES = 4;
@@ -59,12 +55,29 @@ public final class RoarSubtitles {
     private static UUID selfInstance = null;
     private static String activeCat = null;
     private static boolean inPeak = false;
-    private static boolean paired = false;
-    private static volatile double side = 0.0d;
-    private static volatile boolean closePartner = false;
     private static final ArrayDeque<String> RECENT = new ArrayDeque<>();
+    private static boolean paired;
+    private static double side;
+    private static boolean closePartner;
+    private static int lustBand() {
+        class_310 client = class_310.method_1551();
+        int lust = client == null || client.field_1724 == null ? -1 : lustLevel(client.field_1724);
+        return lust <= 0 ? 0 : Math.max(1, Math.min(2, lust));
+    }
 
     private RoarSubtitles() {
+    }
+
+    public static void setPaired(boolean value) {
+        paired = value;
+    }
+
+    public static void setSide(double value) {
+        side = value;
+    }
+
+    public static void setClosePartner(boolean value) {
+        closePartner = value;
     }
 
     public static boolean isEnabled(String str) {
@@ -104,6 +117,20 @@ public final class RoarSubtitles {
         }
     }
 
+    public static boolean isBothGender() {
+        class_310 client = class_310.method_1551();
+        if (client == null || client.field_1724 == null) {
+            return false;
+        }
+        try {
+            return client.field_1724 instanceof GenderHolder genderHolder
+                    && genderHolder.hasGender(1)
+                    && genderHolder.hasGender(2);
+        } catch (Throwable th) {
+            return false;
+        }
+    }
+
     private static String subtitleCategory(String str) {
         if (str == null) {
             return null;
@@ -139,59 +166,6 @@ public final class RoarSubtitles {
         }
     }
 
-    public static boolean isBothGender() {
-        boolean z;
-        class_310 method_1551 = class_310.method_1551();
-        if (method_1551 == null || method_1551.field_1724 == null) {
-            return false;
-        }
-        try {
-            GenderHolder genderHolder = method_1551.field_1724;
-            if (genderHolder.hasGender(1)) {
-                if (genderHolder.hasGender(2)) {
-                    z = true;
-                    return z;
-                }
-            }
-            z = false;
-            return z;
-        } catch (Throwable th) {
-            return false;
-        }
-    }
-
-    public static boolean maleSet() {
-        int subtitleGender = RoarOfLoveConfig.subtitleGender();
-        if (subtitleGender == 1) {
-            return true;
-        }
-        if (subtitleGender == 2) {
-            return false;
-        }
-        return isMalePlayer();
-    }
-
-    private static int explicitBand() {
-        class_310 method_1551 = class_310.method_1551();
-        int lustLevel = (method_1551 == null || method_1551.field_1724 == null) ? -1 : lustLevel(method_1551.field_1724);
-        if (lustLevel <= 0) {
-            return 0;
-        }
-        return Math.max(1, Math.min(2, lustLevel));
-    }
-
-    public static void setClosePartner(boolean z) {
-        closePartner = z;
-    }
-
-    public static void setSide(double d) {
-        side = d;
-    }
-
-    public static void setPaired(boolean z) {
-        paired = z;
-    }
-
     public static boolean isMalePlayer() {
         boolean z;
         class_310 method_1551 = class_310.method_1551();
@@ -199,7 +173,9 @@ public final class RoarSubtitles {
             return false;
         }
         try {
-            GenderHolder genderHolder = method_1551.field_1724;
+            if (!(method_1551.field_1724 instanceof GenderHolder genderHolder)) {
+                return false;
+            }
             if (genderHolder.hasGender(1)) {
                 if (!genderHolder.hasGender(2)) {
                     z = true;
@@ -211,6 +187,17 @@ public final class RoarSubtitles {
         } catch (Throwable th) {
             return false;
         }
+    }
+
+    private static boolean maleSet() {
+        int subtitleGender = RoarOfLoveConfig.subtitleGender();
+        if (subtitleGender == 1) {
+            return true;
+        }
+        if (subtitleGender == 2) {
+            return false;
+        }
+        return isMalePlayer();
     }
 
     public static boolean isAnimating() {
@@ -238,7 +225,7 @@ public final class RoarSubtitles {
 
     private static int lustLevel(class_746 class_746Var) {
         try {
-            class_1293 method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
+            var method_6112 = class_746Var.method_6112(class_7923.field_41174.method_47983(NonStatusEffects.ENERGIZED));
             if (method_6112 == null) {
                 return -1;
             }
@@ -308,27 +295,22 @@ public final class RoarSubtitles {
                 String fillPlaceholders = fillPlaceholders(pickText(pool));
                 if (subForm == 0) {
                     nextBoolean = false;
-                } else if (subForm == 1) {
-                    nextBoolean = true;
                 } else {
-                    nextBoolean = ThreadLocalRandom.current().nextBoolean();
+                    nextBoolean = subForm == 1 ? true : ThreadLocalRandom.current().nextBoolean();
                 }
+                Iterator<RoarSubtitles$Sub> it = SUBS.iterator();
                 int i4 = 0;
                 int i5 = 0;
-                Iterator<RoarSubtitles$Sub> it = SUBS.iterator();
-                while (true) {
-                    i2 = i5;
-                    if (!it.hasNext()) {
-                        break;
-                    }
+                while (it.hasNext()) {
                     if (it.next().danmaku) {
-                        i5 = i2 + 1;
+                        i2 = i4 + 1;
                     } else {
-                        i4++;
-                        i5 = i2;
+                        i5++;
+                        i2 = i4;
                     }
+                    i4 = i2;
                 }
-                if ((!nextBoolean || i2 < 4) && (nextBoolean || i4 < MAX_FLOAT)) {
+                if ((!nextBoolean || i4 < 4) && (nextBoolean || i5 < MAX_FLOAT)) {
                     RoarSubtitles$Sub sub = new RoarSubtitles$Sub();
                     sub.text = fillPlaceholders;
                     sub.danmaku = nextBoolean;
@@ -336,11 +318,9 @@ public final class RoarSubtitles {
                     if (nextBoolean) {
                         sub.lane = pickLane();
                         if (sub.lane >= 0) {
-                            long nextLong = 4200 + ThreadLocalRandom.current().nextLong(1400L);
-                            if (inPeak) {
-                                nextLong = (long) (nextLong * 0.72d);
-                            }
-                            sub.lifeMs = nextLong;
+                            long lifeMs = 4200 + ThreadLocalRandom.current().nextLong(1400L);
+                            sub.peak = inPeak;
+                            sub.lifeMs = sub.peak ? (long) (lifeMs * 0.72d) : lifeMs;
                         }
                     } else {
                         sub.lifeMs = 3200 + ThreadLocalRandom.current().nextLong(2000L);
@@ -387,77 +367,64 @@ public final class RoarSubtitles {
         return (str == null || !RoarOfLoveConfig.isTypewriter() || (max = Math.max(1, (int) (Math.min(1.0f, ((float) j) / 420.0f) * ((float) str.length())))) >= str.length()) ? str : str.substring(0, max);
     }
 
-    private static int[] bandRange(int i) {
-        int i2 = LINES;
-        int max = Math.max(0, Math.min(2, i));
-        int max2 = (max * Math.max(1, 6)) + 1;
-        if (max < 2) {
-            i2 = Math.min(LINES, (max2 + r2) - 1);
-        }
-        return new int[]{max2, i2};
-    }
-
     private static List<String> pool(String str) {
-        String str2;
         List<String> list;
         ArrayList arrayList = new ArrayList();
-        boolean maleSet = maleSet();
+        boolean male = maleSet();
         if (paired) {
-            str2 = "roar_of_love.subpair." + (maleSet ? "male" : "female") + ".";
-        } else {
-            str2 = maleSet ? "roar_of_love.sub.male." + str + "." : "roar_of_love.sub." + str + ".";
-        }
-        int explicitBand = paired ? -1 : explicitBand();
-        int[] bandRange = explicitBand < 0 ? new int[]{1, LINES} : bandRange(explicitBand);
-        int i = bandRange[0];
-        int i2 = bandRange[1];
-        for (int i3 = i; i3 <= i2; i3++) {
-            String str3 = str2 + i3;
-            String lookup = RoarSubtitleLang.lookup(str3);
-            if (lookup == null || lookup.isEmpty()) {
-                lookup = class_2561.method_43469(str3, new Object[0]).getString();
-            }
-            if (lookup != null && !lookup.isEmpty() && !lookup.equals(str3)) {
-                arrayList.add(lookup);
-            }
-        }
-        if (arrayList.isEmpty() && !paired) {
-            if (maleSet) {
-                int[] bandRange2 = bandRange(0);
-                for (int i4 = bandRange2[0]; i4 <= bandRange2[1]; i4++) {
-                    String str4 = "roar_of_love.sub.male." + str + "." + i4;
-                    String lookup2 = RoarSubtitleLang.lookup(str4);
-                    if (lookup2 == null || lookup2.isEmpty()) {
-                        lookup2 = class_2561.method_43469(str4, new Object[0]).getString();
-                    }
-                    if (lookup2 != null && !lookup2.isEmpty() && !lookup2.equals(str4)) {
-                        arrayList.add(lookup2);
-                    }
+            String prefix = "roar_of_love.subpair." + (male ? "male." : "female.");
+            for (int line = 1; line <= LINES; line++) {
+                String key = prefix + line;
+                String value = RoarSubtitleLang.lookup(key);
+                if (value == null || value.isEmpty()) {
+                    value = class_2561.method_43469(key, new Object[0]).getString();
                 }
-            } else {
-                int[] bandRange3 = bandRange(explicitBand());
-                for (int i5 = bandRange3[0]; i5 <= bandRange3[1]; i5++) {
-                    String str5 = "roar_of_love.sub." + str + "." + i5;
-                    String string = class_2561.method_43469(str5, new Object[0]).getString();
-                    if (string != null && !string.isEmpty() && !string.equals(str5)) {
-                        arrayList.add(string);
-                    }
+                if (value != null && !value.isEmpty() && !value.equals(key)) {
+                    arrayList.add(value);
                 }
             }
+            return arrayList;
         }
-        Logger logger = RoarOfLove.LOGGER;
-        Object[] objArr = new Object[7];
-        objArr[0] = str;
-        objArr[1] = maleSet ? "男" : "女";
-        objArr[2] = Boolean.valueOf(paired);
-        objArr[BANDS] = Integer.valueOf(explicitBand);
-        objArr[4] = Integer.valueOf(i);
-        objArr[5] = Integer.valueOf(i2);
-        objArr[6] = Integer.valueOf(arrayList.size());
-        logger.debug("[roar_of_love] 字幕池 cat={} 性别={} 配对={} 分段={} 区间={}-{} 条数={}", objArr);
+        class_310 client = class_310.method_1551();
+        int levelBand = lustBand();
+        int bandStart = (levelBand * 6) + 1;
+        int bandEnd = levelBand < 2 ? Math.min(LINES, bandStart + 5) : LINES;
+        int i = bandStart;
+        while (true) {
+            int i2 = i;
+            if (i2 > bandEnd) {
+                break;
+            }
+            String key = male ? "roar_of_love.sub.male." + str + "." + i2 : "roar_of_love.sub." + str + "." + i2;
+            String value = RoarSubtitleLang.lookup(key);
+            if (value == null || value.isEmpty()) {
+                value = class_2561.method_43469(key, new Object[0]).getString();
+            }
+            if (value != null && !value.isEmpty() && !value.equals(key)) {
+                arrayList.add(value);
+            }
+            i = i2 + 1;
+        }
+        if (arrayList.isEmpty() && male) {
+            for (int j = band[0]; j <= band[1]; j++) {
+                String key = "roar_of_love.sub." + str + "." + j;
+                String lk = RoarSubtitleLang.lookup(key);
+                if (lk == null || lk.isEmpty()) {
+                    lk = class_2561.method_43469(key, new Object[0]).getString();
+                }
+                if (lk != null && !lk.isEmpty() && !lk.equals(key)) {
+                    arrayList.add(lk);
+                }
+            }
+        }
         List<String> list2 = CUSTOM.get(str);
         if (list2 != null) {
             arrayList.addAll(list2);
+        }
+        if (closePartner && !arrayList.isEmpty() && ThreadLocalRandom.current().nextInt(5) == 0) {
+            String key = "roar_of_love.subhi." + (male ? "male." : "female.") + (lustBand() + 1);
+            String closeText = RoarSubtitleLang.lookup(key);
+            if (closeText != null && !closeText.isEmpty() && !closeText.equals(key)) arrayList.add(closeText);
         }
         if (!LUST.equals(str) && (list = CUSTOM.get(ANY)) != null) {
             arrayList.addAll(list);
@@ -554,26 +521,27 @@ public final class RoarSubtitles {
                 float max = Math.max(0.0f, Math.min(1.0f, ((float) (currentTimeMillis - sub.bornMs)) / ((float) sub.lifeMs)));
                 float max2 = Math.max(0.0f, Math.min(1.0f, Math.min(max / 0.12f, (1.0f - max) / 0.18f)));
                 if (sub.danmaku) {
-                    String truncate = truncate(class_327Var, sub.text, boxWidth - 10);
-                    int method_27525 = x + 5 + ((int) ((1.0f - max) * ((boxWidth - 10) - class_327Var.method_27525(class_2561.method_43470(truncate)))));
-                    int sin = ((int) (Math.sin(((currentTimeMillis - sub.bornMs) / 420.0d) + sub.phase) * 1.7999999523162842d)) + y + 7 + (sub.lane * 19);
-                    class_5250 method_43470 = class_2561.method_43470(reveal(truncate, currentTimeMillis - sub.bornMs));
-                    int danmaku = (((int) (235.0f * max2)) << 24) | (maleSet() ? 9426175 : RoarPalette.danmaku());
+                    String truncated = truncate(class_327Var, sub.text, boxWidth - 10);
+                    String text = reveal(truncated, currentTimeMillis - sub.bornMs);
+                    int textX = x + 5 + ((int) ((1.0f - max) * ((boxWidth - 10) - class_327Var.method_27525(class_2561.method_43470(truncated)))));
+                    int textY = ((int) (Math.sin(((currentTimeMillis - sub.bornMs) / 420.0d) + sub.phase) * 1.7999999523162842d)) + y + 7 + (sub.lane * 19);
+                    int color = (((int) (235.0f * max2)) << 24) | (maleSet() ? 9426175 : RoarPalette.danmaku());
                     if (inPeak) {
-                        Matrix3x2fStack method_51448 = class_332Var.method_51448();
-                        method_51448.pushMatrix();
-                        method_51448.translate(method_27525, sin);
-                        method_51448.scale(1.18f, 1.18f);
-                        class_332Var.method_51439(class_327Var, method_43470, 0, 0, danmaku, true);
-                        method_51448.popMatrix();
+                        var matrices = class_332Var.method_51448();
+                        matrices.pushMatrix();
+                        matrices.translate(textX, textY);
+                        matrices.scale(1.18f, 1.18f);
+                        class_332Var.method_51439(class_327Var, class_2561.method_43470(text), 0, 0, color, true);
+                        matrices.popMatrix();
                     } else {
-                        class_332Var.method_51439(class_327Var, method_43470, method_27525, sin, danmaku, true);
+                        class_332Var.method_51439(class_327Var, class_2561.method_43470(text), textX, textY, color, true);
                     }
                 } else {
-                    int method_275252 = class_327Var.method_27525(class_2561.method_43470(sub.text));
+                    int method_27525 = class_327Var.method_27525(class_2561.method_43470(sub.text));
                     float cos = ((float) Math.cos(((currentTimeMillis - sub.bornMs) / 460.0d) + sub.phase)) * 2.4f;
-                    float sin2 = ((float) Math.sin(((currentTimeMillis - sub.bornMs) / 380.0d) + sub.phase)) * 3.4f;
-                    class_332Var.method_51439(class_327Var, class_2561.method_43470(reveal(sub.text, currentTimeMillis - sub.bornMs)), Math.max(4, Math.min((i - method_275252) - 4, (int) (cos + ((sub.x + (sub.vx * max)) * i)))), Math.max(4, Math.min(i2 - 12, (int) ((((max * sub.vy) + sub.y) * i2) + sin2))), (((int) (205.0f * max2)) << 24) | (maleSet() ? 11986687 : RoarPalette.soft()), true);
+                    float sin = ((float) Math.sin(((currentTimeMillis - sub.bornMs) / 380.0d) + sub.phase)) * 3.4f;
+                    int color = (((int) (205.0f * max2)) << 24) | (maleSet() ? 11986687 : RoarPalette.soft());
+                    class_332Var.method_51439(class_327Var, class_2561.method_43470(reveal(sub.text, currentTimeMillis - sub.bornMs)), Math.max(4, Math.min((i - method_27525) - 4, (int) (cos + ((sub.x + (sub.vx * max)) * i)))), Math.max(4, Math.min(i2 - 12, (int) ((((max * sub.vy) + sub.y) * i2) + sin))), color, true);
                 }
             }
         }

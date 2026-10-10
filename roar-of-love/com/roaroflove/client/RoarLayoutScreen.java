@@ -1,5 +1,5 @@
 //
-// Decompiled by Jadx - 907ms
+// Decompiled by Jadx - 962ms
 //
 package com.roaroflove.client;
 
@@ -53,8 +53,9 @@ public class RoarLayoutScreen extends class_437 {
         int i2 = i - (((SNAP * min) + 18) / 2);
         int i3 = 0;
         while (i3 < SNAP) {
-            method_37063(new RoarButton(((min + 6) * i3) + i2, 28, min, 20, class_2561.method_43469(RoarLayout.labelKey(i3) + (this.selected == i3 ? "_sel" : ""), new Object[0]), class_4185Var -> {
-                this.selected = i3;
+            int selectedIndex = i3;
+            method_37063(new RoarButton(((min + 6) * selectedIndex) + i2, 28, min, 20, class_2561.method_43469(RoarLayout.labelKey(selectedIndex) + (this.selected == selectedIndex ? "_sel" : ""), new Object[0]), class_4185Var -> {
+                this.selected = selectedIndex;
                 refresh();
             }));
             i3++;
@@ -250,7 +251,8 @@ public class RoarLayoutScreen extends class_437 {
             while (true) {
                 int i10 = i9;
                 if (i10 < 3) {
-                    class_332Var.method_51439(class_327Var2, class_2561.method_43470(truncate(class_327Var2, class_2561.method_43469("roar_of_love.ui.pos_sample" + (i10 + 1), new Object[0]).getString(), width4 - 10)), posX + 5 + ((int) (((width4 - 10) - class_327Var2.method_27525(class_2561.method_43470(r4))) * (1.0f - (((float) (currentTimeMillis % 3000)) / 3000.0f)))), (i10 * 19) + posY + 7, -251676446, true);
+                    String sampleText = truncate(class_327Var2, class_2561.method_43469("roar_of_love.ui.pos_sample" + (i10 + 1), new Object[0]).getString(), width4 - 10);
+                    class_332Var.method_51439(class_327Var2, class_2561.method_43470(sampleText), posX + 5 + ((int) (((width4 - 10) - class_327Var2.method_27525(class_2561.method_43470(sampleText))) * (1.0f - (((float) (currentTimeMillis % 3000)) / 3000.0f)))), (i10 * 19) + posY + 7, -251676446, true);
                     i9 = i10 + 1;
                 } else {
                     return;
